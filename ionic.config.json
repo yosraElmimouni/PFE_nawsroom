@@ -1,0 +1,7 @@
+{
+  "name": "newsroom-ai",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
