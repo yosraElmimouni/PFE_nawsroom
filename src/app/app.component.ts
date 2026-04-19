@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MsalService } from '@azure/msal-angular';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,31 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class AppComponent {
-  constructor() {}
+
+  user:any;
+  constructor(private msalSerice:MsalService,private router:Router,
+ ) {}
+
+ ngOnInit(): void {
+  
+  this.msalSerice.instance
+    .handleRedirectPromise()
+    .then(result => {
+      if (result?.account) {
+        this.msalSerice.instance.setActiveAccount(result.account);
+        this.router.navigate(['/dashboard']);
+      }
+    });
+    const compte=this.msalSerice.instance.getActiveAccount();
+    if(compte){
+      this.user=compte.idTokenClaims;
+    }
+  }
+
+  logout() {
+  this.msalSerice.logoutRedirect({
+    postLogoutRedirectUri: window.location.origin,
+  });
+}
+ 
 }

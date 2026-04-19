@@ -1,0 +1,88 @@
+<ion-content class="login-page" fullscreen="true">
+
+  <ion-grid class="container">
+
+    <!-- Logo -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="logo">
+        <div class="logo-box">N</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-text-center">
+      <ion-col>
+        <h1 class="title">NewsRoom</h1>
+        <p class="subtitle">Plateforme journalistique professionnelle</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="auto">
+        <div class="divider">
+          <span>Connexion sécurisée</span>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- Auth Card -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="6">
+        <ion-card class="auth-card">
+
+          <ion-card-header>
+            <ion-card-title class="title-authentification">Authentification Requise</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+
+            <ion-button expand="block" fill="clear" class="microsoft-btn">
+
+              <div class="ms-icon">
+                <span class="red"></span>
+                <span class="green"></span>
+                <span class="blue"></span>
+                <span class="yellow"></span>
+              </div>
+
+              <ion-button (click)="login()" class="text">
+                <strong class="button-microsoft">Continuer avec Microsoft</strong>
+                <span class="Microsoft">Compte Microsoft 365 professionnel</span>
+              </ion-button>
+
+              <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+
+            </ion-button>
+
+          </ion-card-content>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Info -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" size-md="6">
+        <ion-card class="info-box">
+          <ion-card-content class="info-content">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            <p>
+              Accès réservé aux <strong>journalistes accrédités</strong>.
+              Votre compte doit être activé par un administrateur avant la première connexion.
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <!-- Footer -->
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="auto">
+        <div class="footer">
+          <p>Connexion chiffrée • OAuth 2.0 • Azure AD</p>
+        </div>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
