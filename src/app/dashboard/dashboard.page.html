@@ -1,0 +1,229 @@
+<ion-header class="nr-header" [translucent]="false">
+  <ion-toolbar class="nr-toolbar">
+
+    <!-- Left: Logo + Title -->
+    <ion-buttons slot="start">
+      <div class="nr-logo-wrap">
+        <div class="nr-logo">N</div>
+        <span class="nr-app-title">NewsRoom</span>
+      </div>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button class="nr-icon-btn" fill="clear">
+        <div class="notif-wrapper">
+          <ion-icon name="notifications-outline" class="nr-nav-icon-lg"></ion-icon>
+          <span class="notif-dot"></span>
+        </div>
+      </ion-button>
+      <ion-button class="nr-icon-btn" fill="clear">
+        <ion-icon name="search-outline" class="nr-nav-icon-lg"></ion-icon>
+      </ion-button>
+      <div class="nr-avatar">AH</div>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="nr-content" [fullscreen]="true" [scrollEvents]="true">
+
+  <div class="nr-greeting">
+    <p class="nr-greeting-label">{{ today }}</p>
+    <h1 class="nr-greeting-name">Bonjour, Amine </h1>
+    <p class="nr-greeting-sub">3 articles en attente de révision</p>
+  </div>
+
+  
+
+  <!-- Stats Section Label -->
+  <p class="nr-section-label">Aperçu rapide</p>
+
+  <!-- Stats Scroll -->
+  <div class="nr-stats-scroll">
+    <ion-card
+      class="nr-stat-card"
+      [class.active]="stat.active"
+      *ngFor="let stat of stats"
+    >
+      <ion-icon class="icon-stats" name="{{ stat.icon }}" ></ion-icon>
+        <ion-card-header>
+          <ion-card-title class="nr-stat-num" [style.color]="stat.valueColor">{{ stat.value }}</ion-card-title>
+          <ion-card-subtitle class="nr-stat-label">{{ stat.label }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content class="nr-stat-delta" [style.color]="stat.deltaColor">{{ stat.delta }}</ion-card-content>
+
+    </ion-card>
+  </div>
+
+  
+
+  <!-- AI Assistant Card -->
+  <ion-card class="nr-ai-card">
+    
+      <div class="nr-ai-info">
+        <ion-icon name="diamond-outline" class="diamond-outline-icon">✦</ion-icon>
+        <div>
+          <span class="nr-ai-title">Assistant IA</span><br>
+          <span class="nr-ai-sub">Prêt à vous aider</span>
+        </div>
+        
+      
+    </div>
+    <div class="nr-ai-actions">
+      <ion-button
+        class="nr-ai-action-btn"
+        *ngFor="let action of aiActions"
+        (click)="onAiAction(action.key)"
+      >
+      <ion-icon class="icon-action" name="{{action.icon}}"></ion-icon>
+        {{ action.label }}
+      </ion-button>
+    </div>
+  </ion-card >
+
+  <!-- Articles Section -->
+  <div class="nr-section-header">
+    <h2 class="nr-section-title">Mes articles</h2>
+    <ion-button class="voire-tous" *ngIf="activeTab === 'published'">Voir tout</ion-button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="nr-tabs">
+    <button
+      class="nr-tab"
+      [class.active]="activeTab === 'progress'"
+      (click)="setTab('progress')"
+    >En cours</button>
+    <button
+      class="nr-tab"
+      [class.active]="activeTab === 'published'"
+      (click)="setTab('published')"
+    >Publiés</button>
+    <button
+      class="nr-tab"
+      [class.active]="activeTab === 'draft'"
+      (click)="setTab('draft')"
+    >Brouillons</button>
+  </div>
+
+  
+  <div
+  class="article-card"
+  *ngFor="let article of filteredArticles"
+  (click)="onArticleTap(article)"
+>
+  
+  <div class="nr-article-card">
+    <ion-avatar>
+    <ion-img
+      class="article-img"
+      src="https://docs-demo.ionic.io/assets/madison.jpg"
+    ></ion-img>
+    </ion-avatar>
+
+    <div class="nr-article-body">
+      <div class="nr-article-meta">
+        <span class="nr-badge" [ngClass]="getBadgeClass(article.status)">
+          {{ getBadgeLabel(article.status) }}
+        </span>
+        <span class="nr-article-time">{{ article.date | date:'dd/MM/yyyy' }}</span>
+      </div>
+
+      <p class="nr-article-title">{{ article.title }}</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="nr-article-footer">
+    <span class="nr-ai-chip" >
+      <ion-icon name="sparkles-outline"></ion-icon>
+    </span>
+
+    <div class="nr-author-chip">
+      <span>{{ article.author }}</span>
+    </div>
+  </div>
+</div>
+
+  <div class="nr-section-header" style="margin-top: 8px;">
+    <h2 class="nr-section-title">Veille info</h2>
+  </div>
+
+  <ion-card
+    class="nr-feed-item"
+    *ngFor="let item of feedItems"
+    (click)="onFeedTap(item)"
+    >
+    <ion-card-header class="feed-source">
+      <span class="nr-source-name">{{ item.source }}</span>
+      <ion-card-subtitle class="feed-time">{{ item.time }}</ion-card-subtitle>
+    </ion-card-header>
+    
+  <ion-card-content>
+     <ion-card-title  class="feed-title">{{ item.title }}</ion-card-title >
+    <p class="newssummary">{{ item.summary }}</p>
+  </ion-card-content>
+   
+  </ion-card>
+
+  
+</ion-content>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" style="bottom: 80px;">
+  <ion-fab-button class="nr-fab" (click)="onCapture()">
+    <ion-icon name="flash-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button class="nr-fab-mini" data-desc="Photo / Vidéo">
+      <ion-icon name="sparkles-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button class="nr-fab-mini" data-desc="Audio">
+      <ion-icon name="sync-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button class="nr-fab-mini" data-desc="Nouvel article">
+      <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+<ion-tab-bar class="nr-tab-bar" slot="bottom">
+  <ion-tab-button class="nr-tab-btn active" tab="dashboard">
+    <ion-icon name="home"></ion-icon>
+    <ion-label>Accueil</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button class="nr-tab-btn" tab="articles">
+    <ion-icon name="document-text-outline"></ion-icon>
+    <ion-label>Articles</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button  class="nr-tab-btn" tab="articles">
+    <ion-fab >
+      <ion-fab-button class="nr-fab-tab" (click)="onCapture()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button class="nr-fab-mini" data-desc="Photo / Vidéo">
+          <ion-icon name="camera-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button class="nr-fab-mini" data-desc="Audio">
+          <ion-icon name="mic-outline"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button class="nr-fab-mini" data-desc="Nouvel article">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
+  </ion-tab-button>
+
+  <ion-tab-button class="nr-tab-btn" tab="veille">
+    <ion-icon name="globe-outline"></ion-icon>
+    <ion-label>Veille</ion-label>
+  </ion-tab-button>
+
+  <ion-tab-button class="nr-tab-btn" tab="profile">
+    <ion-icon name="person-outline"></ion-icon>
+    <ion-label>Profil</ion-label>
+  </ion-tab-button>
+</ion-tab-bar>
