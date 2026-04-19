@@ -15,3 +15,7 @@ describe('LoginPage', () => {
     expect(component).toBeTruthy();
   });
 });
+
+function expect(component: LoginPage) {
+  throw new Error('Function not implemented.');
+}

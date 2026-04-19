@@ -1,0 +1,183 @@
+.login-page {
+  --background: #f8f9fb;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .logo-box {
+    width: 60px;
+    height: 60px;
+    background: #edc380;
+    color: #000;
+    font-size: 30px;
+    font-weight: bold;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
+    margin: 5px 0;
+  }
+
+  .subtitle {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 12px;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    color: #999;
+
+    span {
+      position: relative;
+      padding: 0 10px;
+    }
+
+    span::before,
+    span::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 80px;
+      height: 1px;
+      background: #ddd;
+    }
+
+    span::before {
+      left: -90px;
+    }
+
+    span::after {
+      right: -90px;
+    }
+  }
+
+  /* Card */
+  .auth-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+  }
+
+  .microsoft-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #eef2ff;
+    border-radius: 15px;
+    padding: 12px 15px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+
+    .text {
+      text-align: left;
+      flex: 1;
+      margin-left: 14px;
+
+      strong {
+        display: block;
+        color: #222;
+      }
+
+      p {
+        margin: 0;
+        font-size: 12px;
+        color: #666;
+      }
+    }
+
+    ion-icon {
+      font-size: 18px;
+      color: #555;
+    }
+  }
+
+  /* Microsoft Icon */
+  .ms-icon {
+    display: grid;
+    grid-template-columns: repeat(2, 8px);
+    gap: 3px;
+
+    span {
+      width: 8px;
+      height: 8px;
+      display: block;
+    }
+
+    .red { background: #f25022; }
+    .green { background: #7fba00; }
+    .blue { background: #00a4ef; }
+    .yellow { background: #ffb900; }
+  }
+
+  /* Info box */
+  .info-box {
+    background: #eef5ff;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #555;
+    font-size: 13px;
+    text-align: left;
+
+    ion-icon {
+      font-size: 18px;
+      color: #4a90e2;
+    }
+  }
+
+  .footer {
+    margin-top: 20px;
+    color: #888;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+}
+
+
+.title-authentification{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: #2e2008;
+}
+
+.button-microsoft{
+    text-transform: none;
+    font-size: 10px;
+}
+
+.Microsoft{
+    text-transform: none;
+    font-size: 10px;
+}

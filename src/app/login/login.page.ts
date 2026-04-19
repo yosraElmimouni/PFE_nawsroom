@@ -13,4 +13,12 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+  roles = [
+    { name: 'Journaliste', icon: 'create' },
+    { name: 'Éditeur',     icon: 'checkmark' },
+    { name: 'Admin',      icon: 'settings' }
+  ];
+
+  
+
 }
