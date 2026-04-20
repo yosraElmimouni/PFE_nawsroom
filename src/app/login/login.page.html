@@ -2,7 +2,6 @@
 
   <ion-grid class="container">
 
-    <!-- Logo -->
     <ion-row class="ion-justify-content-center">
       <ion-col class="logo">
         <div class="logo-box">N</div>
@@ -24,7 +23,6 @@
       </ion-col>
     </ion-row>
 
-    <!-- Auth Card -->
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6">
         <ion-card class="auth-card">
@@ -35,19 +33,13 @@
 
           <ion-card-content>
 
-            <ion-button expand="block" fill="clear" class="microsoft-btn">
+            <ion-button (click)="login()" expand="block" fill="clear" class="microsoft-btn">
+              <img src="assets/icon/Microsoft_logo.svg" class="ms-logo" />
 
-              <div class="ms-icon">
-                <span class="red"></span>
-                <span class="green"></span>
-                <span class="blue"></span>
-                <span class="yellow"></span>
-              </div>
-
-              <ion-button (click)="login()" class="text">
+              <div  class="text">
                 <strong class="button-microsoft">Continuer avec Microsoft</strong>
                 <span class="Microsoft">Compte Microsoft 365 professionnel</span>
-              </ion-button>
+              </div>
 
               <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
 
@@ -59,7 +51,6 @@
       </ion-col>
     </ion-row>
 
-    <!-- Info -->
     <ion-row class="ion-justify-content-center">
       <ion-col size="12" size-md="6">
         <ion-card class="info-box">

@@ -97,9 +97,10 @@
 
     .text {
       text-align: left;
-      flex: 1;
       margin-left: 14px;
-
+      display: inline;
+      --background:#f5f6f781;
+    --border-radius: 20px;
       strong {
         display: block;
         color: #222;
@@ -180,4 +181,10 @@
 .Microsoft{
     text-transform: none;
     font-size: 10px;
+}
+
+.ms-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }

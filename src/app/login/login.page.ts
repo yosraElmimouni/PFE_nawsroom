@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MsalService } from '@azure/msal-angular';
+import { Browser } from '@capacitor/browser';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,8 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.msalService.instance.handleRedirectPromise()
+  .catch(e => console.error(e));
   }
 
   roles = [
@@ -24,11 +28,33 @@ export class LoginPage implements OnInit {
   ];
 
   login() {
-    this.msalService.loginRedirect({
-      scopes: ['User.Read'],
-      redirectStartPage: '/dashboard',
-    });
+  if (Capacitor.isNativePlatform()) {
+    this.loginMobile();
+  } else {
+    this.loginWeb();
   }
+}
+loginWeb() {
+  this.msalService.loginRedirect({
+    scopes: ['User.Read']
+  });
+}
+
+loginMobile() {
+  const clientId = 'f5515d18-8765-4ae6-8b08-2b4b8ad66611';
+  const tenantId = 'dc59e38c-4977-406f-bdd1-9ebbabbd387e';
+  const redirectUri = encodeURIComponent('msauth://ma.ac.usms.newsroom/auth');
+  
+  const url =
+    `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/authorize` +
+    `?client_id=${clientId}` +
+    `&response_type=code` +           // ← changé : token → code
+    `&redirect_uri=${redirectUri}` +
+    `&scope=User.Read openid profile email` +
+    `&response_mode=fragment`;         // ← ajouté
+    
+  Browser.open({ url });
+}
   
   isLoggedIn(): boolean {
     return this.msalService.instance.getActiveAccount() != null;
@@ -36,7 +62,7 @@ export class LoginPage implements OnInit {
 
   logout() {
     this.msalService.logoutRedirect({
-      postLogoutRedirectUri: '/login',
+      postLogoutRedirectUri: 'http://192.168.1.124:8100',
     });
   }
 

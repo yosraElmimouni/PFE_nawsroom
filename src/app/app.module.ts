@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { APP_INITIALIZER } from '@angular/core';
 import { InteractionType } from '@azure/msal-browser';
 import { MsalGuardConfiguration, MsalInterceptorConfiguration } from '@azure/msal-angular';
-
+import { Capacitor } from '@capacitor/core';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
@@ -24,12 +24,15 @@ import {
 } from '@azure/msal-browser';
 
 export function MSALInstanceFactory(): IPublicClientApplication {
+  const isNative = Capacitor.isNativePlatform();
   return new PublicClientApplication({
     auth: {
-      clientId: '46c7fb9e-0894-4a47-a46d-103f499f7fbd',
+clientId: 'f5515d18-8765-4ae6-8b08-2b4b8ad66611',
       authority: 'https://login.microsoftonline.com/dc59e38c-4977-406f-bdd1-9ebbabbd387e',
-      redirectUri: window.location.origin,
-    }
+      redirectUri: isNative
+              ? 'http://localhost'
+              : 'msauth://ma.ac.usms.newsroom/auth',
+              }
   });
 }
 @NgModule({

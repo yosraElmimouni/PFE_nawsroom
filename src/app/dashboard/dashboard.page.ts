@@ -49,7 +49,7 @@ export class DashboardPage implements OnInit {
       valueColor: '#C8A96E',
       label: 'En cours',
       delta: '+2 auj.',
-      deltaColor: '#C8A96E88',
+      deltaColor: '#0350c3',
       active: true,
     },
     {

@@ -1,7 +1,6 @@
 <ion-header class="nr-header" [translucent]="false">
   <ion-toolbar class="nr-toolbar">
 
-    <!-- Left: Logo + Title -->
     <ion-buttons slot="start">
       <div class="nr-logo-wrap">
         <div class="nr-logo">N</div>
@@ -35,15 +34,14 @@
 
   
 
-  <!-- Stats Section Label -->
   <p class="nr-section-label">Aperçu rapide</p>
 
-  <!-- Stats Scroll -->
   <div class="nr-stats-scroll">
     <ion-card
       class="nr-stat-card"
       [class.active]="stat.active"
       *ngFor="let stat of stats"
+      [ngStyle]="{'border-top': '7px solid ' + stat.deltaColor}"
     >
       <ion-icon class="icon-stats" name="{{ stat.icon }}" ></ion-icon>
         <ion-card-header>
@@ -81,7 +79,6 @@
     </div>
   </ion-card >
 
-  <!-- Articles Section -->
   <div class="nr-section-header">
     <h2 class="nr-section-title">Mes articles</h2>
     <ion-button class="voire-tous" *ngIf="activeTab === 'published'">Voir tout</ion-button>
@@ -117,7 +114,7 @@
     <ion-avatar>
     <ion-img
       class="article-img"
-      src="https://docs-demo.ionic.io/assets/madison.jpg"
+      src="assets/icon/imagenews.jpeg"
     ></ion-img>
     </ion-avatar>
 

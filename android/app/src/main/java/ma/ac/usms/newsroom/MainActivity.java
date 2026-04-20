@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package ma.ac.usms.newsroom;
 
 import com.getcapacitor.BridgeActivity;
 
