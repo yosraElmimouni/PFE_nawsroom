@@ -1,0 +1,108 @@
+// Reprend les variables de base du projet NewsRoom
+.nr-header { --background:#FFF; border-bottom:1px solid #E8E5E0; }
+.nr-toolbar { --background:#FFF; --padding-start:16px; --padding-end:16px; --min-height:56px; }
+.nr-logo-wrap { display:flex; align-items:center; gap:10px; }
+.nr-logo {
+  width:34px; height:34px; background:#4A6FA5;
+  border-radius:10px; display:flex; align-items:center;
+  justify-content:center; color:#FFF; font-weight:600;
+}
+.nr-app-title { font-family:'Playfair Display',Georgia,serif; font-size:17px; }
+.soustitre { font-size:11px; color:#AFAFB8; margin-top:2px; }
+.nr-avatar {
+  width:34px; height:34px; background:#4A6FA5;
+  border-radius:50%; display:flex; align-items:center;
+  justify-content:center; color:#FFF; font-weight:600; font-size:13px;
+}
+.nr-content { --background:#F7F6F3; }
+
+.nr-greeting { padding:18px 22px 10px; }
+.nr-greeting-label { font-size:11px; color:#AFAFB8; text-transform:uppercase; letter-spacing:.8px; }
+.nr-greeting-name { font-family:'Playfair Display',Georgia,serif; font-size:20px; font-weight:600; color:#1A1A1E; margin-top:4px; }
+.nr-greeting-sub { font-size:12px; color:#8A8A94; margin-top:3px; }
+.uptime { color:#1A1A1E; font-weight:600; }
+
+.nr-section-label { padding:6px 22px 8px; font-size:10px; text-transform:uppercase; color:#AFAFB8; }
+
+.kpi-grid {
+  display:grid; grid-template-columns:repeat(2,1fr);
+  gap:10px; padding:0 22px 4px;
+}
+.kpi-card {
+  background:#FFF; border:1px solid #271a0537;
+  border-radius:14px; padding:2px 3px; margin:0; box-shadow:none;
+  
+}
+
+.green { border-left-width: 10px;border-left-color:#437f13cc; }
+.red { border-left-width: 10px;border-left-color:#e24a4ac9;  }
+.muted { border-left-width: 10px; border-left-color:#6565b8cc; }
+.greenn{border-left-width: 10px;border-left-color:#378addd6;}
+.kpi-value {
+  font-family:'Playfair Display',Georgia,serif;
+  font-size:15px; font-weight:700; color:#1A1A1E;
+  .alert { color:#E24B4A; }
+}
+.kpi-label { font-size:10px; color:#8A8A94; margin-top:2px; }
+.kpi-delta {
+  font-size:9px; padding:0 16px 10px;
+  .green { color:#3B6D11; }
+  .red { color:#E24B4A; font-weight:500; }
+  .muted { color:#6565b8; }
+}
+
+.nr-section-header {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 22px 10px;
+}
+.nr-section-title { font-family:'Playfair Display',Georgia,serif; font-size:17px; font-weight:600; }
+.voire-tous {
+  font-size:13px; --background:transparent; color:#C8A96E;
+  text-transform:none; --box-shadow:none;
+}
+
+.health-list { padding:0 22px; display:flex; flex-direction:column; gap:8px; }
+.health-item {
+  background:#FFF; border:1px solid #E8E5E0; border-radius:12px;
+  padding:12px 14px; display:flex; align-items:center; gap:10px;
+}
+.health-name { font-size:13px; flex:1; }
+.health-bar-wrap { flex:2; height:6px; background:#F2F0EC; border-radius:4px; overflow:hidden; }
+.health-bar { height:100%; border-radius:4px; }
+.health-pct { font-size:13px; font-weight:600; min-width:36px; text-align:right; }
+.bar-green, .pct-green { background:#639922; color:#3B6D11; }
+.bar-blue, .pct-blue { background:#378ADD; color:#185FA5; }
+.bar-amber, .pct-amber { background:#EF9F27; color:#854F0B; }
+
+
+.health-bar.green  { background: #639922; }
+.health-bar.blue   { background: #378ADD; }
+.health-bar.amber  { background: #EF9F27; }
+
+.health-pct.green  { color: #3B6D11; }
+.health-pct.blue   { color: #185FA5; }
+.health-pct.amber  { color: #854F0B; }
+
+.users-list { padding:0 22px; display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.user-item {
+  background:#FFF; border:1px solid #E8E5E0; border-radius:12px;
+  padding:12px 14px; display:flex; align-items:center; gap:12px;
+}
+.user-avatar {
+  width:38px; height:38px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:13px; font-weight:600; flex-shrink:0;
+  &.av-brown { background:#C8A96E; color:#fff; }
+  &.av-green { background:#639922; color:#fff; }
+  &.av-blue { background:#4A6FA5; color:#fff; }
+}
+.user-name { font-size:14px; font-weight:500; color:#1A1A1E; }
+.user-time { font-size:11px; color:#AFAFB8; margin-top:2px; }
+.user-role {
+  margin-left:auto; font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px;
+  &.role-journalist { background:#FFF3C4; color:#854F0B; }
+  &.role-editor { background:#E6F1FB; color:#185FA5; }
+}
+
+.nr-tab-bar { --background:#FFF; --border:1px solid #E8E5E0; --color:#AFAFB8; --color-selected:#C8A96E; }
+.nr-fab-tab { --background:#C8A96E; --color:#FFF; width:50px; height:50px; margin-top:-15px; }

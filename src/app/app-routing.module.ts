@@ -2,10 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
+  
   {
     path: '',
     redirectTo: 'login',
@@ -31,9 +28,14 @@ export const routes: Routes = [
     path: 'admin-dashboard',
     loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
   },
+  
   {
-    path: 'articles-list-page',
-    loadChildren: () => import('./articles-list-page/articles-list-page.module').then( m => m.ArticlesListPagePageModule)
+    path: 'articles-list',
+    loadChildren: () => import('./articles-list/articles-list.module').then( m => m.ArticlesListPageModule)
+  },
+  {
+    path: 'form-ajout-article',
+    loadChildren: () => import('./form-ajout-article/form-ajout-article.module').then( m => m.FormAjoutArticlePageModule)
   },
 ];
 
