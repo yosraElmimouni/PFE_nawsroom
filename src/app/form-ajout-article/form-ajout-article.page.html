@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    
+    <ion-title>Rédaction</ion-title>
+  </ion-toolbar>
+  <div>
+    <ion-button>Brouillon</ion-button>
+    <ion-button>publier</ion-button>
+  </div>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Rédaction</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div>
+    <div>Politique</div>
+    <div>Notional</div>
+    <ion-button>+ Catégorie</ion-button>
+  </div>
+  <div>
+    <ion-icon>
+    </ion-icon>
+    <p>Sauvegardé 14:32</p>
+  </div>
+  <div class="ligne"></div>
+  <ion-card>
+    <ion-card-title>
+      Réforme constitutionnelle : le débat s'intensifie
+    </ion-card-title>
+    <div class="ligne-blue"></div>
+    <p>titre de l'article</p>
+    <ion-card-content>
+      Le gouvernement présente son projet de loi ce mardi, suscitant de vives réactions dans les rangs de l'opposition...
+    </ion-card-content>
+    <div>
+      <div>
+        <ion-icon name=""></ion-icon>
+      </div>
+      <div>
+        <span>Suggestion AI</span>
+        <p>Reformuler l'introduction pour un angle plus direct ?"</p>
+        <div>
+            <ion-button>Appliquer</ion-button>
+            <ion-button>ignorer</ion-button>
+        </div>
+      </div>
+    </div>
+    <ion-card-content>
+      Les discussions autour de la révision constitutionnelle ont repris de plus belle ce matin. Plusieurs partis d'opposition ont annoncé leur intention de bloquer le vote en commission.
+
+      Selon nos sources proches du dossier, trois points restent en suspens : la durée des mandats, le mode de scrutin et les pouvoirs du conseil d'État...
+    </ion-card-content>
+     <ion-card>
+        <ion-card-header>
+          <ion-icon name=""></ion-icon>
+          Médias joits {{2}}
+          <ion-button> <ion-icon name=""></ion-icon> Ajouter</ion-button>
+        </ion-card-header>
+     </ion-card>
+  </ion-card>
+</ion-content>

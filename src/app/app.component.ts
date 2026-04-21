@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
               if (result?.account) {
                 this.msalService.instance.setActiveAccount(result.account);
                 localStorage.setItem('user', JSON.stringify(result.account));
-                this.router.navigate(['/dashboard']);
+                this.router.navigate(['/tabs/dashboard']);
               }
             })
             .catch(e => console.error('MSAL error:', e));
@@ -62,6 +62,9 @@ export class AppComponent implements OnInit {
         return;
       }
 
+      console.log('access_token:', accessToken ? 'reçu ' : 'absent');
+      console.log('id_token:', idToken ? 'reçu ' : 'absent');
+      console.log('code:', code ? 'reçu ' : 'absent');
       console.log('access_token:', accessToken ? 'reçu ' : 'absent');
       console.log('id_token:', idToken ? 'reçu ' : 'absent');
       console.log('code:', code ? 'reçu ' : 'absent');

@@ -1,0 +1,197 @@
+<ion-header class="nr-header" [translucent]="false">
+  <ion-toolbar class="nr-toolbar">
+
+    <ion-buttons slot="start">
+      <div class="nr-logo-wrap">
+        <div class="nr-logo">N</div>
+        <span class="nr-app-title">NewsRoom</span>
+      </div>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button class="nr-icon-btn" fill="clear">
+        <div class="notif-wrapper">
+          <ion-icon name="notifications-outline" class="nr-nav-icon-lg"></ion-icon>
+          <span class="notif-dot"></span>
+        </div>
+      </ion-button>
+      <ion-button class="nr-icon-btn" fill="clear">
+        <ion-icon name="search-outline" class="nr-nav-icon-lg"></ion-icon>
+      </ion-button>
+      <div class="nr-avatar">AH</div>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="true">
+
+  <ion-grid class="stats-grid">
+    <ion-row>
+      <ion-col>
+        <div class="stat-card">
+          <span class="stat-number">12</span>
+          <span class="stat-label">Total</span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="stat-card purple">
+          <span class="stat-number">5</span>
+          <span class="stat-label">Brouillons</span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="stat-card green">
+          <span class="stat-number">7</span>
+          <span class="stat-label">Publiés</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-segment [(ngModel)]="filter" scrollable>
+    <ion-segment-button value="all">Tous</ion-segment-button>
+    <ion-segment-button value="published">Publiés</ion-segment-button>
+    <ion-segment-button value="draft">Brouillons</ion-segment-button>
+    <ion-segment-button value="review">En révision</ion-segment-button>
+  </ion-segment>
+
+  <ion-searchbar placeholder="Rechercher un article..." animated></ion-searchbar>
+
+  <ion-list lines="none">
+
+    <ion-item-sliding>
+      <ion-item button detail="false" class="article-item">
+        <div class="status-bar published" slot="start"></div>
+        <ion-label>
+          <div class="article-header">
+            <ion-badge color="success">Publié</ion-badge>
+            <span class="article-date">Il y a 2h</span>
+          </div>
+          <h2 class="article-title">Réforme constitutionnelle : le débat s'intensifie au parlement</h2>
+          <p class="article-excerpt">Le gouvernement présente son projet ce mardi, suscitant de vives réactions...</p>
+          <div class="article-footer">
+            <ion-badge color="primary" class="category-badge">Politique</ion-badge>
+            <span class="article-meta">
+              <ion-icon name="eye-outline"></ion-icon> 2 340
+            </span>
+            <span class="article-meta">
+              <ion-icon name="chatbubble-outline"></ion-icon> 14
+            </span>
+          </div>
+        </ion-label>
+        <div class="article-thumb published-thumb" slot="end"></div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="primary">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding>
+      <ion-item button detail="false" class="article-item">
+        <div class="status-bar draft" slot="start"></div>
+        <ion-label>
+          <div class="article-header">
+            <ion-badge color="secondary">Brouillon</ion-badge>
+            <span class="article-date">Hier, 18:22</span>
+          </div>
+          <h2 class="article-title">Sécheresse : les agriculteurs du sud face à la crise hydrique</h2>
+          <p class="article-excerpt">Reportage de terrain sur les conséquences de la sécheresse...</p>
+          <div class="article-footer">
+            <ion-badge color="success" class="category-badge">Environnement</ion-badge>
+            <span class="article-meta">
+              <ion-icon name="create-outline"></ion-icon> 347 mots · 58%
+            </span>
+          </div>
+        </ion-label>
+        <div class="article-thumb draft-thumb" slot="end"></div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="primary">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding>
+      <ion-item button detail="false" class="article-item">
+        <div class="status-bar review" slot="start"></div>
+        <ion-label>
+          <div class="article-header">
+            <ion-badge color="warning">En révision</ion-badge>
+            <span class="article-date">21 avr. 10:05</span>
+          </div>
+          <h2 class="article-title">Élections municipales : les candidats déclarent leurs programmes</h2>
+          <p class="article-excerpt">Analyse des promesses électorales des principaux candidats...</p>
+          <div class="article-footer">
+            <ion-badge color="primary" class="category-badge">Politique</ion-badge>
+            <span class="article-meta">
+              <ion-icon name="person-outline"></ion-icon> Y. Ben Ali
+            </span>
+          </div>
+        </ion-label>
+        <div class="article-thumb review-thumb" slot="end"></div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="primary">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+    <ion-item-sliding>
+      <ion-item button detail="false" class="article-item">
+        <div class="status-bar draft" slot="start"></div>
+        <ion-label>
+          <div class="article-header">
+            <ion-badge color="secondary">Brouillon</ion-badge>
+            <span class="article-date">20 avr. 08:14</span>
+          </div>
+          <h2 class="article-title">Intelligence artificielle et journalisme : menace ou opportunité ?</h2>
+          <p class="article-excerpt">Tour d'horizon des outils IA utilisés dans les rédactions modernes...</p>
+          <div class="article-footer">
+            <ion-badge color="tertiary" class="category-badge">Technologie</ion-badge>
+            <span class="article-meta">
+              <ion-icon name="create-outline"></ion-icon> 112 mots · 22%
+            </span>
+          </div>
+        </ion-label>
+        <div class="article-thumb tech-thumb" slot="end"></div>
+      </ion-item>
+
+      <ion-item-options side="end">
+        <ion-item-option color="primary">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="danger">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>
+
+<ion-fab class="button-flottant-add">
+  <ion-fab-button class="button-flottant" routerLink="/redaction">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+

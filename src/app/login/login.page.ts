@@ -48,10 +48,10 @@ login() {
 //   const url =
 //     `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/authorize` +
 //     `?client_id=${clientId}` +
-//     `&response_type=code` +           // ← changé : token → code
+//     `&response_type=code` +           
 //     `&redirect_uri=${redirectUri}` +
 //     `&scope=User.Read openid profile email` +
-//     `&response_mode=fragment`;         // ← ajouté
+//     `&response_mode=fragment`;         
     
 //   Browser.open({ url });
 // }
@@ -62,7 +62,7 @@ login() {
 
   logout() {
     this.msalService.logoutRedirect({
-      postLogoutRedirectUri: 'http://192.168.1.124:8100',
+      postLogoutRedirectUri: 'http://localhost:8100',
     });
   }
 
