@@ -1,0 +1,134 @@
+/* articles-list.page.scss */
+
+/* Stats */
+.stats-grid {
+  padding: 12px 8px 4px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 6px;
+  background: var(--ion-color-light);
+  border-radius: 10px;
+}
+
+.stat-card.purple {
+  background: #eeedfe;
+}
+
+.stat-card.green {
+  background: #eaf3de;
+}
+
+.stat-number {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.stat-card.purple .stat-number { color: #3c3489; }
+.stat-card.green .stat-number  { color: #27500a; }
+
+.stat-label {
+  font-size: 11px;
+  color: var(--ion-color-medium);
+  margin-top: 2px;
+}
+
+/* Segment */
+ion-segment {
+  margin: 8px 12px;
+}
+
+/* Article item */
+.article-item {
+  margin: 6px 12px;
+  border-radius: 12px;
+  border: 0.5px solid var(--ion-color-light-shade);
+  --padding-start: 0;
+  --inner-padding-end: 8px;
+}
+
+/* Barre colorée de statut */
+.status-bar {
+  width: 4px;
+  align-self: stretch;
+  border-radius: 12px 0 0 12px;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.status-bar.published { background: var(--ion-color-success); }
+.status-bar.draft     { background: #534ab7; }
+.status-bar.review    { background: var(--ion-color-warning); }
+
+/* En-tête de l'article */
+.article-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.article-date {
+  font-size: 11px;
+  color: var(--ion-color-medium);
+}
+
+/* Titre */
+.article-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+  margin: 4px 0;
+  line-height: 1.35;
+  white-space: normal;
+}
+
+/* Extrait */
+.article-excerpt {
+  font-size: 11px;
+  color: var(--ion-color-medium);
+  margin: 2px 0 6px;
+  white-space: normal;
+}
+
+/* Pied de carte */
+.article-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.category-badge {
+  font-size: 10px;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  color: var(--ion-color-medium);
+}
+
+.article-meta ion-icon {
+  font-size: 12px;
+}
+
+/* Miniature */
+.article-thumb {
+  width: 68px;
+  height: 54px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin: 8px 0;
+}
+
+.article-thumb.published-thumb { background: #b5d4f4; }
+.article-thumb.draft-thumb     { background: #9fe1cb; }
+.article-thumb.review-thumb    { background: #fac775; }
+.article-thumb.tech-thumb      { background: #afa9ec; }

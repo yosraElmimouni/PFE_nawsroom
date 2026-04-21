@@ -21,30 +21,26 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // ── Web : gérer le retour MSAL redirect
     if (!Capacitor.isNativePlatform()) {
       this.msalService.instance.handleRedirectPromise()
         .then(result => {
           if (result?.account) {
             this.msalService.instance.setActiveAccount(result.account);
             localStorage.setItem('user', JSON.stringify(result.account));
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/editor-dashboard']);
           }
         })
         .catch(e => console.error('MSAL error:', e));
     }
 
-    // ── Mobile : intercepter le deep link msauth://
     App.addListener('appUrlOpen', async (event: any) => {
       const url = event.url;
       console.log('appUrlOpen:', url);
 
       if (!url.startsWith('msauth://ma.ac.usms.newsroom/auth')) return;
 
-      // Fermer le navigateur externe
       try { await Browser.close(); } catch (e) {}
 
-      // Le fragment peut être après # ou après ?
       const afterScheme = url.includes('#') ? url.split('#')[1] : url.split('?')[1];
       if (!afterScheme) {
         console.error('Aucun fragment dans le redirect URL');
@@ -59,28 +55,24 @@ export class AppComponent implements OnInit {
       const error        = params.get('error');
       const errorDesc    = params.get('error_description');
 
-      // Erreur retournée par Azure
       if (error) {
         console.error('Azure error:', error, errorDesc);
         return;
       }
 
-      console.log('access_token:', accessToken ? 'reçu ✅' : 'absent');
-      console.log('id_token:', idToken ? 'reçu ✅' : 'absent');
-      console.log('code:', code ? 'reçu ✅' : 'absent');
+      console.log('access_token:', accessToken ? 'reçu ' : 'absent');
+      console.log('id_token:', idToken ? 'reçu ' : 'absent');
+      console.log('code:', code ? 'reçu ' : 'absent');
 
-      // Stocker ce qu'on a reçu
       if (accessToken) localStorage.setItem('token', accessToken);
       if (idToken)     localStorage.setItem('id_token', idToken);
       if (code)        localStorage.setItem('auth_code', code);
 
-      // Récupérer le profil Microsoft Graph si on a un access_token
       if (accessToken) {
         await this.fetchUserProfile(accessToken);
       }
 
-      // Naviguer vers le dashboard
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/editor-dashboard']);
     });
   }
 

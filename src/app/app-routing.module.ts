@@ -19,6 +19,22 @@ export const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
+  {
+    path: 'editor-dashboard',
+    loadChildren: () => import('./editor-dashboard/editor-dashboard.module').then( m => m.EditorDashboardPageModule)
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },
+  {
+    path: 'admin-dashboard',
+    loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
+  },
+  {
+    path: 'articles-list-page',
+    loadChildren: () => import('./articles-list-page/articles-list-page.module').then( m => m.ArticlesListPagePageModule)
+  },
 ];
 
 @NgModule({
