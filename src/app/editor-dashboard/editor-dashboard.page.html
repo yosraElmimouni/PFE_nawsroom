@@ -1,11 +1,13 @@
 <ion-header class="nr-header" [translucent]="false">
   <ion-toolbar class="nr-toolbar">
 
-    <!-- Left: Logo + Title -->
     <ion-buttons slot="start">
       <div class="nr-logo-wrap">
         <div class="nr-logo">N</div>
-        <span class="nr-app-title">NewsRoom</span>
+        <div class="title">
+          <span class="nr-app-title">NewsRoom</span>
+          <p class="soustitre"> Editeur</p>
+        </div>
       </div>
     </ion-buttons>
 
@@ -29,80 +31,54 @@
 
   <div class="nr-greeting">
     <p class="nr-greeting-label">{{ today }}</p>
-    <h1 class="nr-greeting-name">Bonjour, Amine </h1>
-    <p class="nr-greeting-sub">3 articles en attente de révision</p>
+    <h1 class="nr-greeting-name">Bonjour, Karim </h1>
+    <p class="nr-greeting-sub"><span class="articles-attend">3 articles</span> en attente de révision</p>
   </div>
 
   
 
-  <!-- Stats Section Label -->
   <p class="nr-section-label">Aperçu rapide</p>
 
-  <!-- Stats Scroll -->
   <div class="nr-stats-scroll">
     <ion-card
-      class="nr-stat-card"
-      [class.active]="stat.active"
-      *ngFor="let stat of stats"
+      class="nr-stat-card reviser"
     >
-      <ion-icon class="icon-stats" name="{{ stat.icon }}" ></ion-icon>
+      <ion-icon class="icon-stats" id="warning" name="warning-outline"></ion-icon>
         <ion-card-header>
-          <ion-card-title class="nr-stat-num" [style.color]="stat.valueColor">{{ stat.value }}</ion-card-title>
-          <ion-card-subtitle class="nr-stat-label">{{ stat.label }}</ion-card-subtitle>
+          <ion-card-title  >3</ion-card-title>
+          <ion-card-subtitle class="nr-stat-label">à Réviser</ion-card-subtitle>
         </ion-card-header>
-        <ion-card-content class="nr-stat-delta" [style.color]="stat.deltaColor">{{ stat.delta }}</ion-card-content>
+    </ion-card>
+
+    <ion-card
+      class="nr-stat-card publier"
+    >
+      <ion-icon  class="icon-stats" id="checkbox" name="checkbox-outline"></ion-icon>
+        <ion-card-header>
+          <ion-card-title class="nr-stat-num" >28</ion-card-title>
+          <ion-card-subtitle class="nr-stat-label">Publier ce mois</ion-card-subtitle>
+        </ion-card-header>
+    </ion-card>
+
+    <ion-card
+      class="nr-stat-card renvoyer"
+    >
+      <ion-icon  class="icon-stats" id="reload"  name="reload-outline"></ion-icon>
+        <ion-card-header>
+          <ion-card-title class="nr-stat-num" >3</ion-card-title>
+          <ion-card-subtitle class="nr-stat-label">Renvoyés cette semaine</ion-card-subtitle>
+        </ion-card-header>
 
     </ion-card>
-  </div>
 
-  
 
-  <ion-card class="nr-ai-card">
     
-      <div class="nr-ai-info">
-        <ion-icon name="diamond-outline" class="diamond-outline-icon">✦</ion-icon>
-        <div>
-          <span class="nr-ai-title">Assistant IA</span><br>
-          <span class="nr-ai-sub">Prêt à vous aider</span>
-        </div>
-        
-      
-    </div>
-    <div class="nr-ai-actions">
-      <ion-button
-        class="nr-ai-action-btn"
-        *ngFor="let action of aiActions"
-        (click)="onAiAction(action.key)"
-      >
-      <ion-icon class="icon-action" name="{{action.icon}}"></ion-icon>
-        {{ action.label }}
-      </ion-button>
-    </div>
-  </ion-card >
-
-  <!-- Articles Section -->
-  <div class="nr-section-header">
-    <h2 class="nr-section-title">Mes articles</h2>
-    <ion-button class="voire-tous" *ngIf="activeTab === 'published'">Voir tout</ion-button>
   </div>
 
-  <!-- Tabs -->
-  <div class="nr-tabs">
-    <button
-      class="nr-tab"
-      [class.active]="activeTab === 'progress'"
-      (click)="setTab('progress')"
-    >En cours</button>
-    <button
-      class="nr-tab"
-      [class.active]="activeTab === 'published'"
-      (click)="setTab('published')"
-    >Publiés</button>
-    <button
-      class="nr-tab"
-      [class.active]="activeTab === 'draft'"
-      (click)="setTab('draft')"
-    >Brouillons</button>
+ 
+  <div class="nr-section-header">
+    <h2 class="nr-section-title">File de révision</h2>
+    <ion-button class="voire-tous" >Voir tout</ion-button>
   </div>
 
   
@@ -116,7 +92,7 @@
     <ion-avatar>
     <ion-img
       class="article-img"
-      src="https://docs-demo.ionic.io/assets/madison.jpg"
+      src="assets/icon/imagenews.jpeg"
     ></ion-img>
     </ion-avatar>
 
@@ -127,25 +103,32 @@
         </span>
         <span class="nr-article-time">{{ article.date | date:'dd/MM/yyyy' }}</span>
       </div>
-
       <p class="nr-article-title">{{ article.title }}</p>
+      <p class="username-badge"><span class="user-badge">AH</span> Amine Hajji </p>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <div class="nr-article-footer">
-    <span class="nr-ai-chip" >
-      <ion-icon name="sparkles-outline"></ion-icon>
-    </span>
-
-    <div class="nr-author-chip">
-      <span>{{ article.author }}</span>
-    </div>
-  </div>
+   
+      <ion-row class="row-buttons">
+        <ion-col class="button-publier">
+          <ion-icon name="checkmark-done-outline"></ion-icon>
+          Publier
+        </ion-col>
+        <ion-col class="button-renvoyer">
+          <ion-icon name="repeat-outline"></ion-icon>
+           Renvoyer
+        </ion-col>
+        <ion-col class="button-apercu">
+          <ion-icon name="eye-outline"></ion-icon>
+           Aperçu
+        </ion-col>
+      </ion-row>
+    
 </div>
 
-  <div class="nr-section-header" style="margin-top: 8px;">
+  <div class="nr-section-header veille" >
     <h2 class="nr-section-title">Veille info</h2>
   </div>
 
