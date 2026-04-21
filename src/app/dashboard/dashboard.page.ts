@@ -175,12 +175,10 @@ export class DashboardPage implements OnInit {
 
   onAiAction(key: string) {
     console.log('AI action:', key);
-    // Navigate to AI assistant page or open modal
   }
 
   onArticleTap(article: Article) {
     console.log('Open article:', article.id);
-    // Navigate to article editor
   }
 
   onFeedTap(item: FeedItem) {
