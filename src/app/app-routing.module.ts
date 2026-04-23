@@ -37,6 +37,14 @@ export const routes: Routes = [
     path: 'form-ajout-article',
     loadChildren: () => import('./form-ajout-article/form-ajout-article.module').then( m => m.FormAjoutArticlePageModule)
   },
+  {
+    path: 'redaction',
+    loadChildren: () => import('./redaction/redaction.module').then( m => m.RedactionPageModule)
+  },
+  {
+    path: 'capture',
+    loadChildren: () => import('./capture/capture.module').then( m => m.CapturePageModule)
+  },
 ];
 
 @NgModule({
