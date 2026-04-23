@@ -16,6 +16,31 @@
   --border-width:0;
   border-bottom:1px solid #E8E5E0;
 }
+.article-img {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+  
+}
+.filter-bar{
+  font-weight: 500;
+  text-transform: none;
+  ion-segment-button{
+    text-transform: none;
+font-size: 16px;
+font-weight: 500;
+font-family:Georgia, 'Times New Roman', Times, serif;
+    
+  }
+}
+.Rechercher-bar{
+  margin-top: 10px;
+    --background: #f2f0ec50;
+    --border-radius: 12px;
+    --border-width: 0;
+}
 
 .nr-logo,
 .nr-avatar {

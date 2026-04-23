@@ -8,6 +8,7 @@
   .container {
     text-align: center;
     padding: 20px;
+    margin-top: 60px;
   }
 
   .logo-box {
@@ -21,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 12px;
+    margin: 0 auto 20px;
   }
 
   .title {
@@ -41,7 +42,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px 0;
+    margin: 40px 0;
     color: #999;
 
     span {
@@ -68,13 +69,13 @@
     }
   }
 
-  /* Card */
   .auth-card {
     background: #fff;
     border-radius: 20px;
     padding: 20px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     margin-bottom: 20px;
+    margin-top: 20px;
 
     h2 {
       font-size: 14px;
@@ -97,7 +98,7 @@
 
     .text {
       text-align: left;
-      margin-left: 14px;
+      margin-left: -14px;
       display: inline;
       --background:#f5f6f781;
     --border-radius: 20px;
@@ -116,10 +117,10 @@
     ion-icon {
       font-size: 18px;
       color: #555;
+      margin-left: 10px;
     }
   }
 
-  /* Microsoft Icon */
   .ms-icon {
     display: grid;
     grid-template-columns: repeat(2, 8px);
@@ -171,11 +172,13 @@
     font-size: 17px;
     font-weight: 400;
     color: #2e2008;
+    margin-bottom: 30px;
+    margin-top: -20px;
 }
 
 .button-microsoft{
     text-transform: none;
-    font-size: 10px;
+    font-size: 20px;
 }
 
 .Microsoft{

@@ -22,16 +22,18 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     if (!Capacitor.isNativePlatform()) {
-      this.msalService.instance.handleRedirectPromise()
-        .then(result => {
-          if (result?.account) {
-            this.msalService.instance.setActiveAccount(result.account);
-            localStorage.setItem('user', JSON.stringify(result.account));
-            this.router.navigate(['/editor-dashboard']);
-          }
-        })
-        .catch(e => console.error('MSAL error:', e));
-    }
+        this.msalService.instance
+            .handleRedirectPromise()
+            .then(result => {
+              if (result?.account) {
+                this.msalService.instance.setActiveAccount(result.account);
+                localStorage.setItem('user', JSON.stringify(result.account));
+                this.router.navigate(['/tabs/dashboard']);
+              }
+            })
+            .catch(e => console.error('MSAL error:', e));
+        }
+
 
     App.addListener('appUrlOpen', async (event: any) => {
       const url = event.url;
@@ -63,6 +65,9 @@ export class AppComponent implements OnInit {
       console.log('access_token:', accessToken ? 'reçu ' : 'absent');
       console.log('id_token:', idToken ? 'reçu ' : 'absent');
       console.log('code:', code ? 'reçu ' : 'absent');
+      console.log('access_token:', accessToken ? 'reçu ' : 'absent');
+      console.log('id_token:', idToken ? 'reçu ' : 'absent');
+      console.log('code:', code ? 'reçu ' : 'absent');
 
       if (accessToken) localStorage.setItem('token', accessToken);
       if (idToken)     localStorage.setItem('id_token', idToken);
@@ -72,7 +77,7 @@ export class AppComponent implements OnInit {
         await this.fetchUserProfile(accessToken);
       }
 
-      this.router.navigate(['/editor-dashboard']);
+      this.router.navigate(['/dashboard']);
     });
   }
 

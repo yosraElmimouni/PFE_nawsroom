@@ -20,10 +20,7 @@ export const routes: Routes = [
     path: 'editor-dashboard',
     loadChildren: () => import('./editor-dashboard/editor-dashboard.module').then( m => m.EditorDashboardPageModule)
   },
-  {
-    path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
-  },
+ 
   {
     path: 'admin-dashboard',
     loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
