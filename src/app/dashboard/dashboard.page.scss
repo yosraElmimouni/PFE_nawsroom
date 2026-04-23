@@ -96,6 +96,7 @@
   padding:18px 22px 10px;
   display:flex;
   justify-content:space-between;
+  
 }
 
 .voire-tous{
@@ -119,22 +120,260 @@
 }
 
 .nr-stat-card {
-  min-width:130px;
+  min-width:170px;
   background:#FFF;
   border:1.5px solid #f7e2be;
   border-radius:14px;
-  padding:12px;
+  padding:7px;
   box-shadow:0 1px 4px rgba(0,0,0,.05);
-  margin-left: -10px;
-  border-top-width: 7px;
+  border-top-width: 10px;
   border-top-style: solid;
+  justify-content: space-between;
+  
 }
+
+.reviser{
+    display: flex;
+    font-weight: 600;
+    border-color: rgba(0, 128, 0, 0.23);
+    border-top-color: green;
+    align-items: center;
+    align-content: center;
+    
+    
+    ion-icon{
+      color: green;
+      height: 20px;
+      width: 20px;
+      padding: 3px;
+      background-color: rgba(17, 67, 1, 0.133);
+      border-radius: 10px;
+      margin-left: 10px;
+      
+    }
+    ion-card-header ion-card-title{
+        margin-top: -10px;
+      font-size: 17px;
+      font-weight: 600;
+      margin-left: 10px;
+      font-family:Georgia, 'Times New Roman', Times, serif;
+    }
+    ion-card-header{
+      margin-bottom: -10px;
+      margin-right: -5px;
+    }
+  }
+
+.publier{
+    
+    display: flex;
+    font-weight: 600;
+    border-color:rgba(23, 0, 128, 0.23);
+    align-items: center;
+    align-content: center;
+    border-top-color: rgba(0, 0, 255, 0.559);
+    ion-icon{
+      color: rgb(36, 36, 255);
+      height: 20px;
+      width: 20px;
+      padding: 3px;
+      border-radius: 10px;
+      background-color: rgba(17, 67, 1, 0.133);
+    }
+    ion-card-header ion-card-title{
+      margin-top: -10px;
+      font-size: 17px;
+      font-family:Georgia, 'Times New Roman', Times, serif;
+      font-weight: 600;
+    }
+    ion-card-header{
+      margin-bottom: -10px;
+    }
+}
+
+.renvoyer{
+  display: flex;
+  align-items: center;
+    align-content: center;
+   border-color:#3c291142;
+  border-top-color: rgb(104, 43, 0);
+    font-weight: 600;
+    ion-icon{
+    margin-top: 5px;
+      color: rgb(104, 43, 0);
+      height: 20px;
+      width: 20px;
+      padding: 3px;
+      background-color: rgba(104, 43, 0, 0.141);
+      border-radius: 10px;
+      margin-right: -10px;
+    }
+    ion-card-header ion-card-title{
+      display: flex;
+      font-size: 17px;
+      font-weight: 600;
+      font-family:Georgia, 'Times New Roman', Times, serif;
+    }
+    ion-card-header{
+      margin-left: -10px;
+    }
+}
+
 .icon-stats{
   height: 20px;
   width: 20px;
   color: #704901;
+  margin-left: 5px;
+}
+.quick-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
+.stat-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+.stat-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.stat-content h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.stat-content p {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Variantes couleur */
+
+.in-progress {
+  border-top: 5px solid #16a34a;
+
+  .stat-icon {
+    background: #dcfce7;
+    color: #16a34a;
+  }
+}
+
+.published {
+  border-top: 5px solid #6366f1;
+
+  .stat-icon {
+    background: #e0e7ff;
+    color: #6366f1;
+  }
+}
+
+
+.dashboard-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 20px;
+
+
+  ion-icon {
+    font-size: 30px;
+    color: #754400;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+  }
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prod-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.label {
+  flex: 1;
+  color: #374151;
+}
+
+.value {
+  font-weight: 600;
+}
+
+/* Couleurs indicatives */
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.in-progress {
+  background: #16a34a;
+}
+
+.draft {
+  background: #92400e;
+}
+
+.published {
+  background: #2563eb;
+}
+
+.drafts {
+  border-top: 5px solid #92400e;
+
+  .stat-icon {
+    background: #fef3c7;
+    color: #92400e;
+  }
+}
 .diamond-outline-icon {
   padding: 5px;
   border-radius: 50%;
@@ -233,7 +472,7 @@
   padding: 14px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   margin-top: 15px;
-  margin-bottom: -5px;
+  margin-bottom: 15px;
 }
 .title{
   margin-top: 10px;
@@ -279,11 +518,7 @@
 
 
 
-.nr-article-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .divider {
   height: 1px;
   background: #eee;
@@ -365,4 +600,103 @@
   object-fit: cover;
   flex-shrink: 0;
   
+}
+
+.activity-item {
+  align-items: center;
+}
+
+.activity-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  font-size: 20px;
+}
+
+/* Variantes */
+.success {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.warning {
+  background: #fef3c7;
+  color: #ca8a04;
+}
+
+.info {
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+.neutral {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.nr-article-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  font-size: 12.5px;
+  color: #6b7280;
+  justify-content: space-between;
+}
+
+/* -------- IA CHIP -------- */
+.nr-ai-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #4f46e5;
+  font-weight: 500;
+  font-size: 12px;
+
+  ion-icon {
+    font-size: 14px;
+  }
+}
+
+/* -------- TYPE ARTICLE -------- */
+.nr-article-type {
+  background: #f3f4f6;
+  color: #374151;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* -------- STATUT -------- */
+.nr-status-info {
+  background: #fff7ed;
+  color: #c2410c;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* -------- TEMPS / META -------- */
+.nr-author-chip {
+  margin-left: auto;
+  background: #f9fafb;
+  color: #6b7280;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* -------- ICÔNE ACTION -------- */
+.nr-article-footer ion-icon[name="arrow-forward-outline"] {
+  font-size: 16px;
+  color: #9ca3af;
 }

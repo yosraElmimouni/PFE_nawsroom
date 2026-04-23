@@ -26,7 +26,7 @@
 
 <ion-content scroll-y="true">
 
-  <ion-grid class="stats-grid">
+  <!-- <ion-grid class="stats-grid">
     <ion-row>
       <ion-col>
         <div class="stat-card">
@@ -47,16 +47,16 @@
         </div>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
 
-  <ion-segment [(ngModel)]="filter" scrollable>
+  <ion-segment class="filter-bar" [(ngModel)]="filter" scrollable>
     <ion-segment-button value="all">Tous</ion-segment-button>
     <ion-segment-button value="published">Publiés</ion-segment-button>
     <ion-segment-button value="draft">Brouillons</ion-segment-button>
     <ion-segment-button value="review">En révision</ion-segment-button>
   </ion-segment>
 
-  <ion-searchbar placeholder="Rechercher un article..." animated></ion-searchbar>
+  <ion-searchbar class="Rechercher-bar" placeholder="Rechercher un article..." animated></ion-searchbar>
 
   <ion-list lines="none">
 
@@ -71,7 +71,7 @@
           <h2 class="article-title">Réforme constitutionnelle : le débat s'intensifie au parlement</h2>
           <p class="article-excerpt">Le gouvernement présente son projet ce mardi, suscitant de vives réactions...</p>
           <div class="article-footer">
-            <ion-badge color="primary" class="category-badge">Politique</ion-badge>
+            <!-- <ion-badge color="primary" class="category-badge">Politique</ion-badge> -->
             <span class="article-meta">
               <ion-icon name="eye-outline"></ion-icon> 2 340
             </span>
@@ -80,7 +80,16 @@
             </span>
           </div>
         </ion-label>
-        <div class="article-thumb published-thumb" slot="end"></div>
+        <div class="article-thumb" slot="end">
+          <div class="article-thumb" slot="end">
+          <ion-avatar>
+    <ion-img
+      class="article-img"
+      src="assets/icon/imagenews.jpeg"
+    ></ion-img>
+    </ion-avatar>
+        </div>
+        </div>
       </ion-item>
 
       <ion-item-options side="end">
@@ -104,13 +113,22 @@
           <h2 class="article-title">Sécheresse : les agriculteurs du sud face à la crise hydrique</h2>
           <p class="article-excerpt">Reportage de terrain sur les conséquences de la sécheresse...</p>
           <div class="article-footer">
-            <ion-badge color="success" class="category-badge">Environnement</ion-badge>
+            <!-- <ion-badge color="success" class="category-badge">Environnement</ion-badge> -->
             <span class="article-meta">
               <ion-icon name="create-outline"></ion-icon> 347 mots · 58%
             </span>
           </div>
         </ion-label>
-        <div class="article-thumb draft-thumb" slot="end"></div>
+        <div class="article-thumb" slot="end">
+          <div class="article-thumb" slot="end">
+          <ion-avatar>
+    <ion-img
+      class="article-img"
+      src="assets/icon/imagenews.jpeg"
+    ></ion-img>
+    </ion-avatar>
+        </div>
+        </div>
       </ion-item>
 
       <ion-item-options side="end">
@@ -134,13 +152,20 @@
           <h2 class="article-title">Élections municipales : les candidats déclarent leurs programmes</h2>
           <p class="article-excerpt">Analyse des promesses électorales des principaux candidats...</p>
           <div class="article-footer">
-            <ion-badge color="primary" class="category-badge">Politique</ion-badge>
+            <!-- <ion-badge color="primary" class="category-badge">Politique</ion-badge> -->
             <span class="article-meta">
               <ion-icon name="person-outline"></ion-icon> Y. Ben Ali
             </span>
           </div>
         </ion-label>
-        <div class="article-thumb review-thumb" slot="end"></div>
+        <div class="article-thumb" slot="end">
+          <ion-avatar>
+    <ion-img
+      class="article-img"
+      src="assets/icon/imagenews.jpeg"
+    ></ion-img>
+    </ion-avatar>
+        </div>
       </ion-item>
 
       <ion-item-options side="end">
@@ -164,13 +189,22 @@
           <h2 class="article-title">Intelligence artificielle et journalisme : menace ou opportunité ?</h2>
           <p class="article-excerpt">Tour d'horizon des outils IA utilisés dans les rédactions modernes...</p>
           <div class="article-footer">
-            <ion-badge color="tertiary" class="category-badge">Technologie</ion-badge>
+            <!-- <ion-badge color="tertiary" class="category-badge">Technologie</ion-badge> -->
             <span class="article-meta">
               <ion-icon name="create-outline"></ion-icon> 112 mots · 22%
             </span>
           </div>
         </ion-label>
-        <div class="article-thumb tech-thumb" slot="end"></div>
+        <div class="article-thumb" slot="end">
+          <div class="article-thumb" slot="end">
+          <ion-avatar>
+    <ion-img
+      class="article-img"
+      src="assets/icon/imagenews.jpeg"
+    ></ion-img>
+    </ion-avatar>
+        </div>
+        </div>
       </ion-item>
 
       <ion-item-options side="end">

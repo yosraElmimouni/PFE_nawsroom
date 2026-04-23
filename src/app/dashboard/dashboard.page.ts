@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 
 export interface Article {
   id: number;
@@ -26,7 +26,6 @@ export interface StatCard {
   value: number | string;
   valueColor: string;
   label: string;
-  delta: string;
   deltaColor: string;
   active?: boolean;
 }
@@ -48,7 +47,6 @@ export class DashboardPage implements OnInit {
       value: 4,
       valueColor: '#C8A96E',
       label: 'En cours',
-      delta: '+2 auj.',
       deltaColor: '#0350c3',
       active: true,
     },
@@ -57,7 +55,6 @@ export class DashboardPage implements OnInit {
       value: 12,
       valueColor: '#f7d6a2',
       label: 'Publiés',
-      delta: 'ce mois',
       deltaColor: '#4aaa70',
     },
     {
@@ -65,7 +62,6 @@ export class DashboardPage implements OnInit {
       value: 38,
       valueColor: '#9b7acc',
       label: 'IA utilisée',
-      delta: 'requêtes',
       deltaColor: '#9b7acc88',
     },
     {
@@ -73,10 +69,10 @@ export class DashboardPage implements OnInit {
       value: 3,
       valueColor: '#8d7856',
       label: 'Brouillons',
-      delta: 'en attente',
       deltaColor: '#3a3a42',
     },
   ];
+  
 
   aiActions = [
     { label: 'Générer article', key: 'generate' ,'icon':"sparkles-outline"},
@@ -139,19 +135,32 @@ export class DashboardPage implements OnInit {
       summary: 'Le rapport annuel du Fonds Monétaire International salue les réformes structurelles engagées depuis 2022.',
     },
   ];
+  ;
 
   get filteredArticles(): Article[] {
     return this.articles.filter(a => a.status === this.activeTab ||
       (this.activeTab === 'progress' && a.status === 'urgent'));
   }
 
-  constructor() {}
+  constructor( private router:Router) {}
 
   ngOnInit() {}
 
   setTab(tab: 'progress' | 'published' | 'draft') {
     this.activeTab = tab;
   }
+
+ production = {
+  inProgress: 4,
+  drafts: 3,
+  published: 28,
+};
+
+goToProduction() {
+  this.router.navigate(['/articles'], {
+    queryParams: { view: 'production' }
+  });
+}
 
   getBadgeClass(status: string): string {
     const map: Record<string, string> = {
