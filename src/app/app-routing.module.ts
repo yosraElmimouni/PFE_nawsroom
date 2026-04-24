@@ -27,13 +27,10 @@ export const routes: Routes = [
   },
   
   {
-    path: 'articles-list',
+    path: 'articles',
     loadChildren: () => import('./articles-list/articles-list.module').then( m => m.ArticlesListPageModule)
   },
-  {
-    path: 'form-ajout-article',
-    loadChildren: () => import('./form-ajout-article/form-ajout-article.module').then( m => m.FormAjoutArticlePageModule)
-  },
+  
   {
     path: 'redaction',
     loadChildren: () => import('./redaction/redaction.module').then( m => m.RedactionPageModule)
