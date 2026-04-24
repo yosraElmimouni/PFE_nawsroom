@@ -1,0 +1,189 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Article</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="openShare()">
+        <ion-icon slot="icon-only" name="share-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="presentActionSheet()">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Hero Image -->
+  <div class="hero-image" [style.background]="article.imageBg">
+    <div class="hero-overlay">
+      <ion-chip [color]="getStatusColor(article.status)" class="status-chip">
+        <ion-label>{{ article.statusLabel }}</ion-label>
+      </ion-chip>
+      <ion-chip color="light" class="category-chip">
+        <ion-label>{{ article.category }}</ion-label>
+      </ion-chip>
+    </div>
+    <p class="image-caption">{{ article.imageCaption }}</p>
+  </div>
+
+  <div class="article-content">
+    <!-- Header -->
+    <div class="article-header">
+      <p class="article-date">
+        <ion-icon name="time-outline"></ion-icon>
+        {{ article.date }}
+      </p>
+      <h1 class="article-title">{{ article.title }}</h1>
+      <p class="article-lead">{{ article.lead }}</p>
+    </div>
+
+    <!-- Author -->
+    <div class="author-row">
+      <div class="author-avatar">{{ article.authorInitials }}</div>
+      <div class="author-info">
+        <p class="author-name">{{ article.author }}</p>
+        <p class="author-role">{{ article.authorRole }}</p>
+      </div>
+      <div class="article-stats" *ngIf="article.status === 'published'">
+        <span>
+          <ion-icon name="eye-outline"></ion-icon>
+          {{ article.views | number }}
+        </span>
+        <span>
+          <ion-icon name="chatbubble-outline"></ion-icon>
+          {{ article.comments }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Draft Progress -->
+    <div class="draft-progress" *ngIf="article.status === 'draft'">
+      <div class="progress-header">
+        <span>Progression</span>
+        <span class="progress-value">{{ article.progress }}%</span>
+      </div>
+      <ion-progress-bar
+        [value]="(article.progress ?? 0) / 100"
+        color="warning">
+      </ion-progress-bar>
+      <p class="word-count">{{ article.wordCount }} mots rédigés</p>
+    </div>
+
+    <ion-item-divider></ion-item-divider>
+
+    <!-- Body -->
+    <div class="article-body" [innerHTML]="article.body"></div>
+
+    <!-- AI Analysis Card -->
+    <ion-card class="ai-card">
+      <ion-card-header>
+        <ion-card-title>
+          <ion-icon name="flash" color="primary"></ion-icon>
+          Analyse IA
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="ai-tags">
+          <ion-chip *ngFor="let tag of article.aiTags" size="small" color="primary" outline>
+            <ion-label>{{ tag }}</ion-label>
+          </ion-chip>
+        </div>
+        <p class="ai-suggestion">
+          <ion-icon name="bulb-outline" color="warning"></ion-icon>
+          {{ article.aiSuggestion }}
+        </p>
+        <div class="ai-scores">
+          <div class="score-item">
+            <span class="score-label">Neutralité</span>
+            <ion-progress-bar [value]="article.neutralityScore / 10" color="success"></ion-progress-bar>
+            <span class="score-value">{{ article.neutralityScore }}/10</span>
+          </div>
+          <div class="score-item">
+            <span class="score-label">Lisibilité</span>
+            <ion-progress-bar [value]="article.readabilityScore / 10" color="primary"></ion-progress-bar>
+            <span class="score-value">{{ article.readabilityScore }}/10</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Linked Media -->
+    <div class="media-section" *ngIf="article.mediaCount > 0">
+      <h3 class="section-title">
+        <ion-icon name="attach-outline"></ion-icon>
+        Médias associés ({{ article.mediaCount }})
+      </h3>
+      <!-- Linked Media -->
+<div class="media-section" *ngIf="article.mediaCount > 0">
+  <h3 class="section-title">
+    <ion-icon name="attach-outline"></ion-icon>
+    Médias associés ({{ article.mediaCount }})
+  </h3>
+
+  <div class="media-scroll">
+    <div class="media-thumb" 
+         *ngFor="let media of article.media"
+         [style.background]="media.bg">
+      <ion-icon
+        [name]="media.type === 'video' ? 'videocam' : 'image'"
+        color="light"
+        size="large">
+      </ion-icon>
+      <span class="media-label">{{ media.label }}</span>
+    </div>
+  </div>
+
+</div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Action Buttons (FAB or footer) -->
+<ion-footer class="action-footer">
+  <ion-toolbar>
+    <div class="footer-actions">
+      <ng-container [ngSwitch]="article.status">
+
+        <!-- Published -->
+        <ng-container *ngSwitchCase="'published'">
+          <ion-button expand="block" fill="outline" (click)="editArticle()">
+            <ion-icon slot="start" name="create-outline"></ion-icon>
+            Modifier
+          </ion-button>
+          <ion-button expand="block" fill="outline" color="medium" (click)="viewHistory()">
+            <ion-icon slot="start" name="time-outline"></ion-icon>
+            Historique
+          </ion-button>
+        </ng-container>
+
+        <!-- Draft -->
+        <ng-container *ngSwitchCase="'draft'">
+          <ion-button expand="block" (click)="continueEditing()">
+            <ion-icon slot="start" name="create-outline"></ion-icon>
+            Continuer la rédaction
+          </ion-button>
+          <ion-button expand="block" fill="outline" color="primary" (click)="aiAssist()">
+            <ion-icon slot="start" name="flash-outline"></ion-icon>
+            Aide IA
+          </ion-button>
+        </ng-container>
+
+        <!-- In Review -->
+        <ng-container *ngSwitchCase="'review'">
+          <ion-button expand="block" color="success" (click)="approveArticle()">
+            <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+            Approuver
+          </ion-button>
+          <ion-button expand="block" fill="outline" color="danger" (click)="requestCorrections()">
+            <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+            Corrections
+          </ion-button>
+        </ng-container>
+
+      </ng-container>
+    </div>
+  </ion-toolbar>
+</ion-footer>

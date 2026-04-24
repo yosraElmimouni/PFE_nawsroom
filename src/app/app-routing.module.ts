@@ -39,6 +39,10 @@ export const routes: Routes = [
     path: 'capture',
     loadChildren: () => import('./capture/capture.module').then( m => m.CapturePageModule)
   },
+  {
+    path: 'article-detail',
+    loadChildren: () => import('./article-detail/article-detail.module').then( m => m.ArticleDetailPageModule)
+  },
 ];
 
 @NgModule({
