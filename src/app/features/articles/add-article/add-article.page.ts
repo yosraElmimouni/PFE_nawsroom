@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 @Component({
-  selector: 'app-redaction',
-  templateUrl: './redaction.page.html',
-  styleUrls: ['./redaction.page.scss'],
+  selector: 'app-add-article',
+  templateUrl: './add-article.page.html',
+  styleUrls: ['./add-article.page.scss'],
   standalone:false,
 })
-export class RedactionPage implements OnInit {
+export class AddArticlePage implements OnInit {
 
   constructor(private toastCtrl: ToastController) {}
   
@@ -15,7 +15,7 @@ export class RedactionPage implements OnInit {
   }
     async saveDraft() {
       const toast = await this.toastCtrl.create({
-        message: '💾 Brouillon enregistré avec succès',
+        message: 'Brouillon enregistré avec succès',
         duration: 2000,
         color: 'warning',
         position: 'top',
@@ -26,7 +26,7 @@ export class RedactionPage implements OnInit {
     // Publication de l'article
     async publishArticle() {
       const toast = await this.toastCtrl.create({
-        message: '🚀 Article publié avec succès !',
+        message: ' Article publié avec succès !',
         duration: 2500,
         color: 'success',
         position: 'top',
@@ -37,7 +37,7 @@ export class RedactionPage implements OnInit {
     // Ajout de média
     async addMedia() {
       const toast = await this.toastCtrl.create({
-        message: '📎 Fonctionnalité de capture à connecter',
+        message: ' Fonctionnalité de capture à connecter',
         duration: 2000,
         color: 'primary',
         position: 'bottom',
@@ -48,7 +48,7 @@ export class RedactionPage implements OnInit {
     // Actions IA
     async aiImprove() {
       const toast = await this.toastCtrl.create({
-        message: '✨ IA : Amélioration du texte en cours...',
+        message: ' IA : Amélioration du texte en cours...',
         duration: 2000,
         color: 'tertiary',
         position: 'bottom',
@@ -58,7 +58,7 @@ export class RedactionPage implements OnInit {
   
     async aiTitle() {
       const toast = await this.toastCtrl.create({
-        message: '📰 IA : Génération de titres en cours...',
+        message: ' IA : Génération de titres en cours...',
         duration: 2000,
         color: 'tertiary',
         position: 'bottom',
@@ -68,7 +68,7 @@ export class RedactionPage implements OnInit {
   
     async aiKeywords() {
       const toast = await this.toastCtrl.create({
-        message: '🏷 IA : Extraction des mots-clés...',
+        message: ' IA : Extraction des mots-clés...',
         duration: 2000,
         color: 'tertiary',
         position: 'bottom',
@@ -78,7 +78,7 @@ export class RedactionPage implements OnInit {
   
     async aiSummary() {
       const toast = await this.toastCtrl.create({
-        message: '📋 IA : Résumé automatique en cours...',
+        message: ' IA : Résumé automatique en cours...',
         duration: 2000,
         color: 'tertiary',
         position: 'bottom',
@@ -89,7 +89,7 @@ export class RedactionPage implements OnInit {
     // Envoi message IA
     async sendAiMessage() {
       const toast = await this.toastCtrl.create({
-        message: '🤖 Message envoyé à l\'IA',
+        message: ' Message envoyé à l\'IA',
         duration: 1500,
         color: 'tertiary',
         position: 'bottom',

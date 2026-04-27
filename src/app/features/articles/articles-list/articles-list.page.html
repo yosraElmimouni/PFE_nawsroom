@@ -1,0 +1,116 @@
+<ion-header class="nr-header" translucent>
+    <ion-buttons slot="start">
+      <ion-menu-button class="menu-header"></ion-menu-button>
+    </ion-buttons>
+   
+    <!-- <ion-buttons slot="start">
+      <div class="nr-logo-wrap">
+        <div class="nr-logo">N</div>
+        <span class="nr-app-title">NewsRoom</span>
+      </div>
+    </ion-buttons> -->
+
+    <!-- <ion-buttons slot="end">
+      <ion-button class="nr-icon-btn" fill="clear">
+        <div class="notif-wrapper">
+          <ion-icon name="notifications-outline" class="nr-nav-icon-lg"></ion-icon>
+          <span class="notif-dot"></span>
+        </div>
+      </ion-button>
+      <ion-button class="nr-icon-btn" fill="clear">
+        <ion-icon name="search-outline" class="nr-nav-icon-lg"></ion-icon>
+      </ion-button>
+      <div class="nr-avatar">AH</div>
+    </ion-buttons> -->
+
+</ion-header>
+
+<ion-content scroll-y="true">
+
+  <!-- <ion-grid class="stats-grid">
+    <ion-row>
+      <ion-col>
+        <div class="stat-card">
+          <span class="stat-number">12</span>
+          <span class="stat-label">Total</span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="stat-card purple">
+          <span class="stat-number">5</span>
+          <span class="stat-label">Brouillons</span>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="stat-card green">
+          <span class="stat-number">7</span>
+          <span class="stat-label">Publiés</span>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+
+  <ion-segment class="filter-bar" [(ngModel)]="filter" scrollable>
+    
+    <ion-segment-button value="all">Tous</ion-segment-button>
+    <ion-segment-button value="published">Publiés</ion-segment-button>
+    <ion-segment-button value="draft">Brouillons</ion-segment-button>
+    <ion-segment-button value="review">En révision</ion-segment-button>
+  </ion-segment>
+
+  <ion-searchbar class="Rechercher-bar" placeholder="Rechercher un article..." animated></ion-searchbar>
+
+  <ion-list lines="none">
+  <ion-item-sliding *ngFor="let article of filteredArticles">
+
+    <ion-item button lines="none"  (click)="detailleArticle(article.id)" class="article-item">
+      <div class="status-bar" [ngClass]="article.status" slot="start"></div>
+
+      <ion-label>
+        <div class="article-header">
+          <ion-badge [ngClass]="article.badgeColor">
+            {{ article.badgeLabel }}
+          </ion-badge>
+        </div>
+
+        <h2 class="article-title">{{ article.title }}</h2>
+        <p class="article-excerpt">{{ article.excerpt }}</p>
+
+        <!-- <div class="article-footer">
+          <span class="article-meta">
+            <ion-icon [name]="article.metaIcon"></ion-icon>
+            {{ article.metaText }}
+          </span>
+        </div> -->
+      </ion-label>
+
+      <ion-avatar slot="end" >
+        <ion-img
+          class="article-img"
+          [src]="article.image">
+        </ion-img>
+      </ion-avatar>
+    </ion-item>
+
+    <ion-item-options side="end">
+      <ion-item-option >
+        <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+      </ion-item-option>
+      <ion-item-option >
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+
+  </ion-item-sliding>
+</ion-list>
+
+</ion-content>
+
+<ion-fab class="button-flottant-add">
+  <ion-fab-button class="button-flottant" routerLink="/redaction">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+
+

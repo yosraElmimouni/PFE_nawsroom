@@ -1,0 +1,167 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    
+    <ion-title>Article</ion-title>
+    <ion-buttons slot="end">
+      <ion-button >
+        <ion-icon slot="icon-only" name="share-outline"></ion-icon>
+      </ion-button>
+      <ion-button >
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="content-page" [fullscreen]="true">
+  <div class="hero-image">
+    <img [src]="article.image" alt="Image de l'article" />
+    <div class="hero-overlay">
+      <ion-back-button
+        class="btn-back"
+        [color]="article.badgeColor"
+        defaultHref="/articles"
+      ></ion-back-button>
+
+      <ion-chip slot="end" [color]="article.badgeColor" class="status-chip">
+        <ion-label>{{ article.badgeLabel }}</ion-label>
+      </ion-chip>
+    </div>
+  </div>
+
+  <div class="article-content">
+    <div class="article-header">
+      <div class="article-meta">
+        <p class="article-date">
+          <ion-icon name="time-outline"></ion-icon>
+          {{ article.date }}
+        </p>
+        <div class="article-stats" *ngIf="article.status === 'published'">
+          <span>
+            <ion-icon name="eye-outline"></ion-icon>
+            {{ article.views }}
+          </span>
+          <span>
+            <ion-icon name="chatbubble-outline"></ion-icon>
+            {{ article.comments }}
+          </span>
+        </div>
+      </div>
+
+      <h1 class="article-title">{{ article.title }}</h1>
+      <!-- <p class="article-lead">{{ article.excerpt }}</p> -->
+    </div>
+    <div class="ligne"></div>
+
+    <div class="article-body">
+      <p>{{ article.description }}</p>
+    </div>
+
+    <div class="media-section" *ngIf="article.media?.length">
+      <span class="section-title">Médias associés</span>
+
+      <ion-segment
+        value="all"
+        scrollable
+        class="filter-bar"
+        (ionChange)="onMediaFilterChange($event)"
+      >
+        <ion-segment-button class="all" value="all">
+          <div class="icon-with-count">
+            <ion-icon name="albums-outline"></ion-icon>
+            <span class="count">Tous {{ article.media.length }}</span>
+          </div>
+        </ion-segment-button>
+        <ion-segment-button class="img" value="image"
+          >Images</ion-segment-button
+        >
+        <ion-segment-button class="video" value="video"
+          >Vidéos</ion-segment-button
+        >
+        <ion-segment-button class="file" value="file"
+          >Fichiers</ion-segment-button
+        >
+      </ion-segment>
+
+      <div class="media-scroll">
+        <div
+          class="media-card"
+          *ngFor="let media of filteredMedia"
+          [ngSwitch]="media.type"
+        >
+          <ng-container *ngSwitchCase="'image'">
+            <img [src]="media.src" [alt]="media.label" />
+            <span class="media-caption">{{ media.label }}</span>
+          </ng-container>
+          <ng-container *ngSwitchCase="'video'">
+            <div class="video-thumb" (click)="openVideo(media.src)">
+              <img [src]="media.thumbnail" [alt]="media.label" />
+              <ion-icon name="play-circle-outline"></ion-icon>
+            </div>
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'file'">
+            <a
+              class="file-card"
+              [href]="media.src"
+              target="_blank"
+              rel="noopener"
+            >
+              <ion-icon name="document-text-outline"></ion-icon>
+
+              <div class="file-info">
+                <strong>{{ media.label }}</strong>
+                <small>{{ media.size }}</small>
+              </div>
+
+              <ion-icon
+                class="download-icon"
+                name="download-outline"
+              ></ion-icon>
+            </a>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-fab class="fab-btn" slot="fixed">
+  <ion-fab-button class="float-btn">
+    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+  </ion-fab-button>
+
+  <ion-fab-list side="top">
+    <ng-container [ngSwitch]="article.status">
+
+      <ng-container *ngSwitchCase="'published'">
+        <ion-fab-button class="share-btn">
+          <ion-icon name="share-outline"></ion-icon>
+        </ion-fab-button>
+
+        <ion-fab-button class="historique-btn">
+          <ion-icon name="time-outline"></ion-icon>
+        </ion-fab-button>
+      </ng-container>
+      <ng-container *ngSwitchCase="'draft'">
+        <ion-fab-button class="create-btn">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-fab-button>
+
+        <ion-fab-button class="ai-btn">
+          <ion-icon name="flash-outline"></ion-icon>
+        </ion-fab-button>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'review'">
+        <ion-fab-button class="approve-btn">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </ion-fab-button>
+
+        <ion-fab-button class="reject-btn">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-fab-button>
+      </ng-container>
+    </ng-container>
+  </ion-fab-list>
+</ion-fab>

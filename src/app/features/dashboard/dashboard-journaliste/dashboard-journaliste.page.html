@@ -5,24 +5,22 @@
         <div class="nr-logo">N</div>
         <div class="title">
           <span class="nr-app-title">NewsRoom</span>
-          <p class="soustitre">v{{ version }} </p>
+          <p class="soustitre">v{{ version }}</p>
         </div>
       </div>
+
     </ion-buttons>
 
-    <!-- <ion-buttons slot="end">
-      <ion-button class="nr-icon-btn" fill="clear">
-        <div class="notif-wrapper">
-          <ion-icon name="notifications-outline" class="nr-nav-icon-lg"></ion-icon>
-          <span class="notif-dot"></span>
-        </div>
-      </ion-button>
-      <ion-button class="nr-icon-btn" fill="clear">
-        <ion-icon name="search-outline" class="nr-nav-icon-lg"></ion-icon>
-      </ion-button>
-      <div class="nr-avatar">AH</div>
-    </ion-buttons> -->
+    <ion-buttons slot="end">
+        <ion-button class="btn-logout" routerLink="/login" detail="false">
+          <ion-icon slot="end" name="log-out-outline"></ion-icon>
+
+        </ion-button>
+
+    </ion-buttons>
+  
   </ion-toolbar>
+  
 </ion-header>
 
 <ion-content class="nr-content" [fullscreen]="true" [scrollEvents]="true">
@@ -72,7 +70,7 @@
       <ion-card-header class="stat-content">
         <ion-card-title class="nr-stat-num">28</ion-card-title>
         <ion-card-subtitle class="nr-stat-label"
-          >Publiés ce mois</ion-card-subtitle
+          >Publiés</ion-card-subtitle
         >
       </ion-card-header>
     </ion-card>
@@ -91,143 +89,31 @@
   </div>
 
   <div class="menu-container">
-    <!-- Label section -->
-    <p class="menu-label">Modules</p>
+  <div class="menu-ligne"></div>
 
-    <div class="nav-grid">
-      <!-- Rédaction -->
-      <ion-card class="nav-item teal" (click)="navigateTo('redaction')">
-        <div class="nav-container">
-          <div class="nav-icon">
-            <ion-icon name="create-outline"></ion-icon>
-          </div>
-          <div class="nav-text">
-            <ion-card-title class="nav-name">Rédaction</ion-card-title>
-            <ion-card-content class="nav-desc"
-              >Articles, IA, collaboration</ion-card-content
-            >
-          </div>
-        </div>
-      </ion-card>
+ 
+        <ion-card button *ngFor="let module of modules"
+                  class="menu-item module-{{module.id}}"
+                  (click)="navigateTo(module.name.toLowerCase())" 
+                  auto-hide="false"
+                  
+                  >
+          <ion-item   lines="none" class="article-item "  detail="false">
+              <ion-avatar >
+                <ion-icon
+                  [name]="module.icon"
+                  class="avatar-icon"
+                ></ion-icon>
+              </ion-avatar>
+              <ion-label>
+                <h2 class="article-title">{{ module.name }}</h2>
+              </ion-label>
 
-      <!-- Collecte terrain -->
-      <ion-card
-        class="nav-item coral"
-        [class.active]="activeModule === 'collecte'"
-        (click)="navigateTo('collecte')"
-      >
-        <div class="nav-container">
-          <div class="nav-icon">
-            <ion-icon name="videocam-outline"></ion-icon>
-          </div>
-          <div class="nav-text">
-            <ion-card-title class="nav-name">Collecte terrain</ion-card-title>
-            <ion-card-content class="nav-desc"
-              >Médias, hors-ligne, IA</ion-card-content
-            >
-          </div>
-        </div>
-      </ion-card>
+              
+            </ion-item>
+        </ion-card>
+</div>
 
-      <!-- Veille -->
-      <ion-card
-        class="nav-item blue"
-        [class.active]="activeModule === 'veille'"
-        (click)="navigateTo('veille')"
-      >
-        <div class="nav-container">
-          <div class="nav-icon">
-            <ion-icon name="notifications-outline"></ion-icon>
-          </div>
-          <div class="nav-text">
-            <ion-card-title class="nav-name">Veille</ion-card-title>
-            <ion-card-content class="nav-desc"
-              >Flux, alertes, résumés IA</ion-card-content
-            >
-          </div>
-        </div>
-      </ion-card>
-
-      <!-- Fusion -->
-      <ion-card
-        class="nav-item amber"
-        [class.active]="activeModule === 'fusion'"
-        (click)="navigateTo('fusion')"
-      >
-        <div class="nav-container">
-          <div class="nav-icon">
-            <ion-icon name="git-merge-outline"></ion-icon>
-          </div>
-          <div class="nav-text">
-            <ion-card-title class="nav-name">Fusion</ion-card-title>
-            <ion-card-content class="nav-desc"
-              >Sources, associations, IA</ion-card-content
-            >
-          </div>
-        </div>
-      </ion-card>
-
-      <!-- Mes articles -->
-      <ion-card
-        class="nav-item purple"
-        [class.active]="activeModule === 'articles'"
-        (click)="navigateTo('articles')"
-      >
-        <div class="nav-container">
-          <div class="nav-icon">
-            <ion-icon name="document-text-outline"></ion-icon>
-          </div>
-          <div class="nav-text">
-            <ion-card-title class="nav-name">Mes articles</ion-card-title>
-            <ion-card-content class="nav-desc"
-              >En cours, brouillons, publiés</ion-card-content
-            >
-          </div>
-        </div>
-      </ion-card>
-
-      <!-- Profil -->
-      <ion-card
-        class="nav-item gray"
-        [class.active]="activeModule === 'profil'"
-        (click)="navigateTo('profil')"
-      >
-        <div class="nav-container">
-          <div class="nav-icon">
-            <ion-icon name="person-outline"></ion-icon>
-          </div>
-          <div class="nav-text">
-            <ion-card-title class="nav-name">Profil</ion-card-title>
-            <ion-card-content class="nav-desc"
-              >Rôle, paramètres</ion-card-content
-            >
-          </div>
-        </div>
-      </ion-card>
-    </div>
-
-    <!-- Actions rapides -->
-    <!-- <p class="menu-label" style="margin-top: 20px;">Actions rapides</p> -->
-
-    <!-- <div class="quick-actions">
-
-    <button class="qa-btn" (click)="quickAction('redaction')">
-      <span class="qa-dot purple-dot"></span>
-      Nouvel article
-    </button>
-
-    <button class="qa-btn" (click)="quickAction('collecte')">
-      <span class="qa-dot teal-dot"></span>
-      Capture
-    </button>
-
-    <button class="qa-btn" (click)="quickAction('veille')">
-      <span class="qa-dot blue-dot"></span>
-      Alertes
-    </button>
-
-  </div> -->
-  </div>
 
   <!-- <ion-card class="nr-ai-card">
     
@@ -448,19 +334,16 @@
   </ion-card> -->
 </ion-content>
 
-<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="bottom: 80px;">
-  <ion-fab-button class="nr-fab" (click)="onCapture()">
-    <ion-icon name="flash-outline"></ion-icon>
-  </ion-fab-button>
-  <ion-fab-list side="top">
-    <ion-fab-button class="nr-fab-mini" data-desc="Photo / Vidéo">
-      <ion-icon name="sparkles-outline"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button class="nr-fab-mini" data-desc="Audio">
-      <ion-icon name="sync-outline"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-button class="nr-fab-mini" data-desc="Nouvel article">
-      <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab-list>
-</ion-fab> -->
+
+<ion-footer class="nr-footer">
+  <ion-toolbar>
+    <div class="footer-profile">
+      <div class="footer-avatar">{{ profile.initials }}</div>
+
+      <div class="footer-info">
+        <span class="footer-name">{{ profile.name }}</span>
+        <span class="footer-role">{{ profile.role }}</span>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

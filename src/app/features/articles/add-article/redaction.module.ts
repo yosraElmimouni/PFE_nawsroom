@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { RedactionPageRoutingModule } from './redaction-routing.module';
 
-import { RedactionPage } from './redaction.page';
+import { AddArticlePage } from './add-article.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { RedactionPage } from './redaction.page';
     IonicModule,
     RedactionPageRoutingModule
   ],
-  declarations: [RedactionPage]
+  declarations: [AddArticlePage]
 })
 export class RedactionPageModule {}

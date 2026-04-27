@@ -4,6 +4,9 @@ import { MsalService } from '@azure/msal-angular';
 import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
+import { routes } from './app-routing.module';
+
+import pkg from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +15,26 @@ import { Capacitor } from '@capacitor/core';
   standalone: false,
 })
 export class AppComponent implements OnInit {
-
+  appVersion = '';
   user: any;
+  activeModule: string = 'redaction';
+  activeTab: 'progress' | 'published' | 'draft' = 'progress';
 
   constructor(
     private msalService: MsalService,
     private router: Router
   ) {}
 
-  ngOnInit() {
+  modules = [
+    { id:1, name: 'Redaction', icon: 'pencil' },
+    { id:2, name: 'Collecte',  icon: 'camera' },
+    { id:3, name: 'Veille',    icon: 'eye' },
+    { id:4, name: 'Fusion',    icon: 'git-merge' },
+    { id:5, name: 'Articles',  icon: 'newspaper' },
+    { id:6, name: 'Profil',    icon: 'person' },
+
+  ];
+  async ngOnInit() {
     if (!Capacitor.isNativePlatform()) {
         this.msalService.instance
             .handleRedirectPromise()
@@ -28,7 +42,7 @@ export class AppComponent implements OnInit {
               if (result?.account) {
                 this.msalService.instance.setActiveAccount(result.account);
                 localStorage.setItem('user', JSON.stringify(result.account));
-                this.router.navigate(['/tabs/dashboard']);
+                this.router.navigate(['/dashboard']);
               }
             })
             .catch(e => console.error('MSAL error:', e));
@@ -79,6 +93,25 @@ export class AppComponent implements OnInit {
 
       this.router.navigate(['/dashboard']);
     });
+    const currentUrl = this.router.url;
+    for (let m of this.modules) {
+      if (currentUrl.includes(m.name.toLowerCase())) {
+        this.activeModule = m.name.toLowerCase();
+        return;
+      }
+      else {        
+        this.activeModule = 'redaction';
+      }
+    }
+    
+if (Capacitor.isNativePlatform()) {
+      const info = await App.getInfo();
+      this.appVersion = info.version; // Android / iOS
+    } else {
+      this.appVersion = pkg.version;  // Web
+    }
+
+  
   }
 
   async fetchUserProfile(token: string) {
@@ -105,4 +138,13 @@ export class AppComponent implements OnInit {
       });
     }
   }
+  navigateTo(module: string): void {
+      this.activeModule = module;
+        const path = routes.find(r => r.path === module)?.path;
+        if (path) {
+          this.router.navigate([`/${path.toLocaleLowerCase()}`]);
+        } else {
+          console.warn('No route found for module:', module);
+        }
+    }
 }

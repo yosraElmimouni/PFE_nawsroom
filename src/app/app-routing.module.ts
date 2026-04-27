@@ -10,38 +10,38 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./features/auth/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
+    loadChildren: () => import('./features/dashboard/dashboard-journaliste/dashboard.module').then( m => m.DashboardPageModule)
   },
   {
     path: 'editor-dashboard',
-    loadChildren: () => import('./editor-dashboard/editor-dashboard.module').then( m => m.EditorDashboardPageModule)
+    loadChildren: () => import('./features/dashboard/editor-dashboard/editor-dashboard.module').then( m => m.EditorDashboardPageModule)
   },
  
   {
     path: 'admin-dashboard',
-    loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
+    loadChildren: () => import('./features/dashboard/admin-dashboard/admin-dashboard.module').then( m => m.AdminDashboardPageModule)
   },
   
   {
     path: 'articles',
-    loadChildren: () => import('./articles-list/articles-list.module').then( m => m.ArticlesListPageModule)
+    loadChildren: () => import('./features/articles/articles-list/articles-list.module').then( m => m.ArticlesListPageModule)
   },
   
   {
     path: 'redaction',
-    loadChildren: () => import('./redaction/redaction.module').then( m => m.RedactionPageModule)
+    loadChildren: () => import('./features/articles/add-article/redaction.module').then( m => m.RedactionPageModule)
   },
   {
     path: 'capture',
     loadChildren: () => import('./capture/capture.module').then( m => m.CapturePageModule)
   },
   {
-    path: 'article-detail',
-    loadChildren: () => import('./article-detail/article-detail.module').then( m => m.ArticleDetailPageModule)
+    path: 'article-detail/:id',
+    loadChildren: () => import('./features/articles/article-detail/article-detail.module').then( m => m.ArticleDetailPageModule)
   },
 ];
 

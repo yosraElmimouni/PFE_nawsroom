@@ -1,63 +1,52 @@
 <ion-app>
   <ion-menu contentId="main-content" menuId="main-menu" side="start">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <div class="menu-header">
-          <div class="menu-logo">
-            <span class="logo-icon">N</span>
-            <span class="logo-text">NewsRoom</span>
-          </div>
-          <div class="menu-user">
-            <div class="user-avatar">AH</div>
-            <div class="user-info">
-              <p class="user-name">A. Hammou</p>
-              <p class="user-role">Journaliste</p>
-            </div>
+    <ion-header class="Header">
+      
+        <div class="nr-logo-wrap">
+          <div class="nr-logo">N</div>
+          <div class="title">
+            <span class="nr-app-title">NewsRoom</span>
+            <p class="soustitre">v {{appVersion}}</p>
           </div>
         </div>
-      </ion-toolbar>
+      
     </ion-header>
 
-    <ion-content>
+   
       <ion-list lines="none">
-        <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/dashboard" routerLinkActive="active-item" detail="false">
-            <ion-icon slot="start" name="grid-outline"></ion-icon>
-            <ion-label>Tableau de bord</ion-label>
-          </ion-item>
+        <ion-menu-toggle button auto-hide="false" class="menu-item dashboard">
+          
+          <div class="menu-container">
+            <ion-item routerLink="/dashboard" lines="none" class="article-item" detail="false">
+              <ion-avatar>
+                <ion-icon name="home" class="avatar-icon"></ion-icon>
+              </ion-avatar>
+              <ion-label>
+                <h2 class="article-title">dashboard</h2>
+              </ion-label>
+            </ion-item>
+          </div>
+        </ion-menu-toggle>
+        <ion-menu-toggle
+          *ngFor="let module of modules"
+          class="menu-item module-{{ module.id }}"
+          (click)="navigateTo(module.name.toLowerCase())"
+          auto-hide="false"
+          button
+        >
+          <div class="menu-container">
+            <ion-item lines="none" class="article-item" detail="false">
+              <ion-avatar>
+                <ion-icon [name]="module.icon" class="avatar-icon"></ion-icon>
+              </ion-avatar>
+              <ion-label>
+                <h2 class="article-title">{{ module.name }}</h2>
+              </ion-label>
+            </ion-item>
+          </div>
         </ion-menu-toggle>
 
-        <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/articles" routerLinkActive="active-item" detail="false" class="active-item">
-            <ion-icon slot="start" name="document-text-outline"></ion-icon>
-            <ion-label>Articles</ion-label>
-            <ion-badge slot="end" color="primary">4</ion-badge>
-          </ion-item>
-        </ion-menu-toggle>
-
-        <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/collecte" routerLinkActive="active-item" detail="false">
-            <ion-icon slot="start" name="camera-outline"></ion-icon>
-            <ion-label>Collecte terrain</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-
-        <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/veille" routerLinkActive="active-item" detail="false">
-            <ion-icon slot="start" name="notifications-outline"></ion-icon>
-            <ion-label>Veille</ion-label>
-            <ion-badge slot="end" color="warning">3</ion-badge>
-          </ion-item>
-        </ion-menu-toggle>
-
-        <ion-menu-toggle auto-hide="false">
-          <ion-item routerLink="/equipe" routerLinkActive="active-item" detail="false">
-            <ion-icon slot="start" name="people-outline"></ion-icon>
-            <ion-label>Équipe</ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-
-        <ion-item-divider>
+        <!-- <ion-item-divider>
           <ion-label>Outils IA</ion-label>
         </ion-item-divider>
 
@@ -73,25 +62,35 @@
             <ion-icon slot="start" name="sparkles-outline" color="primary"></ion-icon>
             <ion-label>Résumé automatique</ion-label>
           </ion-item>
-        </ion-menu-toggle>
+        </ion-menu-toggle> -->
       </ion-list>
 
       <div class="menu-footer">
-        <ion-menu-toggle >
+        <!-- <ion-menu-toggle >
           <ion-item routerLink="/parametres" detail="false" lines="none">
             <ion-icon slot="start" name="settings-outline"></ion-icon>
             <ion-label>Paramètres</ion-label>
           </ion-item>
-        </ion-menu-toggle>
-        <ion-menu-toggle >
-          <ion-item routerLink="/login" detail="false" lines="none">
-            <ion-icon slot="start" name="log-out-outline" color="danger"></ion-icon>
+        </ion-menu-toggle> -->
+        
+        <ion-menu-toggle slot="end">
+          <ion-item
+            class="btn-logout"
+            routerLink="/login"
+            detail="false"
+            lines="none"
+          >
+            <ion-icon
+              slot="end"
+              name="log-out-outline"
+              color="danger"
+            ></ion-icon>
             <ion-label color="danger">Déconnexion</ion-label>
           </ion-item>
         </ion-menu-toggle>
       </div>
-    </ion-content>
+    
   </ion-menu>
 
   <ion-router-outlet id="main-content"></ion-router-outlet>
-  </ion-app>  
+</ion-app>
