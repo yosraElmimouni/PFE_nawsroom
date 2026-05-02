@@ -27,34 +27,34 @@ export class LoginPage implements OnInit {
     { name: 'Admin',      icon: 'settings' }
   ];
 
-  login() {
-  if (Capacitor.isNativePlatform()) {
-    this.loginMobile();
-  } else {
-    this.loginWeb();
-  }
-}
-loginWeb() {
+  // login() {
+  // if (Capacitor.isNativePlatform()) {
+  //   this.loginMobile();
+  // } else {
+  //   this.loginWeb();
+  // }
+// }
+login() {
   this.msalService.loginRedirect({
     scopes: ['User.Read']
   });
 }
 
-loginMobile() {
-  const clientId = 'f5515d18-8765-4ae6-8b08-2b4b8ad66611';
-  const tenantId = 'dc59e38c-4977-406f-bdd1-9ebbabbd387e';
-  const redirectUri = encodeURIComponent('msauth://ma.ac.usms.newsroom/auth');
+// loginMobile() {
+//   const clientId = 'f5515d18-8765-4ae6-8b08-2b4b8ad66611';
+//   const tenantId = 'dc59e38c-4977-406f-bdd1-9ebbabbd387e';
+//   const redirectUri = encodeURIComponent('msauth://ma.ac.usms.newsroom/auth');
   
-  const url =
-    `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/authorize` +
-    `?client_id=${clientId}` +
-    `&response_type=code` +           
-    `&redirect_uri=${redirectUri}` +
-    `&scope=User.Read openid profile email` +
-    `&response_mode=fragment`;         
+//   const url =
+//     `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/authorize` +
+//     `?client_id=${clientId}` +
+//     `&response_type=code` +           
+//     `&redirect_uri=${redirectUri}` +
+//     `&scope=User.Read openid profile email` +
+//     `&response_mode=fragment`;         
     
-  Browser.open({ url });
-}
+//   Browser.open({ url });
+// }
   
   isLoggedIn(): boolean {
     return this.msalService.instance.getActiveAccount() != null;
