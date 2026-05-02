@@ -1,0 +1,291 @@
+
+.nr-header,
+.nr-toolbar{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+}
+.title-toolbar{
+  font-family:'Times New Roman', Times, serif;
+  color: #50320a;
+  align-self: center;
+  justify-self:center;
+  font-size: 20px;
+  display: flex
+}
+
+
+
+.ai-header-icon {
+  font-size: 22px;
+  color: #704901;
+  background: #fdebd0;
+  padding: 6px;
+  border-radius: 50%;
+}
+
+.add-icon {
+  font-size: 18px;
+  color: #1a0b03;
+  background: #fad19b42;
+  padding: 6px;
+  border-radius: 50%;
+}
+
+.chat-content {
+  --background: #f9f7f3;
+  justify-content: center;  
+}
+
+
+.chat-bubble {
+  max-width: 80%;
+  padding: 12px 14px;
+  margin: 5px 15px;
+  border-radius: 18px;
+  font-size: 14px;
+}
+
+.chat-bubble.ai {
+  background: #fff2dd;
+  color: #3c2911;
+  border-bottom-left-radius: 6px;
+  
+}
+
+.chat-bubble.user {
+  background: #c8a96e;
+  color: #ffffff;
+  border-bottom-right-radius: 6px;
+}
+
+
+.quick-replies {
+  display: block;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 14px;
+  bottom: 0;
+  ion-button {
+    --color: #704901;
+    --border-color: #c8a96e;
+    --border-radius: 20px;
+    font-size: 13px;
+    text-transform: none;
+    padding: 4px 10px;
+  }
+}
+
+.ai-send-bar{
+    display: flex;
+    align-items: center;
+}
+.ai-send-btn {
+  --background: #c8a96e;
+  --color: #ffffff;
+  --border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.ai-send-input {
+  flex: 1;
+  border-radius: 20px;
+  --border-color: #c8a96e;
+  background: #f5f3ef;
+  font-size: 14px;
+  padding-left: 12px;
+  margin: 5px;
+}
+
+.fab-button {
+  --background: transparent;
+  --box-shadow: none;
+  --color: #704901;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ai-send-btn {
+  --background: #c8a96e;
+  --color: #ffffff;
+  --border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 5px;
+  padding: 0;
+  z-index: 9999 !important;
+  pointer-events: auto;
+  flex-shrink: 0;
+}
+
+.ai-warning {
+  margin: 12px 4px;
+  font-size: 12px;
+  color: #8a6d3b;
+  text-align: center;
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.chat-bubble.ai {
+  animation: fadeIn 0.25s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.message-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+/* IA à gauche */
+.message-wrapper.ai {
+  align-items: flex-start;
+}
+
+/* Utilisateur à droite */
+.message-wrapper.user {
+  align-items: flex-end;
+}
+
+/* BULLES */
+.chat-bubble {
+  max-width: 80%;
+  padding: 12px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+}
+
+.chat-bubble.ai {
+  background: #fff2dd;
+  color: #3c2911;
+  border-bottom-left-radius: 6px;
+}
+
+.chat-bubble.user {
+  background: #c8a96e;
+  color: #ffffff;
+  border-bottom-right-radius: 6px;
+}
+
+.quick-replies.right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.quick-replies.right ion-button {
+  --color: #704901;
+  --border-color: #c8a96e;
+  --border-radius: 20px;
+  font-size: 13px;
+  text-transform: none;
+  padding: 6px 14px;
+}
+
+ion-fab-button {
+  --background: #c8a96e;
+  --color: white;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+}
+
+.fab-quick-replies {
+  display: inline;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #ffffff;
+  justify-content: center;
+  border-radius: 22px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.14);
+}
+
+.fab-quick-replies ion-button {
+  --color: #704901;
+  --border-color: #c8a96e;
+  --border-radius: 18px;
+  font-size: 13px;
+  text-transform: none;
+}
+.icon-idia{
+    margin-bottom: 100px;
+    padding: 10px;
+    background: #704901;
+    color: #f9f7f3;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+
+.fab-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+
+.idea-fab {
+  bottom: 90px; 
+  right: 16px;
+}
+.fab-button {
+  --background: #704901 !important;
+  --box-shadow: none !important;
+  --color: #ffffff; 
+  border-radius: 20px;
+}
+
+
+.fab-quick-replies.vertical {
+  position: absolute;
+  bottom: 56px; 
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  animation: fadeUp 0.2s ease-out;
+}
+
+
+.fab-quick-replies.vertical ion-button {
+  --color: #704901;
+  --border-color: #c8a96e;
+  --border-radius: 20px;
+//   background: #ffffff;
+  font-size: 13px;
+  text-transform: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+}
+
+
+ion-icon.clickable {
+  pointer-events: auto;   
+  cursor: pointer;
+}
