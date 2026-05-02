@@ -1,0 +1,396 @@
+/* capture.page.scss */
+
+/* ── Statut bar ── */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 12px;
+  border-bottom: 1px solid #e0e0e0;
+
+  ion-icon {
+    font-size: 10px;
+  }
+
+  .status-time {
+    margin-left: auto;
+    color: #999;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  &.online {
+    background: #e8f5e9;
+    color: #2e7d32;
+    ion-icon { color: #2e7d32; }
+  }
+
+  &.offline {
+    background: #fff3e0;
+    color: #e65100;
+    ion-icon { color: #e65100; }
+  }
+}
+.section-block {
+  width: 100%;
+  padding: 16px;
+}
+
+.capture-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+}
+
+
+
+
+
+
+.capture-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 8px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: transform 0.15s, opacity 0.15s;
+
+  ion-icon {
+    font-size: 28px;
+  }
+
+  &:active {
+    transform: scale(0.95);
+    opacity: 0.85;
+  }
+
+  &.photo {
+    background: #e3f2fd;
+    color: #1565c0;
+    ion-icon { color: #1565c0; }
+  }
+
+  &.video {
+    background: #fce4ec;
+    color: #c62828;
+    ion-icon { color: #c62828; }
+  }
+
+  &.audio {
+    background: #f3e5f5;
+    color: #6a1b9a;
+    ion-icon { color: #6a1b9a; }
+  }
+
+  &.file {
+    background: #e8f5e9;
+    color: #2e7d32;
+    ion-icon { color: #2e7d32; }
+  }
+}
+
+/* ── Aperçu du média ── */
+.media-preview {
+  background: #f5f5f5;
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  text-align: center;
+
+  .preview-icon {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 8px;
+  }
+
+  .preview-text {
+    font-size: 14px;
+    font-weight: 500;
+    color: #888;
+    margin: 0 0 4px;
+  }
+
+  .preview-hint {
+    font-size: 12px;
+    color: #bbb;
+    margin: 0;
+  }
+}
+
+.meta-form {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top:10px ;
+
+  ion-item {
+    --padding-start: 12px;
+    --min-height: 56px;
+
+    ion-label {
+      font-size: 19px;
+      font-weight: 550;
+    }
+
+    ion-input, ion-textarea, ion-select {
+      font-size: 15px;
+      color: #222222;
+      --placeholder-color: #787068ce;
+      margin-top: 2px;
+    }
+  }
+}
+
+.ai-result-box {
+  background: #f8f6ff;
+  border: 1px solid #e0d9ff;
+  border-radius: 8px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ai-result-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  ion-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .ai-result-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin: 0 0 6px;
+  }
+
+  .ai-result-value {
+    font-size: 13px;
+    color: #333;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    ion-chip {
+      font-size: 11px;
+      height: 24px;
+    }
+  }
+}
+
+.sync-list {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+
+  ion-item {
+    --padding-start: 12px;
+    --min-height: 52px;
+
+    .sync-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #222;
+      margin: 0 0 2px;
+      font-family: monospace;
+    }
+
+    .sync-meta {
+      font-size: 11px;
+      color: #999;
+      margin: 0;
+    }
+  }
+}
+
+/* ── Mode hors ligne ── */
+.offline-box {
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 14px;
+
+  .offline-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+
+    ion-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .offline-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #222;
+      margin: 0 0 2px;
+    }
+
+    .offline-meta {
+      font-size: 11px;
+      color: #888;
+      margin: 0;
+    }
+
+    ion-toggle {
+      margin-left: auto;
+    }
+  }
+
+  .storage-bar {
+    height: 6px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+  }
+
+  .storage-label {
+    font-size: 11px;
+    color: #888;
+    text-align: right;
+    margin: 0;
+    font-family: monospace;
+  }
+}
+.div-article{
+   display: inline-flex;
+   .btn-article{
+    margin-top: 20px;
+   }
+}
+.titre-article {
+  display: flex;
+  margin-right: 20px;
+  
+}
+.modal-article {
+  --width: 90%;
+  --height: 80%;
+  --border-radius: 16px 16px ;
+  --box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.15);
+}
+.icon-link {
+  --background: #fbddbd2b;
+  --color: #070606;
+  --border-radius: 10px;
+  margin-top: 20px;
+  justify-self: center;
+  align-self: center;
+  
+
+  ion-icon {
+    font-size: 20px;
+    width: 30px;
+  height: 25px;
+  margin: 1px 100px;
+  }
+}
+
+.modal-header ion-toolbar {
+  --background: #ffffff;
+  --color: #111;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header ion-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+ion-list {
+  background: transparent;
+  padding: 8px 0;
+}
+
+.article-item {
+  --padding-start: 16px;
+  --padding-end: 12px;
+  --min-height: 52px;
+  border-radius: 12px;
+  margin: 4px 12px;
+  --background: #ffffff;
+}
+
+.article-item ion-label {
+  font-size: 14px;
+  font-weight: 500;
+  
+}
+.title-modal{
+    color:#583500;
+    font-family: 'Times New Roman', Times, serif;
+}
+.article-item ion-icon {
+  color: var(--ion-color-medium);
+}
+
+.article-item:active {
+  --background: #f2f4f6;
+}
+.btn-close{
+    color: #c62828;
+    height: 60px;
+    width: 60px;
+}
+
+.full-width-item {
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+}
+
+.cloud{
+    color: #583500;
+
+}
+
+.toolbar {
+  --background: transparent;
+  font-family:'Times New Roman', Times, serif;
+  color: #50320a;
+  align-self: center;
+  justify-content:center;
+  font-size: 20px;
+}
+.title-toolbar{
+  font-family:'Times New Roman', Times, serif;
+  color: #50320a;
+  align-self: center;
+  justify-self:center;
+  font-size: 20px;
+}
+
+.article-title{
+  font-family:'Times New Roman', Times, serif;
+  align-self: center;
+  justify-self:center;
+  font-size: 20px;
+  margin-bottom: 15px;
+}

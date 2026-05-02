@@ -7,7 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: CapturePage
+  },
+  {
+    path: 'infos-media/:name',
+    loadChildren: () => import('./infos-media/infos-media.module').then( m => m.InfosMediaPageModule)
   }
+
 ];
 
 @NgModule({

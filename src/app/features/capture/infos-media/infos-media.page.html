@@ -1,0 +1,312 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar">
+    <ion-title class="title-toolbar">Infos média</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon class="cloud" name="send-outline" slot="start"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-page" [fullscreen]="true">
+  <div class="section-block">
+    <ion-label class="article-title">Métadonnées</ion-label>
+
+    <ion-list lines="none" class="meta-form">
+      <ion-item>
+        <ion-label class="section-label" position="stacked"
+          >Titre du média</ion-label
+        >
+        <ion-input placeholder="Ex: Manifestation place centrale"> </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="section-label" position="stacked"
+          >Description</ion-label
+        >
+        <ion-textarea
+          placeholder="Décrivez le contexte de ce média..."
+          rows="3"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="section-label" position="stacked"
+          >Localisation</ion-label
+        >
+        <ion-input placeholder="Ex: Casablanca, Maroc"> </ion-input>
+        <ion-button slot="end" fill="clear" (click)="getLocation()">
+          <ion-icon color="dark" name="locate-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-label class="section-label" position="stacked"
+          >Capturer un contenu</ion-label
+        >
+        <div class="capture-grid">
+            <button  *ngIf="name==='photo'" class="capture-btn photo">
+              <ion-icon name="camera-outline"></ion-icon>
+              <span>Photo</span>
+            </button>
+
+            <button *ngIf="name==='vidio'" class="capture-btn video">
+              <ion-icon name="videocam-outline"></ion-icon>
+              <span>Vidéo</span>
+            </button>
+
+            <button *ngIf="name==='audio'" class="capture-btn audio">
+              <ion-icon name="mic-outline"></ion-icon>
+              <span>Audio</span>
+            </button>
+
+            <!-- <button class="capture-btn file" (click)="pickFile()">
+        <ion-icon name="document-attach-outline"></ion-icon>
+        <span>Fichier</span>
+      </button> -->
+          </div>
+      </ion-item>
+      <!-- <ion-item class="full-width-item">
+  <ion-label class="section-label" position="stacked">Type de média</ion-label>
+
+  <div class="section-block">
+    <div class="capture-grid">
+      <button *ngIf="name==='photo'" class="capture-btn photo">
+        <ion-icon name="camera-outline"></ion-icon>
+        <span>Photo</span>
+      </button>
+
+      <button *ngIf="name==='video'" class="capture-btn video">
+        <ion-icon name="videocam-outline"></ion-icon>
+        <span>Vidéo</span>
+      </button>
+
+      <button *ngIf="name==='audio'" class="capture-btn audio">
+        <ion-icon name="mic-outline"></ion-icon>
+        <span>Audio</span>
+      </button>
+    </div>
+  </div>
+</ion-item> -->
+      
+      <ion-item *ngIf="!linkedArticle" button (click)="openArticleSelector()">
+        <ion-label class="section-label" position="stacked"
+          >Associer à un article
+          </ion-label>
+        <ion-button
+  fill="solid"
+  class="icon-link"
+>
+  <ion-icon name="link-outline"></ion-icon>
+</ion-button>
+      </ion-item>
+
+      <ion-modal class="modal-article" [isOpen]="showArticleSelector">
+        <ng-template>
+          <ion-header class="modal-header">
+            <ion-toolbar>
+              <ion-title class="section-label" class="title-modal"
+                >Choisir un article</ion-title
+              >
+
+              <ion-buttons slot="end">
+                <ion-button
+                  class="btn-close"
+                  fill="clear"
+                  (click)="closeArticleSelector()"
+                >
+                  <ion-icon name="close-circle-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+
+          <ion-content>
+            <ion-list>
+              <ion-item
+                class="article-item"
+                button
+                *ngFor="let article of articles"
+                (click)="selectArticle(article)"
+              >
+                <ion-label>{{ article.title }}</ion-label>
+                <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+
+      <ion-item>
+        <ion-card *ngIf="linkedArticle" class="associated-article">
+          <ion-card-header>
+            <ion-card-title class="section-label"
+              >Article associé</ion-card-title
+            >
+          </ion-card-header>
+          <ion-card-content>
+            <ion-icon name="document-text-outline"></ion-icon>
+            {{ linkedArticle.title }}
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+
+      <!-- <ion-item>
+        <ion-label position="stacked">Article associé</ion-label>
+        <ion-select placeholder="Choisir un article..." value="article-001">
+          <ion-select-option value="article-001">Mesures économiques du gouvernement</ion-select-option>
+          <ion-select-option value="article-002">Réforme de l'éducation nationale</ion-select-option>
+          <ion-select-option value="article-003">Nouveau plan d'investissement 2026</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Tags</ion-label>
+        <ion-input
+          placeholder="Ex: politique, économie, urgent"
+          value="politique, gouvernement, finances, 2026">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Contenu sensible</ion-label>
+        <ion-toggle slot="end" color="danger"></ion-toggle>
+      </ion-item> -->
+    </ion-list>
+  </div>
+
+  <!-- <div class="section-block">
+    <ion-label class="section-label">
+      <ion-icon name="sparkles-outline" color="tertiary"></ion-icon>
+      Analyse IA du média
+    </ion-label>
+
+    <div class="ai-result-box">
+      <div class="ai-result-row">
+        <ion-icon name="pricetag-outline" color="tertiary"></ion-icon>
+        <div>
+          <p class="ai-result-label">Tags détectés automatiquement</p>
+          <div class="ai-tags">
+            <ion-chip color="tertiary" outline="true">politique</ion-chip>
+            <ion-chip color="tertiary" outline="true">conférence</ion-chip>
+            <ion-chip color="tertiary" outline="true">officiel</ion-chip>
+            <ion-chip color="tertiary" outline="true">intérieur</ion-chip>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-result-row">
+        <ion-icon name="location-outline" color="primary"></ion-icon>
+        <div>
+          <p class="ai-result-label">Lieu détecté</p>
+          <p class="ai-result-value">Salle de conférence, bâtiment officiel</p>
+        </div>
+      </div>
+
+      <div class="ai-result-row">
+        <ion-icon name="time-outline" color="warning"></ion-icon>
+        <div>
+          <p class="ai-result-label">Date et heure détectées</p>
+          <p class="ai-result-value">22 Avril 2026 — 10:45</p>
+        </div>
+      </div>
+
+      <div class="ai-result-row">
+        <ion-icon name="eye-outline" color="success"></ion-icon>
+        <div>
+          <p class="ai-result-label">Description générée par IA</p>
+          <p class="ai-result-value">Photo d'une conférence de presse officielle avec plusieurs intervenants devant un pupitre institutionnel.</p>
+        </div>
+      </div>
+
+      <ion-button expand="block" fill="outline" color="tertiary" (click)="analyzeMedia()">
+        <ion-icon name="scan-outline" slot="start"></ion-icon>
+        Relancer l'analyse IA
+      </ion-button>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">File d'attente — Synchronisation</ion-label>
+
+    <ion-list lines="full" class="sync-list">
+
+      <ion-item>
+        <ion-icon name="image-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <p class="sync-name">photo_terrain_001.jpg</p>
+          <p class="sync-meta">2.4 MB — Capturé à 14:10</p>
+        </ion-label>
+        <ion-badge color="success" slot="end">Synchronisé</ion-badge>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="videocam-outline" slot="start" color="danger"></ion-icon>
+        <ion-label>
+          <p class="sync-name">video_conf_presse.mp4</p>
+          <p class="sync-meta">45.8 MB — Capturé à 13:52</p>
+        </ion-label>
+        <ion-badge color="warning" slot="end">En attente</ion-badge>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="mic-outline" slot="start" color="warning"></ion-icon>
+        <ion-label>
+          <p class="sync-name">audio_interview_ministre.mp3</p>
+          <p class="sync-meta">8.1 MB — Capturé à 13:20</p>
+        </ion-label>
+        <ion-badge color="warning" slot="end">En attente</ion-badge>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="image-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <p class="sync-name">photo_foule_entree.jpg</p>
+          <p class="sync-meta">3.1 MB — Capturé à 12:45</p>
+        </ion-label>
+        <ion-badge color="success" slot="end">Synchronisé</ion-badge>
+      </ion-item>
+
+    </ion-list>
+
+    <ion-button expand="block" fill="outline" color="primary" (click)="syncAll()">
+      <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+      Synchroniser tout (2 en attente)
+    </ion-button>
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">Mode hors ligne</ion-label>
+    <div class="offline-box">
+      <div class="offline-row">
+        <ion-icon name="cloud-offline-outline" color="medium"></ion-icon>
+        <div>
+          <p class="offline-title">Stockage local disponible</p>
+          <p class="offline-meta">512 MB disponibles sur l'appareil</p>
+        </div>
+        <ion-toggle color="primary" checked="true" slot="end" (ionChange)="toggleOffline($event)"></ion-toggle>
+      </div>
+      <ion-progress-bar value="0.35" color="primary" class="storage-bar"></ion-progress-bar>
+      <p class="storage-label">179 MB utilisés sur 512 MB</p>
+    </div>
+  </div>  -->
+
+  <!-- <div class="section-block">
+    <ion-button class="btn" expand="block" color="success" size="large">
+      Envoyer vers le serveur
+    </ion-button>
+    <ion-button
+      expand="block"
+      fill="outline"
+      color="medium"
+      (click)="saveDraftMedia()"
+    >
+      <ion-icon name="save-outline" slot="start"></ion-icon>
+      Sauvegarder en local
+    </ion-button>
+  </div> -->
+</ion-content>

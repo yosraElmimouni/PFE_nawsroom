@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { EditorDashboardPageRoutingModule } from './editor-dashboard-routing.module';
+import { InfosMediaPageRoutingModule } from './infos-media-routing.module';
 
-import { EditorDashboardPage } from './editor-dashboard.page';
+import { InfosMediaPage } from './infos-media.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EditorDashboardPageRoutingModule
+    InfosMediaPageRoutingModule
   ],
-  declarations: [EditorDashboardPage]
+  declarations: [InfosMediaPage]
 })
-export class EditorDashboardPageModule {}
+export class InfosMediaPageModule {}

@@ -1,28 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {
-  ActionSheetController,
-  MenuController,
-  ToastController,
-} from '@ionic/angular';
+import { Route, Router,ActivatedRoute } from '@angular/router';
+import { ToastController, LoadingController } from '@ionic/angular';
+import { routes } from 'src/app/app-routing.module';
 
 @Component({
-  selector: 'app-article-detail',
-  templateUrl: './article-detail.page.html',
-  styleUrls: ['./article-detail.page.scss'],
-  standalone: false,
+  selector: 'app-infos-media',
+  templateUrl: './infos-media.page.html',
+  styleUrls: ['./infos-media.page.scss'],
+  standalone:false,
 })
-export class ArticleDetailPage implements OnInit {
-  article: any;
-  selectedMediaType: 'all' | 'image' | 'video' | 'file' = 'all';
+export class InfosMediaPage implements OnInit {
 
-  articles = [
+  media = {
+  title: '',
+  description: '',
+  location: '',
+  type: '',
+  articleId: null
+};
+showArticleSelector = false;
+name!: string | null;
+linkedArticle: any = null;
+articles = [
     {
       id: 1,
       status: 'published',
       badgeColor: 'success',
       badgeLabel: 'Publié',
-      date: '21 septembre 2024, 14:30',
+      categorie:"Politique",
+      date: new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
       title: "Réforme constitutionnelle : le débat s'intensifie au parlement",
       excerpt:
         'Le gouvernement présente son projet ce mardi, suscitant de vives réactions...',
@@ -52,19 +58,13 @@ export class ArticleDetailPage implements OnInit {
           src: 'https://www.w3schools.com/html/mov_bbb.mp4',
           thumbnail: 'https://dummyimage.com/600x400/000/fff.jpg&text=Video',
           label: 'Extrait du débat',
-        },
-        {
-          id: 4,
-          type: 'file',
-          src: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          label: 'Projet de réforme constitutionnelle',
-          size: '2.4 MB',
-        },
+        }
       ],
       progress: 100,
       wordCount: 1250,
       views: 2340,
       comments: 14,
+      tags: ['Politique', 'Réforme', 'Parlement', 'Gouvernement', 'Constitution', 'Débat'],
     },
 
     {
@@ -72,7 +72,8 @@ export class ArticleDetailPage implements OnInit {
       status: 'draft',
       badgeColor: 'secondary',
       badgeLabel: 'Brouillon',
-      date: 'Hier, 18:22',
+      categorie:"Environnement & Agriculture",
+      date: new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
       title: 'Sécheresse : les agriculteurs du sud face à la crise hydrique',
       excerpt: 'Reportage de terrain sur les conséquences de la sécheresse...',
       description:
@@ -103,26 +104,21 @@ export class ArticleDetailPage implements OnInit {
             'https://dummyimage.com/600x400/795548/ffffff.jpg&text=Sécheresse',
           label: 'Témoignage d’un agriculteur',
           duration: '01:45',
-        },
-        {
-          id: 24,
-          type: 'file',
-          src: 'https://www.who.int/docs/default-source/wpro---documents/countries/viet-nam/climate-change-and-health-viet-nam.pdf',
-          label: 'Rapport sur l’impact de la sécheresse',
-          size: '3.1 MB',
-        },
+        }
       ],
       progress: 58,
       wordCount: 347,
       views: 0,
       comments: 0,
+      tags: ['Environnement', 'Agriculture', 'Sécheresse', 'Crise hydrique', 'Climat'],
     },
     {
       id: 3,
       status: 'review',
       badgeColor: 'warning',
       badgeLabel: 'En relecture',
-      date: "Aujourd'hui, 09:15",
+      categorie:"Transport & Urbanisme",
+      date: new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
       title: 'Lancement du nouveau métro : les défis de la mobilité urbaine',
       excerpt: 'Analyse des enjeux et des perspectives du nouveau métro...',
       description:
@@ -153,18 +149,12 @@ export class ArticleDetailPage implements OnInit {
             'https://dummyimage.com/600x400/607d8b/ffffff.jpg&text=Metro',
           label: 'Vidéo de présentation du métro',
           duration: '02:10',
-        },
-        {
-          id: 34,
-          type: 'file',
-          src: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-          label: 'Étude de faisabilité du projet métro',
-          size: '1.8 MB',
-        },
+        }
       ],
       reviewDuration: '3h',
       views: 560,
       comments: 8,
+      tags: ['Transport', 'Mobilité', 'Urbanisme', 'Métro', 'Infrastructures'],
     },
 
     {
@@ -172,13 +162,15 @@ export class ArticleDetailPage implements OnInit {
       status: 'published',
       badgeColor: 'success',
       badgeLabel: 'Publié',
-      date: 'Il y a 30 min',
+      categorie:'Politique',
+      date:new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
       title: 'Élections municipales : les enjeux pour les grandes villes',
       excerpt:
         'Zoom sur les candidats et les programmes pour les municipales...',
       description:
         'À l’approche des élections municipales, les grandes villes du pays sont au cœur de l’attention.',
       image: 'assets/icon/imagenews.jpeg',
+
       media: [
         {
           id: 41,
@@ -204,64 +196,116 @@ export class ArticleDetailPage implements OnInit {
             'https://dummyimage.com/600x400/3f51b5/ffffff.jpg&text=Elections',
           label: 'Discours d’un candidat',
           duration: '02:50',
-        },
-        {
-          id: 44,
-          type: 'file',
-          src: 'https://www.oecd.org/gov/regulatory-policy/public-consultation-report.pdf',
-          label: 'Programme électoral – résumé',
-          size: '2.9 MB',
-        },
+        }
       ],
       views: 1120,
       comments: 20,
+      tags: ['Élections', 'Politique locale', 'Municipales', 'Candidats', 'Programmes'],
     },
   ];
 
-  constructor(private route: ActivatedRoute) {}
+
+
+  constructor(
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
+    private router:Router,
+    private route:ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.article =
-      this.articles.find((a) => a.id === +Number(id)) ?? this.articles[0];
+this.name = this.route.snapshot.paramMap.get('name');  }
+
+   async getLocation() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Localisation en cours...',
+      duration: 2000,
+    });
+    await loading.present();
+
+    setTimeout(async () => {
+      await loading.dismiss();
+      const toast = await this.toastCtrl.create({
+        message: '📍 Localisation : Rabat, Maroc (34.0209° N, 6.8416° W)',
+        duration: 2500,
+        color: 'primary',
+        position: 'bottom',
+      });
+      await toast.present();
+    }, 2000);
+  }
+  async analyzeMedia() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Analyse IA en cours...',
+      duration: 2500,
+    });
+    await loading.present();
+
+    setTimeout(async () => {
+      await loading.dismiss();
+      const toast = await this.toastCtrl.create({
+        message: '✨ Analyse IA terminée — tags et description générés',
+        duration: 2500,
+        color: 'tertiary',
+        position: 'bottom',
+      });
+      await toast.present();
+    }, 2500);
+  }
+  async syncAll() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Synchronisation en cours...',
+      duration: 3000,
+    });
+    await loading.present();
+
+    setTimeout(async () => {
+      await loading.dismiss();
+      const toast = await this.toastCtrl.create({
+        message: '☁️ 2 fichiers synchronisés avec succès',
+        duration: 2500,
+        color: 'success',
+        position: 'top',
+      });
+      await toast.present();
+    }, 3000);
   }
 
-  getStatusColor(status: string): string {
-    const map: Record<string, string> = {
-      published: 'success',
-      draft: 'warning',
-      review: 'tertiary',
-    };
-    return map[status] ?? 'medium';
+  async toggleOffline(event: any) {
+    const isOn = event.detail.checked;
+    const toast = await this.toastCtrl.create({
+      message: isOn
+        ? '📶 Mode hors ligne activé — stockage local prêt'
+        : '🌐 Mode hors ligne désactivé',
+      duration: 2000,
+      color: isOn ? 'warning' : 'medium',
+      position: 'bottom',
+    });
+    await toast.present();
   }
 
-  get filteredMedia() {
-    if (this.selectedMediaType === 'all') {
-      return this.article.media;
-    }
-    return this.article.media.filter(
-      (m: any) => m.type === this.selectedMediaType,
-    );
+  async saveDraftMedia() {
+    const toast = await this.toastCtrl.create({
+      message: ' Média sauvegardé localement',
+      duration: 2000,
+      color: 'warning',
+      position: 'bottom',
+    });
+    await toast.present();
   }
+  openArticleSelector() {
+  this.showArticleSelector = true;
+}
+selectArticle(article: any) {
+  this.linkedArticle = article;
+  this.media.articleId = article.id;
+  this.showArticleSelector = false;
+}
+closeArticleSelector() {
+  this.showArticleSelector = false;
+}
 
-  countMedia(type: string) {
-    if (type === 'all') return this.article.media.length;
-    return this.article.media.filter((m: any) => m.type === type).length;
-  }
 
-  onMediaFilterChange(event: CustomEvent) {
-    const value = event.detail.value;
 
-    if (
-      value === 'all' ||
-      value === 'image' ||
-      value === 'video' ||
-      value === 'file'
-    ) {
-      this.selectedMediaType = value;
-    }
-  }
-  openVideo(url: string) {
-    window.open(url, '_blank');
-  }
+
 }

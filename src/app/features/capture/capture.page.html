@@ -1,67 +1,59 @@
 <!-- capture.page.html -->
-<ion-header>
-  <ion-toolbar color="dark">
+<ion-header class="nr-header" >
+  <ion-toolbar class="nr-toolbar" >
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/dashboard"></ion-back-button>
     </ion-buttons>
-    <ion-title>Capture Terrain</ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="clear" color="light">
-        <ion-icon name="wifi-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+    <ion-title class="title-toolbar">Capture Terrain</ion-title>
+   
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <!-- Statut connexion -->
-  <div class="status-bar online">
+  <!-- <div class="status-bar online">
     <ion-icon name="ellipse"></ion-icon>
     <span>En ligne — synchronisation active</span>
     <span class="status-time">Sync: 14:35</span>
-  </div>
+  </div> -->
 
-  <!-- Boutons de capture -->
-  <div class="section-block">
+ <div class="section-block">
     <ion-label class="section-label">Capturer un contenu</ion-label>
     <div class="capture-grid">
 
-      <button class="capture-btn photo" (click)="capturePhoto()">
+      <button class="capture-btn photo" (click)="submitMedia('photo')">
         <ion-icon name="camera-outline"></ion-icon>
         <span>Photo</span>
       </button>
 
-      <button class="capture-btn video" (click)="captureVideo()">
+      <button class="capture-btn video" (click)="submitMedia('vidio')">
         <ion-icon name="videocam-outline"></ion-icon>
         <span>Vidéo</span>
       </button>
 
-      <button class="capture-btn audio" (click)="captureAudio()">
+      <button class="capture-btn audio" (click)="submitMedia('audio')">
         <ion-icon name="mic-outline"></ion-icon>
         <span>Audio</span>
       </button>
 
-      <button class="capture-btn file" (click)="pickFile()">
+      <!-- <button class="capture-btn file" (click)="pickFile()">
         <ion-icon name="document-attach-outline"></ion-icon>
         <span>Fichier</span>
-      </button>
+      </button> -->
 
     </div>
   </div>
 
-  <!-- Aperçu du média capturé -->
-  <div class="section-block">
+  <!-- <div class="section-block">
     <ion-label class="section-label">Aperçu du média</ion-label>
     <div class="media-preview">
       <ion-icon name="image-outline" class="preview-icon"></ion-icon>
       <p class="preview-text">Aucun média capturé pour le moment</p>
       <p class="preview-hint">Utilisez les boutons ci-dessus pour capturer</p>
     </div>
-  </div>
+  </div> -->
 
-  <!-- Métadonnées du média -->
-  <div class="section-block">
+  <!-- <div class="section-block">
     <ion-label class="section-label">Métadonnées</ion-label>
 
     <ion-list lines="none" class="meta-form">
@@ -119,7 +111,6 @@
     </ion-list>
   </div>
 
-  <!-- Analyse IA du média -->
   <div class="section-block">
     <ion-label class="section-label">
       <ion-icon name="sparkles-outline" color="tertiary"></ion-icon>
@@ -171,7 +162,6 @@
     </div>
   </div>
 
-  <!-- Médias en attente de sync -->
   <div class="section-block">
     <ion-label class="section-label">File d'attente — Synchronisation</ion-label>
 
@@ -221,7 +211,6 @@
     </ion-button>
   </div>
 
-  <!-- Mode hors ligne -->
   <div class="section-block">
     <ion-label class="section-label">Mode hors ligne</ion-label>
     <div class="offline-box">
@@ -236,10 +225,9 @@
       <ion-progress-bar value="0.35" color="primary" class="storage-bar"></ion-progress-bar>
       <p class="storage-label">179 MB utilisés sur 512 MB</p>
     </div>
-  </div>
+  </div> 
 
-  <!-- Bouton envoyer -->
-  <div class="section-block">
+   <div class="section-block">
     <ion-button expand="block" color="success" size="large" (click)="submitMedia()">
       <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
       Envoyer vers le serveur
@@ -248,7 +236,7 @@
       <ion-icon name="save-outline" slot="start"></ion-icon>
       Sauvegarder en local
     </ion-button>
-  </div>
+  </div> -->
 
   <div style="height: 40px;"></div>
 
