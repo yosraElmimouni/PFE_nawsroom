@@ -138,9 +138,9 @@ if (Capacitor.isNativePlatform()) {
 };
 quickAction(module: string): void {
     const actions: Record<string, string> = {
-      redaction : '/tabs/redaction/new',
-      collecte  : '/tabs/collecte/capture',
-      veille    : '/tabs/veille/alerts',
+      redaction : '/redaction/new',
+      collecte  : '/collecte/capture',
+      veille    : '/veille/alerts',
     };
  
     this.router.navigate([actions[module]]);
