@@ -1,0 +1,87 @@
+<ion-header class="nr-header">
+  <ion-toolbar class="nr-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="title-toolbar">Capture Terrain</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-page" [fullscreen]="true">
+  <div class="nr-filters">
+    <ion-item lines="none">
+      <ion-select
+        interface="popover"
+        placeholder="Source"
+        [(ngModel)]="selectedSource"
+        (ionChange)="applyFilters()"
+        class="select-filter"
+      >
+        <ion-select-option value="">Toutes les sources</ion-select-option>
+        <ion-select-option *ngFor="let s of sources" [value]="s">
+          {{ s }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-select
+        interface="popover"
+        placeholder="Catégorie"
+        [(ngModel)]="selectedDomaine"
+        (ionChange)="applyFilters()"
+        class="select-filter"
+      >
+        <ion-select-option value="">Toutes les catégories</ion-select-option>
+        <ion-select-option *ngFor="let d of domaines" [value]="d">
+          {{ d }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+  <div class="nr-section-header">
+    <h2 class="nr-section-title">Actualités du jour</h2>
+  </div>
+
+  <ion-card class="nr-feed-item" *ngFor="let item of filteredFeedItems" >
+    
+<ion-card-header>
+      <ion-icon
+        (click)="AiResume(item)"
+        class="icon-ai-resume"
+        name="sparkles-outline"
+        *ngIf="!item.aiSummary && !item.isAiGenerating"
+      >
+      </ion-icon>
+    </ion-card-header>
+    <!-- <ion-card-header class="feed-source">
+      <span class="nr-source-name">{{ item.source }}</span>
+      <ion-card-subtitle class="feed-time">{{ item.time }}</ion-card-subtitle>
+    </ion-card-header> -->
+
+    <ion-card-content (click)="goToDetail(item)">
+      <ion-card-title class="feed-title">{{ item.title }}</ion-card-title>
+      <p class="newssummary">{{ item.summary }}</p>
+      <div *ngIf="item.aiSummary" class="feed-source ai-box">
+      <span class="nr-source-name">Résumé IA</span>
+      <ion-card-subtitle class="feed-time">
+        {{ item.aiSummary }}
+      </ion-card-subtitle>
+      </div>
+    <div *ngIf="item.isAiGenerating" class="feed-source ai-loading">
+      <ion-spinner name="dots"></ion-spinner>
+      <ion-card-subtitle>Analyse IA en cours…</ion-card-subtitle>
+    </div>
+    </ion-card-content>
+
+    
+    
+  </ion-card>
+  <div style="height: 40px"></div>
+</ion-content>
+
+<ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button class="fab-button" (click)="openAiAssistant()">
+    <ion-icon  name="chatbubble-ellipses-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
