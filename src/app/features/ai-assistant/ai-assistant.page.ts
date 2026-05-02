@@ -9,10 +9,8 @@ interface ChatMessage {
   selector: 'app-ai-assistant',
   templateUrl: './ai-assistant.page.html',
   styleUrls: ['./ai-assistant.page.scss'],
-  standalone:false,
+  standalone:false
 })
-
-
 export class AiAssistantPage implements OnInit {
 
   messages: ChatMessage[] = [];
@@ -22,9 +20,6 @@ resultText = '';
   lastUserMessage = '';
 lastQuickReplies: string[]  = [];
 showQuickReplies = false;
-
-
-
 
 
   constructor(private modalCtrl: ModalController) { }
