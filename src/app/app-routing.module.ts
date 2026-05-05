@@ -48,14 +48,15 @@ export const routes: Routes = [
     path:'veille',
     loadChildren: ()=>  import('./features/veille-info/veille-info.module').then( m => m.VeilleInfoPageModule)
   },
-  {
-    path: 'ai-assistant',
-    loadChildren: () => import('./features/ai-assistant/ai-assistant.module').then( m => m.AiAssistantPageModule)
-  },
+  
   {
     path:'capture',
     loadChildren: () => import('./features/capture/capture.module').then(m => m.CapturePageModule)
+  },  {
+    path: 'ai-assistant',
+    loadChildren: () => import('./features/ai-assistant/ai-assistant.module').then( m => m.AiAssistantPageModule)
   }
+
 
 ];
 
