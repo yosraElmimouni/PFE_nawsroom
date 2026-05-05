@@ -144,14 +144,10 @@
       <ion-item>
         <ion-card *ngIf="linkedArticle" class="associated-article">
           <ion-card-header>
-            <ion-card-title class="section-label"
-              >Article associé</ion-card-title
+            <ion-card-title class="article-title"
+              >{{ linkedArticle.title }}</ion-card-title
             >
           </ion-card-header>
-          <ion-card-content>
-            <ion-icon name="document-text-outline"></ion-icon>
-            {{ linkedArticle.title }}
-          </ion-card-content>
         </ion-card>
       </ion-item>
 

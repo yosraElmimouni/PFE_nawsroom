@@ -387,10 +387,16 @@ ion-list {
   font-size: 20px;
 }
 
-.article-title{
-  font-family:'Times New Roman', Times, serif;
-  align-self: center;
-  justify-self:center;
-  font-size: 20px;
-  margin-bottom: 15px;
+
+.article-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+  font-family: "Playfair Display", Georgia, serif;
+  line-height: 1.35;
+  white-space: normal;
+  text-align: center;
+}
+.associated-article{
+  border-radius: 20px;
 }

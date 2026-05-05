@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
 
   modules = [
     { id:1, name: 'Redaction', icon: 'pencil' },
-    { id:2, name: 'Collecte',  icon: 'camera' },
+    { id:2, name: 'Capture',  icon: 'camera' },
     { id:3, name: 'Veille',    icon: 'eye' },
     { id:4, name: 'Fusion',    icon: 'git-merge' },
     { id:5, name: 'Articles',  icon: 'newspaper' },

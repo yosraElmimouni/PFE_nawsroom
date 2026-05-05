@@ -843,6 +843,7 @@ ion-content {
   border-bottom: 1px solid #f0f0f0;
   justify-content: space-between;
 
+
   ion-button {
     margin-top: 8px;
     width:max-content;
@@ -851,8 +852,6 @@ ion-content {
 .article-tags {
   margin-top: 10px;
   padding: 16px;
-  border-bottom: 1px solid #f0f0f0;
- 
 }
 
 .section-label {
@@ -895,10 +894,10 @@ ion-content {
   justify-content: space-between;
 }
 
-.categorie-chip{
-  margin-left: 50px;
-  margin-bottom: -19px;
-}
+// .categorie-chip{
+//   margin-left: 50px;
+//   margin-bottom: -19px;
+// }
 
 .fab-button{
   --background: #3c2911;

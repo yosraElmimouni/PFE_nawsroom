@@ -3,7 +3,6 @@
   
 }
 .nr-toolbar{
-  --background: transparent;
   font-family:'Times New Roman', Times, serif;
   color: #50320a;
   align-self: center;
@@ -19,11 +18,7 @@
 }
 
 
-.nr-header {
-  --background: #fff;
-  --border-width: 0;
-  border-bottom: 1px solid #e8e5e0;
-}
+
 .article-meta {
   display: flex;
   justify-content: space-between;

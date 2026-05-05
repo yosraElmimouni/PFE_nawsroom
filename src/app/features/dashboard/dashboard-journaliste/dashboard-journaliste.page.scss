@@ -120,97 +120,91 @@
   justify-content:space-between;
 }
 
+.nr-stats-scroll {
+  display: flex;
+  gap: 16px;
+  padding: 10px;
+}
+
+/* Base commune */
 .nr-stat-card {
-  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
   background: #fff;
   border: 1.5px solid #f7e2be;
+  border-top: 8px solid transparent;
   border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  border-top-width: 10px;
-  border-top-style: solid;
+  padding: 10px 14px;
+  min-width: 170px;
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
+/* Icône */
+.nr-stat-card ion-icon {
+  font-size: 24px;
+  min-width: 25px;
+  min-height: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+}
+
+/* Contenu */
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+ion-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+ion-card-subtitle {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* ===== TYPES DE CARTES ===== */
+
+/* Reviser */
 .reviser {
-  display: flex;
-  font-weight: 600;
-  border-color: rgba(0, 128, 0, 0.23);
+  border-color: rgba(0, 128, 0, 0.2);
   border-top-color: green;
-  align-items: center;
-  align-content: center;
-
-  ion-icon {
-    color: green;
-    height: 20px;
-    width: 20px;
-    padding: 3px;
-    background-color: rgba(17, 67, 1, 0.133);
-    border-radius: 10px;
-    margin-left: 10px;
-  }
-  ion-card-header ion-card-title {
-    // margin-top: -10px;
-    font-size: 17px;
-    font-weight: 600;
-    margin-left: 10px;
-    font-family: Georgia, "Times New Roman", Times, serif;
-  }
-  ion-card-header {
-    margin-bottom: -10px;
-    margin-right: -5px;
-  }
 }
 
+.reviser ion-icon {
+  color: green;
+  background-color: rgba(0, 128, 0, 0.12);
+}
+
+/* Publier */
 .publier {
-  display: flex;
-  font-weight: 600;
-  border-color: rgba(23, 0, 128, 0.23);
-  align-items: center;
-  align-content: center;
-  border-top-color: rgba(0, 0, 255, 0.559);
-  ion-icon {
-    color: rgb(36, 36, 255);
-    height: 20px;
-    width: 20px;
-    padding: 3px;
-    border-radius: 10px;
-    background-color: rgba(17, 67, 1, 0.133);
-   margin-left: 10px;
-  }
-  ion-card-header ion-card-title {
-    // margin-top: -10px;
-    font-size: 14px;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-weight: 600;
-  }
-  
+  border-color: rgba(0, 0, 255, 0.2);
+  border-top-color: #2b47ff;
 }
 
+.publier ion-icon {
+  color: #2b47ff;
+  background-color: rgba(0, 0, 255, 0.12);
+}
+
+/* Renvoyer */
 .renvoyer {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  border-color: #3c291142;
+  border-color: rgba(104, 43, 0, 0.2);
   border-top-color: rgb(104, 43, 0);
-  font-weight: 600;
-  ion-icon {
-    margin-top: 5px;
-    color: rgb(104, 43, 0);
-    height: 20px;
-    width: 20px;
-    padding: 3px;
-    background-color: rgba(104, 43, 0, 0.141);
-    border-radius: 10px;
-    margin-left: 10px;
-  }
-  ion-card-header ion-card-title {
-    display: flex;
-    font-size: 17px;
-    font-weight: 600;
-    font-family: Georgia, "Times New Roman", Times, serif;
-  }
-  ion-card-header {
-    margin-left: -10px;
-  }
+}
+
+.renvoyer ion-icon {
+  color: rgb(104, 43, 0);
+  background-color: rgba(104, 43, 0, 0.14);
 }
 
 .icon-stats {

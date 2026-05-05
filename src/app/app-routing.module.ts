@@ -35,6 +35,11 @@ export const routes: Routes = [
     path: 'redaction',
     loadChildren: () => import('./features/articles/add-article/redaction.module').then( m => m.RedactionPageModule)
   },
+  
+  {
+    path: 'redaction/:id',
+    loadChildren: () => import('./features/articles/add-article/redaction.module').then( m => m.RedactionPageModule)
+  },
   {
     path: 'article-detail/:id',
     loadChildren: () => import('./features/articles/article-detail/article-detail.module').then( m => m.ArticleDetailPageModule)
@@ -42,10 +47,15 @@ export const routes: Routes = [
   {
     path:'veille',
     loadChildren: ()=>  import('./features/veille-info/veille-info.module').then( m => m.VeilleInfoPageModule)
-  },  {
+  },
+  {
     path: 'ai-assistant',
     loadChildren: () => import('./features/ai-assistant/ai-assistant.module').then( m => m.AiAssistantPageModule)
   },
+  {
+    path:'capture',
+    loadChildren: () => import('./features/capture/capture.module').then(m => m.CapturePageModule)
+  }
 
 ];
 

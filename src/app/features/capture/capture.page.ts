@@ -63,7 +63,7 @@ export class CapturePage {
 
 
  submitMedia(name:string) {
-      this.router.navigate(['/collecte/infos-media',name]);
+      this.router.navigate(['/capture/infos-media',name]);
   }
 
   async saveDraftMedia() {
