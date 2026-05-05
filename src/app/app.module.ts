@@ -6,7 +6,7 @@ import { InteractionType } from '@azure/msal-browser';
 import { MsalGuardConfiguration, MsalInterceptorConfiguration } from '@azure/msal-angular';
 import { Capacitor } from '@capacitor/core';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
+import { MarkdownModule } from 'ngx-markdown';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -47,7 +47,7 @@ redirectUri: isNative
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-
+    MarkdownModule.forRoot(),
     MsalModule.forRoot(
       MSALInstanceFactory(),
       MSALGuardConfigFactory(),
