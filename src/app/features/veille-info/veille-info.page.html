@@ -1,7 +1,7 @@
 <ion-header class="nr-header">
   <ion-toolbar class="nr-toolbar">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-menu-button class="menu-header"></ion-menu-button>
     </ion-buttons>
     <ion-title class="title-toolbar">Capture Terrain</ion-title>
   </ion-toolbar>
@@ -45,7 +45,7 @@
 
   <ion-card class="nr-feed-item" *ngFor="let item of filteredFeedItems" >
     
-<ion-card-header>
+<!-- <ion-card-header>
       <ion-icon
         (click)="AiResume(item)"
         class="icon-ai-resume"
@@ -53,9 +53,9 @@
         *ngIf="!item.aiSummary && !item.isAiGenerating"
       >
       </ion-icon>
-    </ion-card-header>
+    </ion-card-header> -->
     <!-- <ion-card-header class="feed-source">
-      <span class="nr-source-name">{{ item.source }}</span>
+      <span class="nr-source-name">{{ item.article-item }}</span>
       <ion-card-subtitle class="feed-time">{{ item.time }}</ion-card-subtitle>
     </ion-card-header> -->
 

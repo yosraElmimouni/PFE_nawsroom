@@ -4,16 +4,16 @@
       <ion-back-button defaultHref="/dashboard"> 
       </ion-back-button>
     </ion-buttons>
-    <ion-title class="title-toolbar">
+    <ion-title >
       Détail actualité
     </ion-title>
       <ion-buttons slot="end">
       <ion-button  (click)="addToArticle()">
-      <ion-icon class="add-icon" name="add-outline" slot="start"></ion-icon>
+      <ion-icon class="add-icon"  name="add-outline" slot="start"></ion-icon>
     </ion-button>
 
     <ion-button  (click)="share()">
-      <ion-icon class="share-icon" name="share-social-outline" slot="start"></ion-icon>
+      <ion-icon  name="share-social-outline" slot="start"></ion-icon>
     </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -29,7 +29,6 @@
             <ion-label> {{ item?.source }}</ion-label>
         </div>
         <p class="article-date">
-          <ion-icon name="time-outline"></ion-icon>
           {{ item?.time }}
         </p>
       </div>
