@@ -1,0 +1,152 @@
+.logo-text {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.nr-logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 30px;
+}
+
+.nr-logo {
+  width: 34px;
+  height: 34px;
+  background: #c8a96e;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+}
+
+.title {
+  margin-top: 10px;
+}
+
+.nr-app-title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.soustitre {
+  margin-top: 2px;
+  font-size: small;
+  color: #6f6e6e76;
+}
+
+.nr-toolbar {
+  margin-left: 25%;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.menu-item {
+  border-radius: 12px;
+}
+
+.module-1 {
+  ion-icon {
+    color: #7e57c2;
+  }
+}
+.module-2 {
+  ion-icon {
+    color: #009688;
+  }
+}
+.module-3 {
+  ion-icon {
+    color: #2196f3;
+  }
+}
+.module-4 {
+  ion-icon {
+    color: #ff9800;
+  }
+}
+.module-5 {
+  ion-icon {
+    color: #4caf50;
+  }
+} /* Articles */
+.module-6 {
+  ion-icon {
+    color: #607d8b;
+  }
+} /* Profil */
+
+//module avec :active et :hover changant le background
+.module-1:active,
+.module-1:hover {
+  background: #b18af428;
+}
+
+.module-2:active,
+.module-2:hover {
+  background: #72f2e525;
+}
+
+.module-3:active,
+.module-3:hover {
+  background: #85beec20;
+}
+
+.module-4:active,
+.module-4:hover {
+  background: #f4c0722f;
+}
+
+.module-5:active,
+.module-5:hover {
+  background: #a5d8a725;
+}
+
+.module-6:active,
+.module-6:hover {
+  background: #8fd3f518;
+}
+.article-item {
+  margin-top: 20px;
+  margin: 12px 12px;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 10px;
+  --background: transparent;
+}
+
+.avatar-icon {
+  margin-top: 10px;
+  height: 25px;
+  width: 25px;
+}
+.article-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+  line-height: 1.35;
+  margin-top: 6px;
+}
+
+//logout a la fin du menu 
+.btn-logout{
+    justify-content: end;
+    align-self: flex-end;
+}
+
+.dashboard{
+    margin-top: -20px;
+}
+
+.Header{
+    --box-shadow: none;
+    --background: transparent;
+}
