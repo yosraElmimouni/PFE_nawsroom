@@ -1,0 +1,124 @@
+<ion-header class="nr-header" [translucent]="false">
+  <ion-toolbar class="nr-toolbar">
+    <ion-buttons slot="start">
+      <div class="nr-logo-wrap">
+        <div class="nr-logo">A</div>
+        <div class="title">
+          <span class="nr-app-title">NewsRoom</span>
+          <p class="soustitre">ADMIN</p>
+        </div>
+      </div>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button class="nr-icon-btn" fill="clear">
+        <div class="notif-wrapper">
+          <ion-icon name="notifications-outline" class="nr-nav-icon-lg"></ion-icon>
+          <span class="notif-dot"></span>
+        </div>
+      </ion-button>
+      <div class="nr-avatar">SM</div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="nr-content" [fullscreen]="true">
+
+  <div class="nr-greeting">
+    <p class="nr-greeting-label">Vue globale</p>
+    <h1 class="nr-greeting-name">Samir Mokhtar</h1>
+    <p class="nr-greeting-sub">Système opérationnel · <span class="uptime">99.8% uptime</span></p>
+  </div>
+
+  <p class="nr-section-label">KPI Plateforme</p>
+
+  <div class="kpi-grid">
+    <ion-card class="kpi-card">
+      <ion-card-header>
+        <ion-card-title class="kpi-value">247</ion-card-title>
+        <ion-card-subtitle class="kpi-label">Utilisateurs actifs</ion-card-subtitle>
+      </ion-card-header>
+      <p class="kpi-delta green">+12 ce mois</p>
+    </ion-card>
+
+    <ion-card class="kpi-card">
+      <ion-card-header>
+        <ion-card-title class="kpi-value">1 840</ion-card-title>
+        <ion-card-subtitle class="kpi-label">Articles publiés</ion-card-subtitle>
+      </ion-card-header>
+      <p class="kpi-delta muted">ce trimestre</p>
+    </ion-card>
+
+    <ion-card class="kpi-card">
+      <ion-card-header>
+        <ion-card-title class="kpi-value">96%</ion-card-title>
+        <ion-card-subtitle class="kpi-label">Satisfaction IA</ion-card-subtitle>
+      </ion-card-header>
+      <p class="kpi-delta green">+2% vs mois dernier</p>
+    </ion-card>
+
+    <ion-card class="kpi-card">
+      <ion-card-header>
+        <ion-card-title class="kpi-value alert">3</ion-card-title>
+        <ion-card-subtitle class="kpi-label">Alertes système</ion-card-subtitle>
+      </ion-card-header>
+      <p class="kpi-delta red">À traiter</p>
+    </ion-card>
+  </div>
+
+  <div class="nr-section-header">
+    <h2 class="nr-section-title">Santé système</h2>
+    <ion-button class="voire-tous">Logs</ion-button>
+  </div>
+
+  <div class="health-list">
+    <div class="health-item" *ngFor="let s of systemHealth">
+      <span class="health-name">{{ s.name }}</span>
+      <div class="health-bar-wrap">
+        <div class="health-bar" [ngClass]="s.colorClass" [style.width.%]="s.value"></div>
+      </div>
+      <span class="health-pct" [ngClass]="s.colorClass">{{ s.value }}%</span>
+    </div>
+  </div>
+
+  <div class="nr-section-header">
+    <h2 class="nr-section-title">Utilisateurs récents</h2>
+    <ion-button class="voire-tous">Gérer</ion-button>
+  </div>
+
+  <div class="users-list">
+    <div class="user-item" *ngFor="let u of recentUsers">
+      <div class="user-avatar" [ngClass]="u.avatarClass">{{ u.initials }}</div>
+      <div class="user-info">
+        <p class="user-name">{{ u.name }}</p>
+        <p class="user-time">{{ u.lastSeen }}</p>
+      </div>
+      <span class="user-role" [ngClass]="u.roleClass">{{ u.role }}</span>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-tab-bar class="nr-tab-bar" slot="bottom">
+  <ion-tab-button class="nr-tab-btn active" tab="dashboard">
+    <ion-icon name="home"></ion-icon>
+    <ion-label>Tableau</ion-label>
+  </ion-tab-button>
+  <ion-tab-button class="nr-tab-btn" tab="users">
+    <ion-icon name="people-outline"></ion-icon>
+    <ion-label>Utilisateurs</ion-label>
+  </ion-tab-button>
+  <ion-tab-button class="nr-tab-btn" tab="analytics">
+    <ion-fab-button class="nr-fab-tab">
+      <ion-icon name="pulse-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-label>Analytics</ion-label>
+  </ion-tab-button>
+  <ion-tab-button class="nr-tab-btn" tab="system">
+    <ion-icon name="radio-outline"></ion-icon>
+    <ion-label>Système</ion-label>
+  </ion-tab-button>
+  <ion-tab-button class="nr-tab-btn" tab="settings">
+    <ion-icon name="settings-outline"></ion-icon>
+    <ion-label>Paramètres</ion-label>
+  </ion-tab-button>
+</ion-tab-bar>

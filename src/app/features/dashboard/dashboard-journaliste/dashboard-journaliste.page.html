@@ -1,0 +1,349 @@
+<ion-header class="nr-header" [translucent]="false">
+  <ion-toolbar class="nr-toolbar">
+    <ion-buttons slot="start">
+      <div class="nr-logo-wrap">
+        <div class="nr-logo">N</div>
+        <div class="title">
+          <span class="nr-app-title">NewsRoom</span>
+          <p class="soustitre">v {{ version }}</p>
+        </div>
+      </div>
+
+    </ion-buttons>
+
+
+  
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content class="nr-content" [fullscreen]="true" [scrollEvents]="true">
+  <div class="nr-greeting">
+    <p class="nr-greeting-label">{{ today }}</p>
+    <!-- <h1 class="nr-greeting-name">Bonjour, Amine </h1>  </div> -->
+    <!-- <p class="nr-section-title">Aperçu rapide</p> -->
+  </div>
+
+  <!-- <div class="nr-stats-scroll">
+    <ion-card
+      class="nr-stat-card "
+      [class.active]="stat.active"
+      *ngFor="let stat of stats"
+      [ngStyle]="{'border-top': '7px solid ' + stat.deltaColor}"
+    >
+      <ion-icon class="icon-stats" name="{{ stat.icon }}" color="{{stat.deltaColor}}" ></ion-icon>
+      
+      
+      <ion-card-header>
+          <ion-card-title class="nr-stat-num" [style.color]="stat.valueColor">{{ stat.value }}</ion-card-title>
+          <ion-card-subtitle class="nr-stat-label">{{ stat.label }}</ion-card-subtitle>
+        </ion-card-header>
+
+    </ion-card>
+  </div> -->
+
+  <div class="nr-stats-scroll">
+    <ion-card class="nr-stat-card reviser">
+      <ion-icon
+        class="icon-stats"
+        id="warning"
+        name="hourglass-outline"
+      ></ion-icon>
+      <ion-card-header class="stat-content">
+        <ion-card-title>4</ion-card-title>
+        <ion-card-subtitle class="nr-stat-label">En cours</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="nr-stat-card publier">
+      <ion-icon
+        class="icon-stats"
+        id="checkbox"
+        name="checkmark-done-outline"
+      ></ion-icon>
+      <ion-card-header class="stat-content">
+        <ion-card-title class="nr-stat-num">28</ion-card-title>
+        <ion-card-subtitle class="nr-stat-label"
+          >Publiés</ion-card-subtitle
+        >
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="nr-stat-card renvoyer">
+      <ion-icon
+        class="icon-stats"
+        id="reload"
+        name="document-text-outline"
+      ></ion-icon>
+      <ion-card-header class="stat-content">
+        <ion-card-title class="nr-stat-num">3</ion-card-title>
+        <ion-card-subtitle class="nr-stat-label">Brouillons</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+  <div class="menu-container">
+  <div class="menu-ligne"></div>
+
+<ion-list class="menu-list">
+  <ion-item 
+    *ngFor="let module of modules"
+    button
+    class="menu-item module-{{module.id}}"
+    (click)="navigateTo(module.name.toLowerCase())"
+    lines="none"
+  >
+    
+<ion-avatar slot="start">
+        <ion-icon
+          [name]="module.icon"
+          class="avatar-icon"
+        ></ion-icon>
+      </ion-avatar>
+
+
+    
+<ion-label>
+        <h2 class="article-title">{{ module.name }}</h2>
+      </ion-label>
+
+
+    <ion-icon class="icon-suivant" name="chevron-forward-outline"></ion-icon>
+  </ion-item>
+</ion-list>
+
+</div>
+
+
+  <!-- <ion-card class="nr-ai-card">
+    
+      <div class="nr-ai-info">
+        <ion-icon name="diamond-outline" class="diamond-outline-icon">✦</ion-icon>
+        <div>
+          <span class="nr-ai-title">Assistant IA</span><br>
+          <span class="nr-ai-sub">Prêt à vous aider</span>
+        </div>
+        
+      
+    </div>
+    <div class="nr-ai-actions">
+      <ion-button
+        class="nr-ai-action-btn"
+        *ngFor="let action of aiActions"
+        (click)="onAiAction(action.key)"
+      >
+      <ion-icon class="icon-action" name="{{action.icon}}"></ion-icon>
+        {{ action.label }}
+      </ion-button>
+    </div>
+  </ion-card > -->
+
+  <!-- <div class="nr-tabs">
+    <button
+      class="nr-tab"
+      [class.active]="activeTab === 'progress'"
+      (click)="setTab('progress')"
+    >En cours</button>
+    <button
+      class="nr-tab"
+      [class.active]="activeTab === 'published'"
+      (click)="setTab('published')"
+    >Publiés</button>
+    <button
+      class="nr-tab"
+      [class.active]="activeTab === 'draft'"
+      (click)="setTab('draft')"
+    >Brouillons</button>
+  </div> -->
+
+  <!-- <div  class="article-card" (click)="goToProduction()">
+
+  <div class="card-header">
+    <ion-icon name="stats-chart-outline"></ion-icon>
+    <h3>Ma production</h3>
+  </div>
+
+  <div class="card-content">
+    <div class="prod-item">
+      <span class="dot in-progress"></span>
+      <span class="label">En cours</span>
+      <span class="value">{{ production.inProgress }}</span>
+    </div>
+
+    <div class="prod-item">
+      <span class="dot draft"></span>
+      <span class="label">Brouillons</span>
+      <span class="value">{{ production.drafts }}</span>
+    </div>
+
+    <div class="prod-item">
+      <span class="dot published"></span>
+      <span class="label">Publiés</span>
+      <span class="value">{{ production.published }}</span>
+    </div>
+  </div>
+
+</div> -->
+
+  <!-- <div class="article-card"> -->
+
+  <!-- Header -->
+  <!-- <div class="card-header">
+    <ion-icon name="time-outline"></ion-icon>
+    <h3>Activité récente</h3>
+  </div> -->
+
+  <!-- Notification 1 -->
+  <!-- <div class="nr-article-card activity-item">
+    <div class="activity-icon success">
+      <ion-icon name="checkmark-done-outline"></ion-icon>
+    </div>
+
+    <div class="nr-article-body">
+      <p class="nr-article-title">
+        Article publié aujourd'hui
+      </p>
+      <span class="nr-article-time">09:30 · AH</span>
+    </div>
+  </div>
+
+  <div class="divider"></div> -->
+
+  <!-- Notification 2 -->
+  <!-- <div class="nr-article-card activity-item">
+    <div class="activity-icon warning">
+      <ion-icon name="pencil-outline"></ion-icon>
+    </div>
+
+    <div class="nr-article-body">
+      <p class="nr-article-title">
+        Article en cours de rédaction
+      </p>
+      <span class="nr-article-time">Hier · AH</span>
+    </div>
+  </div>
+
+  <div class="divider"></div> -->
+
+  <!-- Notification 3 -->
+  <!-- <div class="nr-article-card activity-item">
+    <div class="activity-icon info">
+      <ion-icon name="images-outline"></ion-icon>
+    </div>
+
+    <div class="nr-article-body">
+      <p class="nr-article-title">
+        Média ajouté à l'article A1234
+      </p>
+      <span class="nr-article-time">par El Alaa</span>
+    </div>
+  </div>
+
+  <div class="divider"></div> -->
+
+  <!-- Notification 4 -->
+  <!-- <div class="nr-article-card activity-item">
+    <div class="activity-icon neutral">
+      <ion-icon name="document-text-outline"></ion-icon>
+    </div>
+
+    <div class="nr-article-body">
+      <p class="nr-article-title">
+        Brouillon sauvegardé aujourd'hui
+      </p>
+      <span class="nr-article-time">09:00</span>
+    </div>
+  </div> -->
+
+  <!-- </div> -->
+
+  <!-- <div class="nr-section-header">
+    <h2 class="nr-section-title">Mes Derniers articles</h2>
+    <ion-button class="voire-tous" *ngIf="activeTab === 'published'">Voir tout</ion-button>
+  </div>
+  
+  <div
+  class="article-card"
+  *ngFor="let article of filteredArticles"
+  (click)="onArticleTap(article)"
+>
+  
+  <div class="nr-article-card">
+    <ion-avatar>
+    <ion-img
+      class="article-img"
+      src="assets/icon/imagenews.jpeg"
+    ></ion-img>
+    </ion-avatar>
+
+    <div class="nr-article-body">
+      <div class="nr-article-meta">
+        <span class="nr-badge" [ngClass]="getBadgeClass(article.status)">
+          {{ getBadgeLabel(article.status) }}
+        </span>
+        <span class="nr-article-time">{{ article.date | date:'dd/MM/yyyy' }}</span>
+      </div>
+
+      <p class="nr-article-title">{{ article.title }}</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="nr-article-footer">
+    <span class="nr-ai-chip">
+  <ion-icon name="sparkles-outline"></ion-icon>
+  IA
+</span>
+<span class="nr-article-type">
+  Brève · Économie
+</span>
+
+    <span class="nr-status-info">
+      En validation
+    </span>
+
+
+    <div class="nr-author-chip">
+        
+    </div>
+    <ion-icon name="arrow-forward-outline"></ion-icon>
+
+  </div>
+</div> -->
+
+  <!-- <div class="nr-section-header" style="margin-top: 8px;">
+    <h2 class="nr-section-title">Veille info</h2>
+  </div>
+
+  <ion-card
+    class="nr-feed-item"
+    *ngFor="let item of feedItems"
+    (click)="onFeedTap(item)"
+    >
+    <ion-card-header class="feed-source">
+      <span class="nr-source-name">{{ item.source }}</span>
+      <ion-card-subtitle class="feed-time">{{ item.time }}</ion-card-subtitle>
+    </ion-card-header>
+    
+  <ion-card-content>
+     <ion-card-title  class="feed-title">{{ item.title }}</ion-card-title >
+    <p class="newssummary">{{ item.summary }}</p>
+  </ion-card-content>
+   
+  </ion-card> -->
+</ion-content>
+
+
+<ion-footer class="nr-footer">
+  <ion-toolbar>
+    <div class="footer-profile">
+      <div class="footer-avatar">{{ profile.initials }}</div>
+
+      <div class="footer-info">
+        <span class="footer-name">{{ profile.name }}</span>
+        <span class="footer-role">{{ profile.role }}</span>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
