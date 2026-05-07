@@ -16,7 +16,6 @@
   .status-time {
     margin-left: auto;
     color: #999;
-    font-family: monospace;
     font-size: 11px;
   }
 
@@ -141,8 +140,9 @@
     --min-height: 56px;
 
     ion-label {
-      font-size: 19px;
-      font-weight: 550;
+      font-size: 18px;
+      font-weight: 300;
+      color: #009688;
     }
 
     ion-input, ion-textarea, ion-select {
@@ -344,7 +344,7 @@ ion-list {
   
 }
 .title-modal{
-    color:#583500;
+    color:#009688;
     font-family: 'Times New Roman', Times, serif;
 }
 .article-item ion-icon {
@@ -371,23 +371,29 @@ ion-list {
 
 }
 
-.toolbar {
-  --background: transparent;
-  font-family:'Times New Roman', Times, serif;
-  color: #50320a;
+.toolbar{
+  --background:rgb(0, 150, 136) ;
+  color: white;
   align-self: center;
   justify-content:center;
   font-size: 20px;
-}
-.title-toolbar{
-  font-family:'Times New Roman', Times, serif;
-  color: #50320a;
-  align-self: center;
-  justify-self:center;
-  font-size: 20px;
+  text-align: center;
 }
 
 
+.article-titlee{
+  font-size: 15px;
+  font-weight: 600;
+  color: #009688;
+  font-family: "Playfair Display", Georgia, serif;
+  line-height: 1.35;
+  white-space: normal;
+  text-align: center;
+}
+.article-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
 .article-title {
   font-size: 15px;
   font-weight: 600;
