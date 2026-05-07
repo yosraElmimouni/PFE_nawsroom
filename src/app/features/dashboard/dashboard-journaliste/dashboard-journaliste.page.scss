@@ -33,9 +33,9 @@
 .nr-app-title,
 .nr-greeting-name,
 .nr-section-title {
-  font-family: "Playfair Display", Georgia, serif;
   font-size: 18px;
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .soustitre {
@@ -55,9 +55,7 @@
 }
 
 .nr-content {
-  --background: #f7f6f3;
   --color: #1a1a1e;
-  font-family: "DM Sans", system-ui, sans-serif;
 }
 
 .nr-greeting {
@@ -115,102 +113,90 @@
   gap: -17px;
   overflow-x: auto;
   width: 100%;
-  padding-bottom: 10px;
-  //prendre toute la largeur disponible
-  justify-content:space-between;
+  justify-content: space-between;
+}
+
+.nr-stats-scroll {
+  display: flex;
+  gap: 2px;
 }
 
 .nr-stat-card {
-  width: 100%;
+  display: flex;
+  align-items: center;
+
   background: #fff;
   border: 1.5px solid #f7e2be;
+  border-top: 8px solid transparent;
   border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-  border-top-width: 10px;
-  border-top-style: solid;
+  padding: 5px 12px;
+  min-width: 170px;
+  box-shadow: 0 2px 6px rgba(82, 82, 82, 0.365);
 }
 
-.reviser {
+/* Icône */
+.nr-stat-card ion-icon {
+  font-size: 24px;
+  min-width: 25px;
+  min-height: 25px;
+
   display: flex;
-  font-weight: 600;
-  border-color: rgba(0, 128, 0, 0.23);
-  border-top-color: green;
   align-items: center;
-  align-content: center;
+  justify-content: center;
 
-  ion-icon {
-    color: green;
-    height: 20px;
-    width: 20px;
-    padding: 3px;
-    background-color: rgba(17, 67, 1, 0.133);
-    border-radius: 10px;
-    margin-left: 10px;
-  }
-  ion-card-header ion-card-title {
-    // margin-top: -10px;
-    font-size: 17px;
-    font-weight: 600;
-    margin-left: 10px;
-    font-family: Georgia, "Times New Roman", Times, serif;
-  }
-  ion-card-header {
-    margin-bottom: -10px;
-    margin-right: -5px;
-  }
+  border-radius: 10px;
 }
+
+/* Contenu */
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+ion-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+ion-card-subtitle {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+/* ===== TYPES DE CARTES ===== */
+
+/* Reviser */
+.reviser {
+  border-color: rgba(0, 128, 0, 0.2);
+  border-top-color: green;
+}
+
+.reviser ion-icon {
+  color: green;
+  background-color: rgba(0, 128, 0, 0.12);
+}
+
 
 .publier {
-  display: flex;
-  font-weight: 600;
-  border-color: rgba(23, 0, 128, 0.23);
-  align-items: center;
-  align-content: center;
-  border-top-color: rgba(0, 0, 255, 0.559);
-  ion-icon {
-    color: rgb(36, 36, 255);
-    height: 20px;
-    width: 20px;
-    padding: 3px;
-    border-radius: 10px;
-    background-color: rgba(17, 67, 1, 0.133);
-   margin-left: 10px;
-  }
-  ion-card-header ion-card-title {
-    // margin-top: -10px;
-    font-size: 14px;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    font-weight: 600;
-  }
-  
+  border-color: rgba(0, 0, 255, 0.2);
+  border-top-color: #2b47ff;
 }
 
+.publier ion-icon {
+  color: #2b47ff;
+  background-color: rgba(0, 0, 255, 0.12);
+}
+
+/* Renvoyer */
 .renvoyer {
-  display: flex;
-  align-items: center;
-  align-content: center;
-  border-color: #3c291142;
+  border-color: rgba(104, 43, 0, 0.2);
   border-top-color: rgb(104, 43, 0);
-  font-weight: 600;
-  ion-icon {
-    margin-top: 5px;
-    color: rgb(104, 43, 0);
-    height: 20px;
-    width: 20px;
-    padding: 3px;
-    background-color: rgba(104, 43, 0, 0.141);
-    border-radius: 10px;
-    margin-left: 10px;
-  }
-  ion-card-header ion-card-title {
-    display: flex;
-    font-size: 17px;
-    font-weight: 600;
-    font-family: Georgia, "Times New Roman", Times, serif;
-  }
-  ion-card-header {
-    margin-left: -10px;
-  }
+}
+
+.renvoyer ion-icon {
+  color: rgb(104, 43, 0);
+  background-color: rgba(104, 43, 0, 0.14);
 }
 
 .icon-stats {
@@ -224,68 +210,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-bottom: 24px;
-}
-
-.stat-card {
-  background: #ffffff;
-  border-radius: 14px;
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease;
-
-  &:active {
-    transform: scale(0.97);
-  }
-}
-
-.stat-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-}
-
-
-
-.in-progress {
-  border-top: 5px solid #16a34a;
-
-  .stat-icon {
-    background: #dcfce7;
-    color: #16a34a;
-  }
-}
-
-.published {
-  border-top: 5px solid #6366f1;
-
-  .stat-icon {
-    background: #e0e7ff;
-    color: #6366f1;
-  }
-}
-
-.dashboard-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition: transform 0.15s ease;
-
-  &:active {
-    transform: scale(0.98);
-  }
 }
 
 .card-header {
@@ -398,7 +322,7 @@
   height: 8px;
   background: #d94f2e;
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(217, 79, 46, 0.18);
+  box-shadow: 0 0 0 3px rgba(69, 69, 69, 0.311);
   animation: pulse 1.5s infinite;
 }
 
@@ -477,19 +401,6 @@
   margin-bottom: 4px;
 }
 
-.nr-article-title {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.nr-ai-chip {
-  background: #f2f2f2;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-}
-
 .divider {
   height: 1px;
   background: #eee;
@@ -499,102 +410,10 @@
   margin-top: -4px;
   font-size: 10px;
 }
-.feed-source {
-  display: flex;
-  font-size: 12px;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-direction: row !important;
-}
-.feed-title {
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 15px;
-  font-weight: 600;
-}
 
-.newssummary {
-  font-size: 12px;
-  color: #3c2911;
-  margin-top: 5px;
-}
 
-.nr-badge {
-  font-size: 9px;
-  padding: 3px 7px;
-  border-radius: 5px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
 
-.nr-fab {
-  --background: #d3ae686b;
-  --color: #3c2911;
-}
-.nr-fab-tab {
-  --background: #c8a96e;
-  --color: #fff;
-}
 
-.nr-tab-bar {
-  --background: #fff;
-  --border: 1px solid #e8e5e0;
-  --color: #afafb8;
-  --color-selected: #c8a96e;
-}
-
-.nr-ai-action-btn {
-  --background: transparent;
-  --border-radius: 30px;
-  text-transform: none;
-  color: #525151aa;
-  font-size: 10px;
-  border-color: #a07840;
-  flex: content;
-}
-
-.nr-stat-delta {
-  margin-bottom: -20px;
-}
-
-.icon-action {
-  color: #110025;
-  width: 15px;
-  margin-right: 8px;
-}
-
-.article-img {
-  width: 70px;
-  height: 70px;
-  border-radius: 16px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.activity-item {
-  align-items: center;
-}
-
-.activity-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 12px;
-  font-size: 20px;
-}
-
-/* Variantes */
-.success {
-  background: #dcfce7;
-  color: #16a34a;
-}
-
-.warning {
-  background: #fef3c7;
-  color: #ca8a04;
-}
 
 .info {
   background: #e0e7ff;
@@ -615,8 +434,6 @@
   color: #6b7280;
   justify-content: space-between;
 }
-
-
 
 .nr-article-type {
   background: #f3f4f6;
@@ -650,10 +467,9 @@
   color: #9ca3af;
 }
 
-
 .menu-container {
   padding: 12px 0 10px;
-  font-family: var(--ion-font-family);
+  
 }
 
 .menu-ligne {
@@ -670,24 +486,24 @@
   gap: 5px;
   margin-top: 10px;
 }
-
-.menu-item{
-  
+.menu-list{
+  box-shadow: 0 2px 6px rgba(6, 6, 7, 0.15);
   margin: 12px 12px;
+  border-radius: 12px;
+}
+.menu-item {
+  margin: 6px 12px;
   border-radius: 12px;
 }
 .article-item {
-  margin-top: 20px;
-  margin: 12px 12px;
+  margin: 12px;
   border-radius: 12px;
-  padding: 16px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 5px 10px;
+  padding: 5px 5px;
   --background: transparent;
 }
-.avatar-icon{
+.avatar-icon {
   margin-top: 10px;
   height: 25px;
   width: 25px;
@@ -699,7 +515,6 @@
   color: var(--ion-color-dark);
   line-height: 1.35;
   margin-top: 6px;
-  
 }
 .nav-item {
   background: var(--ion-background-color, #ffffff);
@@ -719,93 +534,119 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    
 
-      
-      
-      ion-icon{
-      padding: 6px;
-      border-radius: 10px;
-      }
-      
     
   }
 }
 .module-1 {
-  ion-icon{
-color: #7e57c2;
+  ion-icon {
+    color: #7e57c2;
   }
-        
-
-} 
+  .icon-suivant{
+    color: gray;
+  }
+}
 .module-2 {
-  ion-icon{
-color: #009688;
+  ion-icon {
+    color: #009688;
   }
-        
-      }
-      .module-3 {
-        ion-icon{
-        color: #2196f3;
-        }
-      } 
-      .module-4 {
-        ion-icon{
-color: #ff9800;
-        }
-        
-      } 
-      .module-5 {
-        ion-icon{
-          color: #4caf50;
-        }
-        
-      } /* Articles */
-      .module-6 {
-        ion-icon{
-          color: #607d8b;
-        }
-      } /* Profil */
+  .icon-suivant{
+    color: gray;
+  }
+}
+.module-3 {
+  ion-icon {
+    color: #2196f3;
+  }
+  .icon-suivant{
+    color: gray;
+  }
+}
+.module-4 {
+  ion-icon {
+    color: #ff9800;
+  }
+  .icon-suivant{
+    color: gray;
+  }
+}
+.module-5 {
+  ion-icon {
+    color: #4caf50;
+  }
+  .icon-suivant{
+    color: gray;
+  }
+} 
+.module-6 {
+  ion-icon {
+    color: #607d8b;
+  }
+  .icon-suivant{
+    color: gray;
+  }
+}
 
-//module avec :active et :hover changant le background
+.module-7 {
+  ion-icon {
+    color: #ff0400;
+  }
+  .icon-suivant{
+    color: gray;
+  }
+}
+.module-8 {
+  ion-icon {
+    color: #1d00d6;
+  }
+  .icon-suivant{
+    color: gray;
+  }
+}
+
+.module-8:active,
+.module-8:hover {
+  background: #1d00d618;
+}
 .module-1:active,
-.module-1:hover{
+.module-1:hover {
   background: #b18af428;
 }
 
 .module-2:active,
-.module-2:hover{
+.module-2:hover {
   background: #72f2e525;
 }
 
 .module-3:active,
-.module-3:hover{
+.module-3:hover {
   background: #85beec20;
 }
 
-
 .module-4:active,
-.module-4:hover{
+.module-4:hover {
   background: #f4c0722f;
 }
 
 .module-5:active,
-.module-5:hover{
+.module-5:hover {
   background: #a5d8a725;
 }
 
 .module-6:active,
-.module-6:hover{
+.module-6:hover {
   background: #8fd3f518;
 }
 
+.module-7:active,
+.module-7:hover {
+  background: #f58f8f18;
+}
 
 .quick-actions {
   display: flex;
   gap: 8px;
 }
-
-
 
 .nav-container {
   display: flex;
@@ -870,10 +711,13 @@ color: #ff9800;
   color: #6b7280;
 }
 
-.btn-logout{
-  ion-icon{
-  width: 25px;
-  height: 25px;
-  color: red;
+.btn-logout {
+  ion-icon {
+    width: 25px;
+    height: 25px;
+    color: red;
   }
+}
+.icon-suivant{
+  color: #1a1a1e;
 }

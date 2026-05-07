@@ -5,19 +5,13 @@
         <div class="nr-logo">N</div>
         <div class="title">
           <span class="nr-app-title">NewsRoom</span>
-          <p class="soustitre">v{{ version }}</p>
+          <p class="soustitre">v {{ version }}</p>
         </div>
       </div>
 
     </ion-buttons>
 
-    <ion-buttons slot="end">
-        <ion-button class="btn-logout" routerLink="/login" detail="false">
-          <ion-icon slot="end" name="log-out-outline"></ion-icon>
 
-        </ion-button>
-
-    </ion-buttons>
   
   </ion-toolbar>
   
@@ -53,7 +47,7 @@
       <ion-icon
         class="icon-stats"
         id="warning"
-        name="pencil-outline"
+        name="hourglass-outline"
       ></ion-icon>
       <ion-card-header class="stat-content">
         <ion-card-title>4</ion-card-title>
@@ -91,27 +85,33 @@
   <div class="menu-container">
   <div class="menu-ligne"></div>
 
- 
-        <ion-card button *ngFor="let module of modules"
-                  class="menu-item module-{{module.id}}"
-                  (click)="navigateTo(module.name.toLowerCase())" 
-                  auto-hide="false"
-                  
-                  >
-          <ion-item   lines="none" class="article-item "  detail="false">
-              <ion-avatar >
-                <ion-icon
-                  [name]="module.icon"
-                  class="avatar-icon"
-                ></ion-icon>
-              </ion-avatar>
-              <ion-label>
-                <h2 class="article-title">{{ module.name }}</h2>
-              </ion-label>
+<ion-list class="menu-list">
+  <ion-item 
+    *ngFor="let module of modules"
+    button
+    class="menu-item module-{{module.id}}"
+    (click)="navigateTo(module.name.toLowerCase())"
+    lines="none"
+  >
+    
+<ion-avatar slot="start">
+        <ion-icon
+          [name]="module.icon"
+          class="avatar-icon"
+        ></ion-icon>
+      </ion-avatar>
 
-              
-            </ion-item>
-        </ion-card>
+
+    
+<ion-label>
+        <h2 class="article-title">{{ module.name }}</h2>
+      </ion-label>
+
+
+    <ion-icon class="icon-suivant" name="chevron-forward-outline"></ion-icon>
+  </ion-item>
+</ion-list>
+
 </div>
 
 
