@@ -35,14 +35,29 @@ export const routes: Routes = [
     path: 'redaction',
     loadChildren: () => import('./features/articles/add-article/redaction.module').then( m => m.RedactionPageModule)
   },
+  
   {
-    path: 'capture',
-    loadChildren: () => import('./capture/capture.module').then( m => m.CapturePageModule)
+    path: 'redaction/:id',
+    loadChildren: () => import('./features/articles/add-article/redaction.module').then( m => m.RedactionPageModule)
   },
   {
     path: 'article-detail/:id',
     loadChildren: () => import('./features/articles/article-detail/article-detail.module').then( m => m.ArticleDetailPageModule)
   },
+  {
+    path:'veille',
+    loadChildren: ()=>  import('./features/veille-info/veille-info.module').then( m => m.VeilleInfoPageModule)
+  },
+  
+  {
+    path:'capture',
+    loadChildren: () => import('./features/capture/capture.module').then(m => m.CapturePageModule)
+  },  {
+    path: 'ai-assistant',
+    loadChildren: () => import('./features/ai-assistant/ai-assistant.module').then( m => m.AiAssistantPageModule)
+  }
+
+
 ];
 
 @NgModule({

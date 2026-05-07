@@ -1,0 +1,72 @@
+<ion-header class="nr-header">
+  <ion-toolbar class="nr-toolbar">
+    <ion-title class="title-toolbar"> Assistant IA </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon class="add-icon" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="chat-content">
+  <div
+    *ngFor="let msg of messages"
+    class="message-wrapper"
+    [ngClass]="msg.from"
+  >
+    <div class="chat-bubble" [ngClass]="msg.from">
+      <div *ngIf="msg.text === 'Loading ...'" class="typing">
+        <span></span><span></span><span></span>
+      </div>
+
+      <markdown
+        *ngIf="msg.text !== 'Loading ...'"
+        [data]="msg.text"
+      ></markdown>
+    </div>
+  </div>
+  <div style="height: 140px"></div>
+</ion-content>
+
+<div class="ai-send-bar">
+  <ion-textarea
+    class="ai-send-input"
+    placeholder="Écrire un message à l’IA..."
+    [(ngModel)]="inputText"
+    autoGrow="true"
+  >
+  </ion-textarea>
+  <ion-button class="ai-send-btn" fill="solid" (click)="sendToAI()">
+    <ion-icon name="send-outline"></ion-icon>
+  </ion-button>
+</div>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" class="idea-fab">
+  <!-- Wrapper positionné -->
+  <div class="fab-container">
+    <!-- Quick replies (flottantes, n’influencent pas le bouton) -->
+    <div
+      class="fab-quick-replies vertical"
+      *ngIf="showQuickReplies && lastQuickReplies.length"
+    >
+      <ion-button
+        fill="outline"
+        size="small"
+        *ngFor="let reply of lastQuickReplies"
+        (click)="handleQuickReply(reply)"
+      >
+        {{ reply }}
+      </ion-button>
+    </div>
+
+    <ion-fab-button
+      size="small"
+      class="fab-button"
+      (click)="toggleQuickReplies()"
+    >
+      <ion-icon name="bulb-outline"></ion-icon>
+    </ion-fab-button>
+  </div>
+</ion-fab>

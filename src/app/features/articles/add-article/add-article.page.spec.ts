@@ -1,0 +1,17 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AddArticlePage } from './redaction.page';
+
+describe('AddArticlePage', () => {
+  let component: AddArticlePage;
+  let fixture: ComponentFixture<AddArticlePage>;
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AddArticlePage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
