@@ -52,7 +52,8 @@ export const routes: Routes = [
   {
     path:'capture',
     loadChildren: () => import('./features/capture/capture.module').then(m => m.CapturePageModule)
-  },  {
+  },
+  {
     path: 'ai-assistant',
     loadChildren: () => import('./features/ai-assistant/ai-assistant.module').then( m => m.AiAssistantPageModule)
   }
