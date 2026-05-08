@@ -42,45 +42,72 @@
     </ion-card>
   </div> -->
 
-  <div class="nr-stats-scroll">
-    <ion-card class="nr-stat-card reviser">
-      <ion-icon
-        class="icon-stats"
-        id="warning"
-        name="hourglass-outline"
-      ></ion-icon>
-      <ion-card-header class="stat-content">
-        <ion-card-title>4</ion-card-title>
-        <ion-card-subtitle class="nr-stat-label">En cours</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
+  <p class="nr-section-label">Répartition du jour</p>
+<ion-card class="nr-hcard">
+  <ion-card-content class="hcard-content">
+    <div class="hcard-icon publier-icon">
+      <ion-icon name="checkmark-done-outline"></ion-icon>
+    </div>
+    <div class="hcard-body">
+      <div class="hcard-top">
+        <span class="hcard-label">Publiés</span>
+        <span class="hcard-num publier-text">{{ production.published }}</span>
+      </div>
+      <div class="hcard-bar-bg">
+        <div class="hcard-bar publier-bar"
+          [style.width]="(production.published / (production.inProgress + production.published + production.drafts) * 100) + '%'">
+        </div>
+      </div>
+      <p class="hcard-pct publier-text">
+        {{ (production.published / (production.inProgress + production.published + production.drafts) * 100) | number:'1.0-0' }}% du total
+      </p>
+    </div>
+  </ion-card-content>
+</ion-card>
+<ion-card class="nr-hcard">
+  <ion-card-content class="hcard-content">
+    <div class="hcard-icon reviser-icon">
+      <ion-icon name="hourglass-outline"></ion-icon>
+    </div>
+    <div class="hcard-body">
+      <div class="hcard-top">
+        <span class="hcard-label">En cours</span>
+        <span class="hcard-num reviser-text">{{ production.inProgress }}</span>
+      </div>
+      <div class="hcard-bar-bg">
+        <div class="hcard-bar reviser-bar"
+          [style.width]="(production.inProgress / (production.inProgress + production.published + production.drafts) * 100) + '%'">
+        </div>
+      </div>
+      <p class="hcard-pct reviser-text">
+        {{ (production.inProgress / (production.inProgress + production.published + production.drafts) * 100) | number:'1.0-0' }}% du total
+      </p>
+    </div>
+  </ion-card-content>
+</ion-card>
 
-    <ion-card class="nr-stat-card publier">
-      <ion-icon
-        class="icon-stats"
-        id="checkbox"
-        name="checkmark-done-outline"
-      ></ion-icon>
-      <ion-card-header class="stat-content">
-        <ion-card-title class="nr-stat-num">28</ion-card-title>
-        <ion-card-subtitle class="nr-stat-label"
-          >Publiés</ion-card-subtitle
-        >
-      </ion-card-header>
-    </ion-card>
-
-    <ion-card class="nr-stat-card renvoyer">
-      <ion-icon
-        class="icon-stats"
-        id="reload"
-        name="document-text-outline"
-      ></ion-icon>
-      <ion-card-header class="stat-content">
-        <ion-card-title class="nr-stat-num">3</ion-card-title>
-        <ion-card-subtitle class="nr-stat-label">Brouillons</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
-  </div>
+<!-- Brouillons -->
+<ion-card class="nr-hcard">
+  <ion-card-content class="hcard-content">
+    <div class="hcard-icon renvoyer-icon">
+      <ion-icon name="document-text-outline"></ion-icon>
+    </div>
+    <div class="hcard-body">
+      <div class="hcard-top">
+        <span class="hcard-label">Brouillons</span>
+        <span class="hcard-num renvoyer-text">{{ production.drafts }}</span>
+      </div>
+      <div class="hcard-bar-bg">
+        <div class="hcard-bar renvoyer-bar"
+          [style.width]="(production.drafts / (production.inProgress + production.published + production.drafts) * 100) + '%'">
+        </div>
+      </div>
+      <p class="hcard-pct renvoyer-text">
+        {{ (production.drafts / (production.inProgress + production.published + production.drafts) * 100) | number:'1.0-0' }}% du total
+      </p>
+    </div>
+  </ion-card-content>
+</ion-card>
 
   <div class="menu-container">
   <div class="menu-ligne"></div>

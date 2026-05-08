@@ -721,3 +721,72 @@ ion-card-subtitle {
 .icon-suivant{
   color: #1a1a1e;
 }
+
+.nr-summary-card, .nr-hcard {
+  margin: 0 16px 10px;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+  border: 1px solid #e8e5e0;
+  ion-card-content { padding: 14px 16px; }
+}
+
+.summary-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.summary-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+.summary-dots {
+  display: flex;
+  gap: 8px;
+}
+.sdot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.hcard-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hcard-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  ion-icon { font-size: 22px; }
+}
+.hcard-body { flex: 1; min-width: 0; }
+.hcard-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+.hcard-label { font-size: 13px; color: #5a5a67; font-weight: 500; }
+.hcard-num { font-size: 24px; font-weight: 700; line-height: 1; }
+.hcard-bar-bg { height: 5px; border-radius: 99px; background: #f2f0ec; margin-top: 8px; }
+.hcard-bar { height: 5px; border-radius: 99px; }
+.hcard-pct { font-size: 11px; font-weight: 600; margin-top: 5px !important; }
+
+.publier-icon { background: #dbeafe; ion-icon { color: #2563eb; } }
+.publier-text { color: #2563eb; }
+.publier-bar { background: #2563eb; }
+
+.reviser-icon { background: #dcfce7; ion-icon { color: #16a34a; } }
+.reviser-text { color: #16a34a; }
+.reviser-bar { background: #16a34a; }
+
+.renvoyer-icon { background: #fef3c7; ion-icon { color: #92400e; } }
+.renvoyer-text { color: #92400e; }
+.renvoyer-bar { background: #92400e; }

@@ -4,7 +4,7 @@ import {
   MsalInterceptorConfiguration,
 } from '@azure/msal-angular';
 import { Capacitor } from '@capacitor/core';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.local';
 
 export function MSALInstanceFactory() {
   const isNative = Capacitor.isNativePlatform();

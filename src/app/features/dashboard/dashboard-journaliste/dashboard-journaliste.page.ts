@@ -189,6 +189,7 @@ export class DashboardJournalistePage implements OnInit {
     });
   }
 
+  
   // onArticleTap(article: Article) {
   //   console.log('Open article:', article.id);
   // }
