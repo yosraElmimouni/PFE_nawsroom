@@ -1,0 +1,159 @@
+.nr-header {
+  background: transparent;
+}
+
+.nr-toolbar{
+  color: #ffffff;
+  align-self: center;
+  --background: rgb(29, 0, 214);
+  justify-content:center;
+  font-size: 20px;
+  text-align: center;
+}
+
+.page-title{
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right:10px ;
+margin-top: 20px;
+margin-bottom: 20px;
+  color: rgb(29, 0, 214);
+}
+
+.article-item {
+  margin: 12px ;
+  border-radius: 12px;
+  border: 0.5px solid #1d00d628;
+  padding-left: -10px;
+  box-shadow: 0 2px 6px rgba(29, 0, 214, 0.132);
+}
+
+
+
+.article-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  gap: 8px;
+}
+
+
+
+.article-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+  line-height: 1.35;
+  margin-left: 5px;
+  white-space: normal;
+}
+ion-item-sliding{
+  padding:  0px 13px 
+}
+
+.article-date {
+  font-size: 11px;
+  margin-left: 5px;
+  color: var(--ion-color-medium);
+}
+
+
+.button-flottant-add{
+  --color: #fff;
+  display: block;
+  align-self:flex-end;
+  margin-right: 30px;
+  margin-top: 195%;
+}
+
+.button-flottant{
+  --background: rgb(29, 0, 214);
+}
+.normale{
+  color: #27500a;
+  background: #eaf3de;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.important{
+  color: red;
+  background: #ff878728;
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.status-bar {
+  width: 8px;
+  align-self: stretch;
+  border-radius: 12px 0 0 12px;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+
+
+
+
+
+.label {
+  font-size: 13px;
+  color: rgb(29, 0, 214);
+  margin-left: 4px;
+  width:max-content;
+}
+
+
+
+
+ion-datetime-button::part(native):active {
+  transform: scale(0.97);
+}
+
+
+
+
+ion-datetime-button {
+  flex-shrink: 0;
+}
+
+.date-filter {
+  display: flex;
+  
+}
+
+.date-box {
+  flex: 1;
+}
+
+.date-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  --background: #ffffff;
+  border-radius: 12px;
+  padding: 4px 8px;
+}
+
+.label-inline {
+  font-size: 13px;
+  color: rgb(9, 0, 71);
+  margin: 0;
+}
+
+ion-datetime-button::part(native) {
+  background: #341bd827;
+  border-radius: 12px;
+  padding: 6px 10px;
+
+  font-size: 13px;
+  font-weight: 500;
+  color: rgb(29, 0, 214);
+
+  box-shadow: none;
+}

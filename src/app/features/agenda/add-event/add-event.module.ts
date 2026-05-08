@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { VeilleInfoPageRoutingModule } from './veille-info-routing.module';
+import { AddEventPageRoutingModule } from './add-event-routing.module';
 
-import { VeilleInfoPage } from './veille-info.page';
+import { AddEventPage } from './add-event.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    VeilleInfoPageRoutingModule
+    AddEventPageRoutingModule
   ],
-  declarations: [VeilleInfoPage],
-  
+  declarations: [AddEventPage]
 })
-export class VeilleInfoPageModule {}
+export class AddEventPageModule {}

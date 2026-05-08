@@ -1,0 +1,112 @@
+<ion-header [translucent]="true">
+  
+  <ion-toolbar class="nr-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/agenda"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Ajouter un événement</ion-title>
+  </ion-toolbar>
+  
+</ion-header>
+
+<ion-content class="content-page">
+
+  <div class="section-block">
+    <ion-label class="section-label">Titre</ion-label>
+
+    <ion-textarea
+      class="title-input"
+      placeholder="Titre de l'événement..."
+      rows="2"
+      auto-grow="true"
+      [(ngModel)]="event.titre">
+    </ion-textarea>
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">Catégorie</ion-label>
+
+    <ion-item>
+      <ion-select [(ngModel)]="event.categorie" placeholder="Choisir une catégorie">
+        <ion-select-option *ngFor="let cat of categories" [value]="cat">
+          {{ cat }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">Résumé</ion-label>
+
+    <ion-textarea
+      class="title-input"
+      placeholder="Description de l'événement..."
+      rows="4"
+      auto-grow="true"
+      [(ngModel)]="event.resume">
+    </ion-textarea>
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">Importance</ion-label>
+
+    <ion-item>
+      <ion-select  [(ngModel)]="event.importance">
+        <ion-select-option value="important">Important</ion-select-option>
+        <ion-select-option value="normale">Normale</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">Dates</ion-label>
+<div class="date-block">
+    <ion-item class="date-inline" lines="none">
+      <span class="label">De</span>
+      <ion-datetime-button class="date" datetime="debut"></ion-datetime-button>
+      <ion-modal class="date" keepContentsMounted="true">
+      <ng-template>
+        <ion-datetime
+          id="debut"
+          presentation="date-time"
+          [(ngModel)]="event.dateDebut">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+    </ion-item>
+
+    <ion-item class="date-inline" lines="none">
+      <span class="label">à</span>
+      <ion-datetime-button class="date" datetime="fin"></ion-datetime-button>
+     <ion-modal class="date" keepContentsMounted="true">
+      <ng-template>
+        <ion-datetime
+          id="fin"
+          presentation="date-time"
+          [(ngModel)]="event.dateFin">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+    </ion-item>
+</div>    
+
+   
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">Lieu</ion-label>
+
+    <ion-input
+      class="title-input"
+      placeholder="    Lieu de l'événement"
+      [(ngModel)]="event.lieu">
+    </ion-input>
+  </div>
+
+  <div class="ajoute-btn">
+    <ion-button class="btn-ajoute" expand="block" (click)="addEvent()">
+      Ajouter événement
+    </ion-button>
+  </div>
+
+</ion-content>
