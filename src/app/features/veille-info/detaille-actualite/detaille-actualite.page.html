@@ -1,0 +1,51 @@
+<ion-header class="nr-header">
+  <ion-toolbar class="nr-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"> 
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title >
+      Détail actualité
+    </ion-title>
+      <ion-buttons slot="end">
+      <ion-button  (click)="addToArticle()">
+      <ion-icon class="add-icon"  name="add-outline" slot="start"></ion-icon>
+    </ion-button>
+
+    <ion-button  (click)="share()">
+      <ion-icon  name="share-social-outline" slot="start"></ion-icon>
+    </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="content-page" [fullscreen]="true">
+  <div class="article-content">
+    <div class="article-header">
+      <div class="article-meta">
+       
+        <div class="hero-overlay">
+            <ion-label> {{ item?.source }}</ion-label>
+        </div>
+        <p class="article-date">
+          {{ item?.time }}
+        </p>
+      </div>
+
+      <h1 class="article-title">{{ item?.title }}</h1>
+    </div>
+
+    <div class="article-body">
+      <p>{{ item?.summary }}</p>
+    </div>
+    
+    </div>
+  <div style="height: 50px"></div>
+</ion-content>
+
+<ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button class="fab-button" (click)="openAiAssistant()">
+    <ion-icon  name="chatbubble-ellipses-outline"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
