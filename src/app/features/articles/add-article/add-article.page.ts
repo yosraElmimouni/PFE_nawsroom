@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AiAssistantPage } from '../../ai-assistant/ai-assistant.page';
+import { Article } from 'src/app/core/models/article.model';
+import { ArticleStatus, MediaType } from 'src/app/core/models/article.enums';
 
 @Component({
   selector: 'app-add-article',
@@ -14,20 +16,20 @@ export class AddArticlePage implements OnInit {
     title: '',
     description: '',
     tags: [],
-    status: 'draft',
+    status: 'Brouillon',
   };
   categories: string[] = [
-  'Politique',
-  'Économie',
-  'Société',
-  'International',
-  'Sport',
-  'Tech'
-];
+    'Politique',
+    'Économie',
+    'Société',
+    'International',
+    'Sport',
+    'Tech',
+  ];
 
-selectedCategory: string | null = null;
-isAddingCategory = false;
-newCate = '';
+  selectedCategory: string | null = null;
+  isAddingCategory = false;
+  newCate = '';
 
   isEditMode = false;
   isAddingTag = false;
@@ -35,15 +37,15 @@ newCate = '';
   constructor(
     private route: ActivatedRoute,
     private toastCtrl: ToastController,
-    private modalCtrl:ModalController
+    private modalCtrl: ModalController,
   ) {}
 
-  articles = [
+  articles: Article[] = [
     {
       id: 1,
-      status: 'published',
-      badgeColor: 'success',
-      badgeLabel: 'Publié',
+      status: ArticleStatus.Publier,
+      // badgeColor: 'success',
+      // badgeLabel: 'Publié',
       categorie: 'Politique',
       date: new Date().toLocaleDateString('fr-FR', {
         day: 'numeric',
@@ -57,7 +59,7 @@ newCate = '';
       media: [
         {
           id: 1,
-          type: 'image',
+          type: MediaType.Image,
           src: 'https://images.unsplash.com/photo-1589561253898-768105ca91a8',
           label: 'Façade du parlement',
           author: 'Agence nationale',
@@ -65,7 +67,7 @@ newCate = '';
         },
         {
           id: 2,
-          type: 'image',
+          type: MediaType.Image,
           src: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620',
           label: 'Séance plénière',
           author: 'Photo Presse',
@@ -73,16 +75,13 @@ newCate = '';
         },
         {
           id: 3,
-          type: 'video',
+          type: MediaType.Video,
           src: 'https://www.w3schools.com/html/mov_bbb.mp4',
           thumbnail: 'https://dummyimage.com/600x400/000/fff.jpg&text=Video',
           label: 'Extrait du débat',
         },
       ],
-      progress: 100,
-      wordCount: 1250,
-      views: 2340,
-      comments: 14,
+
       tags: [
         'Politique',
         'Réforme',
@@ -95,9 +94,9 @@ newCate = '';
 
     {
       id: 2,
-      status: 'draft',
-      badgeColor: 'secondary',
-      badgeLabel: 'Brouillon',
+      status: ArticleStatus.Brouillon,
+      // badgeColor: 'warning',
+      // badgeLabel: 'Brouillon',
       categorie: 'Environnement & Agriculture',
       date: new Date().toLocaleDateString('fr-FR', {
         day: 'numeric',
@@ -105,14 +104,13 @@ newCate = '';
         year: 'numeric',
       }),
       title: 'Sécheresse : les agriculteurs du sud face à la crise hydrique',
-      excerpt: 'Reportage de terrain sur les conséquences de la sécheresse...',
       description:
         'La sécheresse qui sévit actuellement dans le sud du pays a des conséquences dramatiques pour les agriculteurs, qui voient leurs récoltes menacées et leurs moyens de subsistance compromis.',
       image: 'assets/icon/imagenews.jpeg',
       media: [
         {
           id: 21,
-          type: 'image',
+          type: MediaType.Image,
           src: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09',
           label: 'Champ asséché',
           author: 'Photo Presse',
@@ -120,7 +118,7 @@ newCate = '';
         },
         {
           id: 22,
-          type: 'image',
+          type: MediaType.Image,
           src: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09',
           label: 'Système d’irrigation défaillant',
           author: 'Agence rurale',
@@ -128,7 +126,7 @@ newCate = '';
         },
         {
           id: 23,
-          type: 'video',
+          type: MediaType.Video,
           src: 'https://www.w3schools.com/html/mov_bbb.mp4',
           thumbnail:
             'https://dummyimage.com/600x400/795548/ffffff.jpg&text=Sécheresse',
@@ -136,10 +134,7 @@ newCate = '';
           duration: '01:45',
         },
       ],
-      progress: 58,
-      wordCount: 347,
-      views: 0,
-      comments: 0,
+
       tags: [
         'Environnement',
         'Agriculture',
@@ -150,9 +145,9 @@ newCate = '';
     },
     {
       id: 3,
-      status: 'review',
-      badgeColor: 'warning',
-      badgeLabel: 'En relecture',
+      status: ArticleStatus.Brouillon,
+      // badgeColor: 'warning',
+      // badgeLabel: 'En relecture',
       categorie: 'Transport & Urbanisme',
       date: new Date().toLocaleDateString('fr-FR', {
         day: 'numeric',
@@ -160,14 +155,13 @@ newCate = '';
         year: 'numeric',
       }),
       title: 'Lancement du nouveau métro : les défis de la mobilité urbaine',
-      excerpt: 'Analyse des enjeux et des perspectives du nouveau métro...',
       description:
         'Le lancement du nouveau métro dans la capitale soulève de nombreux défis en matière de mobilité urbaine.',
       image: 'assets/icon/imagenews.jpeg',
       media: [
         {
           id: 31,
-          type: 'image',
+          type: MediaType.Image,
           src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d',
           label: 'Plan du métro',
           author: 'Direction des transports',
@@ -175,7 +169,7 @@ newCate = '';
         },
         {
           id: 32,
-          type: 'image',
+          type: MediaType.Image,
           src: 'https://images.unsplash.com/photo-1518300673615-26c4b35f35c8',
           label: 'Station principale',
           author: 'Urban Photo',
@@ -183,7 +177,7 @@ newCate = '';
         },
         {
           id: 33,
-          type: 'video',
+          type: MediaType.Video,
           src: 'https://www.w3schools.com/html/movie.mp4',
           thumbnail:
             'https://dummyimage.com/600x400/607d8b/ffffff.jpg&text=Metro',
@@ -191,17 +185,15 @@ newCate = '';
           duration: '02:10',
         },
       ],
-      reviewDuration: '3h',
-      views: 560,
-      comments: 8,
+
       tags: ['Transport', 'Mobilité', 'Urbanisme', 'Métro', 'Infrastructures'],
     },
 
     {
       id: 4,
-      status: 'published',
-      badgeColor: 'success',
-      badgeLabel: 'Publié',
+      status: ArticleStatus.Publier,
+      // badgeColor: 'success',
+      // badgeLabel: 'Publié',
       categorie: 'Politique',
       date: new Date().toLocaleDateString('fr-FR', {
         day: 'numeric',
@@ -209,8 +201,6 @@ newCate = '';
         year: 'numeric',
       }),
       title: 'Élections municipales : les enjeux pour les grandes villes',
-      excerpt:
-        'Zoom sur les candidats et les programmes pour les municipales...',
       description:
         'À l’approche des élections municipales, les grandes villes du pays sont au cœur de l’attention.',
       image: 'assets/icon/imagenews.jpeg',
@@ -218,7 +208,7 @@ newCate = '';
       media: [
         {
           id: 41,
-          type: 'image',
+          type: MediaType.Image,
           src: 'https://images.unsplash.com/photo-1503424886306-4e6586f4b171',
           label: 'Meeting électoral',
           author: 'Agence politique',
@@ -226,7 +216,7 @@ newCate = '';
         },
         {
           id: 42,
-          type: 'image',
+          type: MediaType.Image,
           src: 'https://images.unsplash.com/photo-1520975922284-0ccfd69b90be',
           label: 'Affiches de campagne',
           author: 'Photo Presse',
@@ -234,7 +224,7 @@ newCate = '';
         },
         {
           id: 43,
-          type: 'video',
+          type: MediaType.Video,
           src: 'https://www.w3schools.com/html/mov_bbb.mp4',
           thumbnail:
             'https://dummyimage.com/600x400/3f51b5/ffffff.jpg&text=Elections',
@@ -242,8 +232,7 @@ newCate = '';
           duration: '02:50',
         },
       ],
-      views: 1120,
-      comments: 20,
+
       tags: [
         'Élections',
         'Politique locale',
@@ -259,7 +248,7 @@ newCate = '';
 
     if (id) {
       this.isEditMode = true;
-      this.article = this.getArticleById(+id); 
+      this.article = this.getArticleById(+id);
       this.selectedCategory = this.article.categorie;
     }
   }
@@ -364,46 +353,45 @@ newCate = '';
     this.newTag = '';
     this.isAddingTag = false;
   }
-selectCategory(category: string) {
-  this.selectedCategory = category;
-  this.article.categorie = category;
-}
- 
-startAddingCategory() {
-  this.isAddingCategory = true;
-  this.newCate = '';
-}
-addCategory() {
-  const category = this.newCate.trim();
+  selectCategory(category: string) {
+    this.selectedCategory = category;
+    this.article.categorie = category;
+  }
 
-  if (!category) {
+  startAddingCategory() {
+    this.isAddingCategory = true;
+    this.newCate = '';
+  }
+  addCategory() {
+    const category = this.newCate.trim();
+
+    if (!category) {
+      this.isAddingCategory = false;
+      return;
+    }
+
+    // éviter les doublons
+    if (!this.categories.includes(category)) {
+      this.categories.push(category);
+    }
+
+    this.selectedCategory = category;
+    this.article.categorie = category;
+
+    this.newCate = '';
     this.isAddingCategory = false;
-    return;
   }
 
-  // éviter les doublons
-  if (!this.categories.includes(category)) {
-    this.categories.push(category);
+  onCategoryChange(value: string) {
+    if (value === '__add__') {
+      this.startAddingCategory();
+    }
   }
 
-  this.selectedCategory = category;
-  this.article.categorie = category;
-
-  this.newCate = '';
-  this.isAddingCategory = false;
-}
-
-
-onCategoryChange(value: string) {
-  if (value === '__add__') {
-    this.startAddingCategory();
+  async openAiAssistant() {
+    const modal = await this.modalCtrl.create({
+      component: AiAssistantPage,
+    });
+    await modal.present();
   }
-}
-
- async openAiAssistant() {
-  const modal = await this.modalCtrl.create({
-    component: AiAssistantPage,
-  });
-  await modal.present();
-}
 }

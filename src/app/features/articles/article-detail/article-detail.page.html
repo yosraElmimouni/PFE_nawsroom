@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar class="nr-toolbar">
     <ion-buttons slot="start">
       <ion-back-button
-        class="btn-back"
+       
         defaultHref="/articles"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title class="title-toolbar">Article</ion-title>
+    <ion-title >Article</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="modifierArticle(article.id)">
         <ion-icon slot="icon-only" name="create-outline"> </ion-icon>
@@ -25,12 +25,11 @@
       <div class="article-meta">
        
         <div class="hero-overlay">
-          <ion-chip slot="end" [color]="article.badgeColor" class="status-chip">
-            <ion-label>{{ article.badgeLabel }}</ion-label>
+          <ion-chip slot="end" [ngClass]="article.status" class="status-chip">
+            <ion-label>{{ article.status }}</ion-label>
           </ion-chip>
         </div>
         <p *ngIf="article.status !== 'draft'" class="article-date">
-          <ion-icon name="time-outline"></ion-icon>
           {{ article.date }}
         </p>
       </div>

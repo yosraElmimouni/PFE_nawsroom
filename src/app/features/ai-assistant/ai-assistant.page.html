@@ -25,7 +25,17 @@
         *ngIf="msg.text !== 'Loading ...'"
         [data]="msg.text"
       ></markdown>
+      
+
+
     </div>
+    <ion-icon
+      *ngIf="msg.text !== 'Loading ...'"
+    name="copy-outline"
+    class="copy-icon"
+    (click)="copyMessage(msg.text)"
+    slot="end"
+  ></ion-icon>
   </div>
   <div style="height: 140px"></div>
 </ion-content>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { Gemini } from 'src/app/core/services/gemini';
+import { AiAssistant } from './services/ai-assistant';
 interface ChatMessage {
   from: 'user' | 'ai';
   text: string;
@@ -25,7 +25,7 @@ export class AiAssistantPage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private geminiService: Gemini,
+    private geminiService: AiAssistant,
   ) {}
 
   ngOnInit() {
@@ -172,4 +172,8 @@ export class AiAssistantPage implements OnInit {
       },
     });
   }
+
+  copyMessage(text: string) {
+  navigator.clipboard.writeText(text);
+}
 }

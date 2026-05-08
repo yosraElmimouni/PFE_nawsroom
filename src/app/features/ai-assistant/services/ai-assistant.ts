@@ -1,19 +1,18 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { environment } from "src/environments/environment";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment.local';
 
 @Injectable({
   providedIn: 'root',
 })
-export class Gemini {
-
-  private apikey = 'AIzaSyC0p0LlCJMKXHr9gdnjru94ZKA_dzVLH4U';
-
+export class AiAssistant {
+  private apikey = environment.geminiApiKey;
+ 
   private apiUrl =
     'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=' + this.apikey;
-
+ 
   constructor(private http: HttpClient) {}
-
+ 
   sendMessage(message: string) {
     const body = {
       contents: [
@@ -22,7 +21,7 @@ export class Gemini {
         }
       ]
     };
-
+ 
     return this.http.post(this.apiUrl, body);
   }
 }

@@ -1,21 +1,21 @@
 <ion-header>
-  <ion-toolbar class="toolbar">
+  <ion-toolbar class="nr-toolbar">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/dashboard"></ion-back-button>
     </ion-buttons>
 
-    <ion-title class="title-toolbar">
+    <ion-title >
       {{ isEditMode ? 'Modifier l’article' : 'Nouvel article' }}
     </ion-title>
 
-    <ion-buttons slot="end">
+    <!-- <ion-buttons slot="end">
       <ion-button class="save-btn" (click)="saveDraft()">
         <ion-icon name="save-outline" slot="start"></ion-icon>
       </ion-button>
       <ion-button class="send-btn" (click)="publishArticle()">
         <ion-icon name="send-outline" slot="start"></ion-icon>
       </ion-button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-toolbar>
 </ion-header>
 
@@ -24,12 +24,7 @@
   <div class="section-block">
     <div class="title-row">
       <ion-label class="section-label">Titre de l'article</ion-label>
-      <ion-icon
-        (click)="aiTitle()"
-        class="ai-title"
-        name="sparkles-outline"
-        slot="start"
-      ></ion-icon>
+      
     </div>
     <div class="title-input-row">
       <ion-textarea
@@ -75,12 +70,7 @@
   <div class="section-block">
     <div class="title-row">
       <ion-label class="section-label">Corps de l'article</ion-label>
-      <ion-icon
-        (click)="aiTitle()"
-        class="ai-title"
-        name="sparkles-outline"
-        slot="start"
-      ></ion-icon>
+      
     </div>
     <div class="format-bar">
       <!-- <ion-button fill="clear" size="small" color="dark">
@@ -153,7 +143,7 @@
     </ion-chip>
 
     <ion-chip
-      *ngIf="article.status === 'draft' && !isAddingTag"
+      *ngIf="article.status === 'Brouillon' && !isAddingTag"
       class="chip-tag add-tag"
       (click)="startAddingTag()"
     >
@@ -228,7 +218,13 @@
 
     </ion-list>
   </div> -->
+  
 
+  <div class="ajoute-btn">
+    <ion-button class="save-btn" expand="block" (click)="saveDraft()" >
+      Enregistrer
+    </ion-button>
+  </div>
   <!-- Espace en bas pour ne pas cacher le contenu -->
   <div style="height: 40px"></div>
 </ion-content>
