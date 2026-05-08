@@ -59,7 +59,7 @@
 }
 
 .nr-greeting {
-  padding: 18px 22px 10px;
+  padding:9px 26px 2px;
 }
 
 .nr-greeting-label {
@@ -488,11 +488,11 @@ ion-card-subtitle {
 }
 .menu-list{
   box-shadow: 0 2px 6px rgba(6, 6, 7, 0.15);
-  margin: 12px 12px;
+  margin: 2px 15px;
   border-radius: 12px;
 }
 .menu-item {
-  margin: 6px 12px;
+  margin: 2px 12px;
   border-radius: 12px;
 }
 .article-item {
@@ -727,7 +727,7 @@ ion-card-subtitle {
   border-radius: 16px;
   box-shadow: 0 1px 3px rgba(0,0,0,.05);
   border: 1px solid #e8e5e0;
-  ion-card-content { padding: 14px 16px; }
+  ion-card-content { padding: 5px 16px; }
 }
 
 .summary-row {
@@ -757,8 +757,8 @@ ion-card-subtitle {
   gap: 14px;
 }
 .hcard-icon {
-  width: 46px;
-  height: 46px;
+  width: 41px;
+  height: 41px;
   border-radius: 14px;
   display: flex;
   align-items: center;
@@ -773,11 +773,11 @@ ion-card-subtitle {
   justify-content: space-between;
   margin-bottom: 5px;
 }
-.hcard-label { font-size: 13px; color: #5a5a67; font-weight: 500; }
-.hcard-num { font-size: 24px; font-weight: 700; line-height: 1; }
+.hcard-label { font-size: 13px; color: #5a5a67; font-weight: 500; margin-top: 6px; }
+.hcard-num { font-size: 15px; font-weight: 300; line-height: 1; margin-top: 6px; margin-right: 9px;}
 .hcard-bar-bg { height: 5px; border-radius: 99px; background: #f2f0ec; margin-top: 8px; }
 .hcard-bar { height: 5px; border-radius: 99px; }
-.hcard-pct { font-size: 11px; font-weight: 600; margin-top: 5px !important; }
+.hcard-pct { font-size: 11px; font-weight: 300; margin-top: 5px !important; }
 
 .publier-icon { background: #dbeafe; ion-icon { color: #2563eb; } }
 .publier-text { color: #2563eb; }
