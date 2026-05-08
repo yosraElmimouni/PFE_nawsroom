@@ -14,6 +14,8 @@ import pkg from '../../package.json';
   styleUrls: ['app.component.scss'],
   standalone: false,
 })
+
+
 export class AppComponent implements OnInit {
   appVersion = '';
   user: any;
