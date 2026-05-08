@@ -750,34 +750,60 @@ ion-card-subtitle {
   height: 9px;
   border-radius: 50%;
 }
+.stats-section { padding: 16px; }
+
+.date-label {
+  font-size: 11px;
+  color: var(--ion-color-medium);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.nr-hcard {
+  border-radius: 12px;
+  box-shadow: none;
+  border: 0.5px solid rgba(0,0,0,0.07);
+  margin: 0 0 10px;
+  box-shadow: 0 2px 6px rgba(6, 6, 7, 0.15);
+}
+
+.nr-hcard--sm { margin: 0; }
 
 .hcard-content {
   display: flex;
   align-items: center;
   gap: 14px;
+  padding: 16px 18px;
 }
+
 .hcard-icon {
-  width: 41px;
-  height: 41px;
-  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   ion-icon { font-size: 22px; }
 }
+
 .hcard-body { flex: 1; min-width: 0; }
+
 .hcard-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 5px;
 }
-.hcard-label { font-size: 13px; color: #5a5a67; font-weight: 500; margin-top: 6px; }
-.hcard-num { font-size: 15px; font-weight: 300; line-height: 1; margin-top: 6px; margin-right: 9px;}
-.hcard-bar-bg { height: 5px; border-radius: 99px; background: #f2f0ec; margin-top: 8px; }
-.hcard-bar { height: 5px; border-radius: 99px; }
-.hcard-pct { font-size: 11px; font-weight: 300; margin-top: 5px !important; }
+
+.hcard-label { font-size: 12px; color: #5a5a67; font-weight: 500; letter-spacing: 0.03em; }
+.hcard-num { font-size: 15px; font-weight: 500; line-height: 1; }
+.hcard-pct { font-size: 11px; font-weight: 400; margin: 2px 0 8px; opacity: 0.75; }
+
+.hcard-bar-bg { height: 5px; border-radius: 99px; background: #f2f0ec; overflow: hidden; }
+.hcard-bar { height: 5px; border-radius: 99px; transition: width 0.6s ease; }
 
 .publier-icon { background: #dbeafe; ion-icon { color: #2563eb; } }
 .publier-text { color: #2563eb; }
@@ -785,8 +811,12 @@ ion-card-subtitle {
 
 .reviser-icon { background: #dcfce7; ion-icon { color: #16a34a; } }
 .reviser-text { color: #16a34a; }
-.reviser-bar { background: #16a34a; }
 
 .renvoyer-icon { background: #fef3c7; ion-icon { color: #92400e; } }
 .renvoyer-text { color: #92400e; }
-.renvoyer-bar { background: #92400e; }
+
+.div-stat {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}

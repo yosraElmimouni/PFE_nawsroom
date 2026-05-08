@@ -189,7 +189,9 @@ export class DashboardJournalistePage implements OnInit {
     });
   }
 
-  
+  get total(): number {
+  return this.production.published + this.production.inProgress + this.production.drafts;
+}
   // onArticleTap(article: Article) {
   //   console.log('Open article:', article.id);
   // }
