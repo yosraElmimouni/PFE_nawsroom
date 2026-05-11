@@ -240,8 +240,7 @@ isAiGenerate:boolean=false;
     id: 1,
     source: 'MAP — Maghreb Arabe Presse',
     domaine: 'Politique',
-    time: 'il y a 10 min',
-    date: new Date('2026-05-08'),
+    date: new Date('2026-05-11'),
     title: 'Maroc–France : signature d’un nouveau partenariat stratégique renforcé',
     summary:
       'Le Maroc et la France ont signé à Rabat un accord de partenariat stratégique visant à renforcer la coopération bilatérale dans plusieurs secteurs clés. Cet accord couvre notamment la coopération économique, la transition énergétique, l’enseignement supérieur, la formation professionnelle ainsi que la sécurité régionale. Les deux parties ont réaffirmé leur volonté de consolider leurs relations historiques à travers des projets concrets favorisant l’investissement, l’innovation et la stabilité régionale.',
@@ -250,8 +249,7 @@ isAiGenerate:boolean=false;
     id: 2,
     source: 'Reuters Afrique',
     domaine: 'Sport',
-    date: new Date('2026-05-07'),
-    time: 'il y a 30 min',
+    date: new Date('2026-05-11'),
     title: 'CAN 2025 : avancées majeures sur les infrastructures et l’organisation',
     summary:
       'La Confédération africaine de football, en coordination avec la FIFA, a confirmé l’état d’avancement satisfaisant des préparatifs de la Coupe d’Afrique des Nations 2025. Les travaux de construction et de rénovation des stades progressent conformément aux calendriers établis, tandis que les autorités sportives mettent l’accent sur la logistique, la sécurité et l’accueil des supporters. Cette édition est présentée comme un tournant majeur pour le football africain.',
@@ -260,8 +258,7 @@ isAiGenerate:boolean=false;
     id: 3,
     source: 'Le Monde Afrique',
     domaine: 'Économie',
-    date: new Date('2026-05-06'),
-    time: 'il y a 50 min',
+    date: new Date('2026-05-11'),
     title: 'Croissance économique : le Maroc affiche des perspectives encourageantes',
     summary:
       'L’économie marocaine affiche des signes de reprise solides, soutenus par une amélioration de la production agricole, une hausse des exportations industrielles et un regain de l’investissement public. Selon les dernières analyses économiques, la croissance est portée également par le dynamisme du secteur automobile, des énergies renouvelables et du tourisme. Les experts soulignent toutefois l’importance de maîtriser l’inflation et de renforcer l’emploi des jeunes.',
@@ -270,15 +267,15 @@ isAiGenerate:boolean=false;
     id: 4,
     source: 'Hespress',
     domaine: 'Société',
-    date: new Date('2026-05-05'),
-    time: 'il y a 1h',
+    date: new Date('2026-05-12'),
     title: 'Éducation : lancement d’un programme national de digitalisation des écoles',
     summary:
       'Le ministère de l’Éducation nationale a annoncé le lancement d’un vaste programme de digitalisation visant à moderniser les établissements scolaires publics. Ce projet prévoit l’équipement des écoles en matériel informatique, la formation des enseignants aux outils numériques et le développement de contenus pédagogiques interactifs. L’objectif est de réduire la fracture numérique et d’améliorer la qualité de l’enseignement.',
   },
 ];
-selectedDate: string = '';
+selectedDate: string = new Date().toISOString();
 isDateModalOpen: boolean = false;
+
   
 
 
@@ -293,7 +290,7 @@ isDateModalOpen: boolean = false;
     aiSummary: null
   }));
 
-  this.filteredFeedItems = [...this.feedItems];
+  this.applyFilters();
 
   this.sources = [...new Set(this.feedItems.map(item => item.source))];
   this.domaines = [...new Set(this.feedItems.map(item => item.domaine))];

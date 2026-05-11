@@ -1,7 +1,7 @@
 .nr-toolbar {
   color: #ffffff;
   align-self: center;
-  --background: #7e57c2;
+  --background: #4caf50;
   justify-content: center;
   font-size: 20px;
   text-align: center;
@@ -97,7 +97,7 @@
   letter-spacing: 0.5px;
   margin-bottom: 10px;
   text-transform: none;
-  color: #7e57c2;
+  color: #4caf50;
 
   ion-icon {
     vertical-align: middle;
@@ -123,7 +123,7 @@
   line-height: 1.5;
   color: var(--ion-color-dark);
   --placeholder-color: #bbb;
-  border: 1px solid #7e57c24f;
+  border: 1px solid #4caf504f;
   border-radius: 6px;
   padding: 1px 8px;
   
@@ -133,7 +133,7 @@
   display: flex;
   align-items: center;
   background: #f5f5f5;
-  border: 1px solid #7e57c24f;
+  border: 1px solid #4caf504f;
   border-bottom: none;
   border-radius: 6px 6px 0 0;
   padding: 4px 8px;
@@ -193,26 +193,18 @@ ion-select {
   --highlight-color: transparent !important;
 }
 
-ion-textarea,
-ion-input {
-  --highlight-color-focused: transparent;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 10px;
-  --background: #fff;
-}
 
 ion-textarea:focus-within,
 ion-input:focus-within {
-  border: 1px solid #7e57c2;
-  box-shadow: 0 0 0 3px #7e57c247;
+  border: 1px solid #4caf50;
+  box-shadow: 0 0 0 3px #4caf5047;
 }
 
 .save-btn {
   font-size: 13px;
   color: white;
   border: none;
-  --background: #7e57c2;
+  --background: #4caf50;
   --border-radius: 10px;
   text-transform: none;
   margin-top: 13px;
@@ -246,7 +238,7 @@ ion-input:focus-within {
   color: #5e3d00;
   font-weight: 600;
   padding: 6px;
-  background: #5431001d;
+  background: #4caf50;
   border-radius: 50%;
   margin-top: -10px;
 }
@@ -254,12 +246,12 @@ ion-input:focus-within {
 .chip-tag {
   font-size: 12px;
   height: 28px;
-  background: #7e57c24f;
-  color: #7e57c2;
+  background: #4caf504f;
+  color: #4caf50;
   border-radius: 20px;
   padding: 4px 10px;
   border-width: 0.5px;
-  border-color: #7e57c24f;
+  border-color: #4caf504f;
   width: max-content;
   display: flex;
   justify-content: space-between;
@@ -275,12 +267,12 @@ ion-input:focus-within {
   align-items: center;
   gap: 4px;
   font-size: 12px;
-  color: #7e57c2;
-  background: #7e57c221;
+  color: #4caf50;
+  background: #4caf5021;
   border-radius: 20px;
   padding: 4px 10px;
   border-width: 0.5px;
-  border-color: #7e57c24f;
+  border-color: #4caf504f;
   ion-icon {
     color: #22113e;
   }
@@ -296,4 +288,20 @@ ion-input:focus-within {
   --background: linear-gradient(135deg, #7c5cff, #2b47ff);
   margin-bottom: 20px;
   margin-right: 20px;
+}
+
+ion-textarea,
+ion-input {
+  line-height: 1.5;
+  color: var(--ion-color-dark);
+  border: 1px solid rgba(29, 0, 214, 0.2);
+  border-radius: 10px;
+  padding: 0px 14px;
+  font-size: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  --background: #fff;
+  --highlight-color-focused: transparent !important;
+  --highlight-color: transparent !important;
+  --placeholder-color: rgba(29, 0, 214, 0.4);
 }

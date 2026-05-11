@@ -3,61 +3,65 @@
     <ion-buttons slot="start">
       <ion-menu-button class="menu-header"></ion-menu-button>
     </ion-buttons>
-    <ion-title class="title-toolbar">Capture Terrain</ion-title>
+    <ion-title class="title-toolbar">Veille informationnelle</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="content-page" [fullscreen]="true">
   <div class="nr-filters">
-  <ion-item lines="none">
-    <ion-select
-      interface="popover"
-      placeholder="Source"
-      [(ngModel)]="selectedSource"
-      (ionChange)="applyFilters()"
-      class="select-filter"
-    >
-      <ion-select-option value="">Toutes les sources</ion-select-option>
-      <ion-select-option *ngFor="let s of sources" [value]="s">
-        {{ s }}
-      </ion-select-option>
-    </ion-select>
-  </ion-item>
+    <ion-item lines="none">
+      <ion-select
+        interface="popover"
+        placeholder="Source"
+        [(ngModel)]="selectedSource"
+        (ionChange)="applyFilters()"
+        class="select-filter"
+      >
+        <ion-select-option value="">Toutes les sources</ion-select-option>
+        <ion-select-option *ngFor="let s of sources" [value]="s">
+          {{ s }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
 
-  <ion-item lines="none" class="date-filter-item" (click)="openDatePicker()">
-    <ion-icon name="calendar-outline" slot="start"></ion-icon>
-    <ion-label>{{ selectedDate ? (selectedDate | date:'dd/MM/yyyy') : 'Date' }}</ion-label>
-    <ion-icon *ngIf="selectedDate" name="close-circle-outline" slot="end"
-      (click)="clearDate($event)">
-    </ion-icon>
-  </ion-item>
-</div>
+    <ion-item lines="none" class="date-filter-item" (click)="openDatePicker()">
+      <ion-icon name="calendar-outline" slot="start"></ion-icon>
+      <ion-label class="dateselected"> {{ selectedDate | date:'dd/MM/yyyy' }} </ion-label>
 
-<ion-modal
-  [isOpen]="isDateModalOpen"
-  (didDismiss)="isDateModalOpen = false"
-  [breakpoints]="[0, 0.5]"
-  [initialBreakpoint]="0.5"
->
-  <ng-template>
-    <ion-content>
-      <ion-datetime
-        presentation="date"
-        [(ngModel)]="selectedDate"
-        (ionChange)="onDateSelected()"
-        [max]="today"
-        locale="fr-FR"
-      ></ion-datetime>
-    </ion-content>
-  </ng-template>
-</ion-modal>
+      <ion-icon
+        *ngIf="selectedDate"
+        name="close-circle-outline"
+        slot="end"
+        (click)="clearDate($event)"
+      >
+      </ion-icon>
+    </ion-item>
+  </div>
+
+  <ion-modal
+    [isOpen]="isDateModalOpen"
+    (didDismiss)="isDateModalOpen = false"
+    [breakpoints]="[0, 0.5]"
+    [initialBreakpoint]="0.5"
+  >
+    <ng-template>
+      <ion-content>
+        <ion-datetime
+          presentation="date"
+          [(ngModel)]="selectedDate"
+          (ionChange)="onDateSelected()"
+          [max]="today"
+          locale="fr-FR"
+        ></ion-datetime>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
   <div class="nr-section-header">
     <h2 class="nr-section-title">Actualités du jour</h2>
   </div>
 
-  <ion-card class="nr-feed-item" *ngFor="let item of filteredFeedItems" >
-    
-<!-- <ion-card-header>
+  <ion-card class="nr-feed-item" *ngFor="let item of filteredFeedItems">
+    <!-- <ion-card-header>
       <ion-icon
         (click)="AiResume(item)"
         class="icon-ai-resume"
@@ -72,41 +76,39 @@
     </ion-card-header> -->
 
     <ion-card-content (click)="goToDetail(item)">
-  <ion-card-title class="feed-title">{{ item.title }}</ion-card-title>
-  <p class="newssummary">{{ item.summary }}</p>
+      <ion-card-title class="feed-title">{{ item.title }}</ion-card-title>
+      <p class="newssummary">{{ item.summary }}</p>
 
-  <div *ngIf="item.aiSummary" class="feed-source ai-box">
-    <span class="nr-source-name">Résumé IA</span>
-    <ion-card-subtitle class="feed-time">{{ item.aiSummary }}</ion-card-subtitle>
-  </div>
+      <div *ngIf="item.aiSummary" class="feed-source ai-box">
+        <span class="nr-source-name">Résumé IA</span>
+        <ion-card-subtitle class="feed-time"
+          >{{ item.aiSummary }}</ion-card-subtitle
+        >
+      </div>
 
-  <div *ngIf="item.isAiGenerating" class="feed-source ai-loading">
-    <ion-spinner name="dots"></ion-spinner>
-    <ion-card-subtitle>Analyse IA en cours…</ion-card-subtitle>
-  </div>
+      <div *ngIf="item.isAiGenerating" class="feed-source ai-loading">
+        <ion-spinner name="dots"></ion-spinner>
+        <ion-card-subtitle>Analyse IA en cours…</ion-card-subtitle>
+      </div>
 
-  <!-- Footer source + date -->
-  <div class="feed-footer">
-    <div class="feed-footer-source">
-      <ion-icon name="globe-outline"></ion-icon>
-      <span>{{ item.source }}</span>
-    </div>
-    <div class="feed-footer-date">
-      <ion-icon name="calendar-outline"></ion-icon>
-      <span>{{ item.date | date:'dd/MM/yyyy' }}</span>
-    </div>
-  </div>
-
-</ion-card-content>
-
-    
-    
+      <!-- Footer source + date -->
+      <div class="feed-footer">
+        <div class="feed-footer-source">
+          <ion-icon name="globe-outline"></ion-icon>
+          <span>{{ item.source }}</span>
+        </div>
+        <div class="feed-footer-date">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>{{ item.date | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+    </ion-card-content>
   </ion-card>
   <div style="height: 40px"></div>
 </ion-content>
 
-<ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button class="fab-button" (click)="openAiAssistant()">
-    <ion-icon  name="chatbubble-ellipses-outline"></ion-icon>
+    <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
   </ion-fab-button>
 </ion-fab>
