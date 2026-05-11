@@ -42,45 +42,59 @@
     </ion-card>
   </div> -->
 
-  <div class="nr-stats-scroll">
-    <ion-card class="nr-stat-card reviser">
-      <ion-icon
-        class="icon-stats"
-        id="warning"
-        name="hourglass-outline"
-      ></ion-icon>
-      <ion-card-header class="stat-content">
-        <ion-card-title>4</ion-card-title>
-        <ion-card-subtitle class="nr-stat-label">En cours</ion-card-subtitle>
-      </ion-card-header>
+  
+<div class="stats-section">
+
+  <!-- Carte principale : Publiés -->
+  <ion-card class="nr-hcard nr-hcard--main">
+    <ion-card-content class="hcard-content">
+      <div class="hcard-icon publier-icon">
+        <ion-icon name="checkmark-done-outline"></ion-icon>
+      </div>
+      <div class="hcard-body">
+        <div class="hcard-top">
+          <span class="hcard-label">Publiés</span>
+          <span class="hcard-num publier-text">{{ production.published }}</span>
+        </div>
+        <p class="hcard-pct publier-text">
+          {{ (production.published / total * 100) | number:'1.0-0' }}% du total
+        </p>
+        <div class="hcard-bar-bg">
+          <div class="hcard-bar publier-bar"
+            [style.width]="(production.published / total * 100) + '%'">
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Deux petites cartes -->
+  <div class="div-stat">
+    <ion-card class="nr-hcard nr-hcard--sm">
+      <ion-card-content class="hcard-content">
+        <div class="hcard-icon reviser-icon">
+          <ion-icon name="hourglass-outline"></ion-icon>
+        </div>
+        <div class="hcard-body">
+          <p class="hcard-label">En cours</p>
+          <span class="hcard-num reviser-text">{{ production.inProgress }}</span>
+        </div>
+      </ion-card-content>
     </ion-card>
 
-    <ion-card class="nr-stat-card publier">
-      <ion-icon
-        class="icon-stats"
-        id="checkbox"
-        name="checkmark-done-outline"
-      ></ion-icon>
-      <ion-card-header class="stat-content">
-        <ion-card-title class="nr-stat-num">28</ion-card-title>
-        <ion-card-subtitle class="nr-stat-label"
-          >Publiés</ion-card-subtitle
-        >
-      </ion-card-header>
-    </ion-card>
-
-    <ion-card class="nr-stat-card renvoyer">
-      <ion-icon
-        class="icon-stats"
-        id="reload"
-        name="document-text-outline"
-      ></ion-icon>
-      <ion-card-header class="stat-content">
-        <ion-card-title class="nr-stat-num">3</ion-card-title>
-        <ion-card-subtitle class="nr-stat-label">Brouillons</ion-card-subtitle>
-      </ion-card-header>
+    <ion-card class="nr-hcard nr-hcard--sm">
+      <ion-card-content class="hcard-content">
+        <div class="hcard-icon renvoyer-icon">
+          <ion-icon name="document-text-outline"></ion-icon>
+        </div>
+        <div class="hcard-body">
+          <p class="hcard-label">Brouillons</p>
+          <span class="hcard-num renvoyer-text">{{ production.drafts }}</span>
+        </div>
+      </ion-card-content>
     </ion-card>
   </div>
+</div>
 
   <div class="menu-container">
   <div class="menu-ligne"></div>
@@ -332,18 +346,9 @@
   </ion-card-content>
    
   </ion-card> -->
+    <div style="height: 40px;"></div>
+
 </ion-content>
 
 
-<ion-footer class="nr-footer">
-  <ion-toolbar>
-    <div class="footer-profile">
-      <div class="footer-avatar">{{ profile.initials }}</div>
 
-      <div class="footer-info">
-        <span class="footer-name">{{ profile.name }}</span>
-        <span class="footer-role">{{ profile.role }}</span>
-      </div>
-    </div>
-  </ion-toolbar>
-</ion-footer>

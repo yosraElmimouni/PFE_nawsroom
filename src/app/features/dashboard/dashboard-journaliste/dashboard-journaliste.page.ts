@@ -86,7 +86,7 @@ export class DashboardJournalistePage implements OnInit {
   ];
 
   modules = [
-    { id: 3, name: 'Veille', icon: 'newspaper' },
+    { id: 3, name: 'Veille', icon: 'radio' },
     { id: 8, name: 'Agenda', icon: 'calendar' },
     { id: 5, name: 'Articles', icon: 'library' },
     { id: 1, name: 'Redaction', icon: 'create' },
@@ -189,6 +189,9 @@ export class DashboardJournalistePage implements OnInit {
     });
   }
 
+  get total(): number {
+  return this.production.published + this.production.inProgress + this.production.drafts;
+}
   // onArticleTap(article: Article) {
   //   console.log('Open article:', article.id);
   // }
