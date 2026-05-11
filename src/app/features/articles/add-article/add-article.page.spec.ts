@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AddArticlePage } from './redaction.page';
+import { AddArticlePage } from './add-article.page';
 
 describe('AddArticlePage', () => {
   let component: AddArticlePage;
