@@ -6,7 +6,7 @@
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button>
-        <ion-icon  name="send-outline" slot="start"></ion-icon>
+        <ion-icon name="send-outline" slot="start"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -35,40 +35,92 @@
       </ion-item>
 
       <ion-item>
-        <ion-label class="section-label" position="stacked"
-          >Localisation</ion-label
-        >
-        <ion-input placeholder="Ex: Casablanca, Maroc"> </ion-input>
-        <ion-button slot="end" fill="clear" (click)="getLocation()">
-          <ion-icon color="dark" name="locate-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
+
+  <ion-label
+    class="section-label"
+    position="stacked">
+
+    Localisation
+
+  </ion-label>
+
+  <ion-input
+  [(ngModel)]="locationText"
+  placeholder="Ex: Casablanca, Maroc">
+</ion-input>
+
+  <ion-button
+    slot="end"
+    fill="clear"
+    (click)="getLocation()">
+
+    <ion-icon
+      color="dark"
+      name="locate-outline">
+    </ion-icon>
+
+  </ion-button>
+
+</ion-item>
 
       <ion-item>
         <ion-label class="section-label" position="stacked"
           >Capturer un contenu</ion-label
         >
         <div class="capture-grid">
-            <button  *ngIf="name==='photo'" class="capture-btn photo">
-              <ion-icon name="camera-outline"></ion-icon>
-              <span>Photo</span>
-            </button>
+          <button
+            *ngIf="name==='photo'"
+            class="capture-btn photo"
+            (click)="takePicture()"
+          >
+            <ion-icon name="camera-outline"></ion-icon>
+            <span>Photo</span>
+          </button>
 
-            <button *ngIf="name==='vidio'" class="capture-btn video">
-              <ion-icon name="videocam-outline"></ion-icon>
-              <span>Vidéo</span>
-            </button>
+          <button
+            *ngIf="name==='vidio'"
+            class="capture-btn video"
+            (click)="toggleVideoRecording()"
+          >
+            <ion-icon
+              [name]="isRecordingVideo
+      ? 'stop-circle-outline'
+      : 'videocam-outline'"
+            >
+            </ion-icon>
+            <span>Vidéo</span>
+          </button>
+          <video
+            *ngIf="videoUrl"
+            [src]="videoUrl"
+            controls
+            style="width: 100%"
+          ></video>
 
-            <button *ngIf="name==='audio'" class="capture-btn audio">
-              <ion-icon name="mic-outline"></ion-icon>
-              <span>Audio</span>
-            </button>
+          <button
+            *ngIf="name==='audio'"
+            class="capture-btn audio"
+            (click)="toggleRecording()"
+          >
+            <ion-icon
+              [name]="isRecording ? 'stop-circle-outline' : 'mic-outline'"
+            >
+            </ion-icon>
 
-            <!-- <button class="capture-btn file" (click)="pickFile()">
+            <span> {{ isRecording ? 'Stop' : 'Audio' }} </span>
+          </button>
+          <audio
+            *ngIf="audioUrl"
+            [src]="audioUrl"
+            controls
+            style="width: 100%; margin-top: 10px"
+          ></audio>
+
+          <!-- <button class="capture-btn file" (click)="pickFile()">
         <ion-icon name="document-attach-outline"></ion-icon>
         <span>Fichier</span>
       </button> -->
-          </div>
+        </div>
       </ion-item>
       <!-- <ion-item class="full-width-item">
   <ion-label class="section-label" position="stacked">Type de média</ion-label>
@@ -92,17 +144,14 @@
     </div>
   </div>
 </ion-item> -->
-      
+
       <ion-item *ngIf="!linkedArticle" button (click)="openArticleSelector()">
         <ion-label class="section-label" position="stacked"
           >Associer à un article
-          </ion-label>
-        <ion-button
-  fill="solid"
-  class="icon-link"
->
-  <ion-icon name="link-outline"></ion-icon>
-</ion-button>
+        </ion-label>
+        <ion-button fill="solid" class="icon-link">
+          <ion-icon name="link-outline"></ion-icon>
+        </ion-button>
       </ion-item>
 
       <ion-modal class="modal-article" [isOpen]="showArticleSelector">
