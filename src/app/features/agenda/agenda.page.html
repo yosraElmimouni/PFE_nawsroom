@@ -1,0 +1,109 @@
+<ion-header class="nr-header" translucent>
+  <ion-toolbar class="nr-toolbar">
+
+    <ion-buttons slot="start">
+      <ion-menu-button class="menu-header"></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>
+      Agenda
+    </ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="true">
+
+  <div class="page-title" >
+     Casablanca
+  </div>
+
+ <div class="date-filter">
+
+  <div class="date-box">
+    <ion-item class="date-inline" lines="none">
+      <ion-label class="label-inline">
+        Date début
+      </ion-label>
+
+      <ion-datetime-button datetime="debut"></ion-datetime-button>
+    </ion-item>
+
+    <ion-modal keepContentsMounted="true">
+      <ng-template>
+        <ion-datetime
+          id="debut"
+          presentation="date"
+          [(ngModel)]="dateDebutFilter">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </div>
+
+  <div class="date-box">
+    <ion-item class="date-inline" lines="none">
+      <ion-label class="label-inline">
+        Date fin
+      </ion-label>
+
+      <ion-datetime-button datetime="fin"></ion-datetime-button>
+    </ion-item>
+
+    <ion-modal keepContentsMounted="true">
+      <ng-template>
+        <ion-datetime
+          id="fin"
+          presentation="date"
+          [(ngModel)]="dateFinFilter">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </div>
+
+</div>
+
+
+
+
+  <ion-list lines="none">
+    <ion-item-sliding *ngFor="let event of filteredEvents">
+
+      <ion-item
+              button
+              lines="none"
+              class="article-item"
+              (click)="openDetail(event)">
+       
+
+        <ion-label>
+
+          <div class="article-header">
+            <ion-badge [ngClass]="event.importance">
+              {{ event.importance }}
+            </ion-badge>
+          </div>
+
+          <h2 class="article-title">
+            {{ event.titre }}
+          </h2>
+          <p class="article-date">
+
+            {{ event.dateDebut | date:'dd/MM/yyyy' }}
+            →
+            {{ event.dateFin | date:'dd/MM/yyyy' }}
+          </p>
+
+        </ion-label>
+
+      </ion-item>
+
+    </ion-item-sliding>
+  </ion-list>
+
+</ion-content>
+
+<ion-fab class="button-flottant-add">
+  <ion-fab-button class="button-flottant" routerLink="/agenda/add-event">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

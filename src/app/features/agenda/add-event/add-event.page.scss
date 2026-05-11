@@ -1,0 +1,181 @@
+// ── Toolbar ──────────────────────────────────────
+.nr-toolbar {
+  color: #ffffff;
+  --background: rgb(29, 0, 214);
+  font-size: 20px;
+}
+
+// ── Layout ───────────────────────────────────────
+.section-block {
+  margin: 20px 30px;
+}
+
+.section-label {
+  font-size: 17px;
+  font-weight: 500;
+  color: #1d00d6;
+  margin-bottom: 8px;
+  display: block;
+}
+
+// ── Inputs ───────────────────────────────────────
+ion-textarea,
+ion-input {
+  line-height: 1.5;
+  color: var(--ion-color-dark);
+  border: 1px solid rgba(29, 0, 214, 0.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  width: 100%;
+  box-sizing: border-box;
+  --background: #fff;
+  --highlight-color-focused: transparent !important;
+  --highlight-color: transparent !important;
+  --placeholder-color: rgba(29, 0, 214, 0.4);
+}
+
+ion-textarea:focus-within,
+ion-input:focus-within {
+  border: 1px solid rgb(29, 0, 214);
+  box-shadow: 0 0 0 3px rgba(29, 0, 214, 0.08);
+}
+
+// ── Select (Catégorie / Importance) ──────────────
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+  border: 1px solid rgba(29, 0, 214, 0.2);
+  border-radius: 10px;
+  margin-bottom: 0;
+
+  ion-select {
+    width: 100%;
+    padding: 4px 14px;
+    font-size: 15px;
+    color: var(--ion-color-dark);
+    --highlight-color-focused: transparent !important;
+  }
+}
+
+// ── Dates ────────────────────────────────────────
+.date-card {
+  border: 1px solid rgba(29, 0, 214, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.date-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+}
+
+.date-icon-wrap {
+  width: 30px;
+  height: 30px;
+  // border-radius: 10px;
+  // background: rgba(29, 0, 214, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 22px;
+    color: rgb(29, 0, 214);
+  }
+}
+
+.date-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+
+.date-label-text {
+  font-size: 11px;
+  color: #9a9a9a;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.date-divider {
+  height: 0.5px;
+  background: rgba(29, 0, 214, 0.15);
+  margin: 0 16px;
+}
+
+ion-datetime-button::part(native) {
+  background: rgba(52, 27, 216, 0.1);
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(29, 0, 214);
+  box-shadow: none;
+}
+
+// ── Lieu ─────────────────────────────────────────
+.lieu-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(29, 0, 214, 0.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.lieu-icon {
+  font-size: 20px;
+  color: rgb(29, 0, 214);
+  flex-shrink: 0;
+}
+
+// ── Bouton ───────────────────────────────────────
+ion-button {
+  --background: rgb(29, 0, 214);
+  text-transform: none;
+}
+
+.ajoute-btn {
+  padding: 0px 27px ;
+}
+
+.date-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.date-label-text {
+  font-size: 11px;
+  color: #9a9a9a;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+ion-datetime-button {
+  align-self: flex-start; // colle le bouton à gauche
+
+  &::part(native) {
+    background: rgba(29, 0, 214, 0.08);
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgb(29, 0, 214);
+    box-shadow: none;
+    margin: 0;
+  }
+}
+
+.icon-locat{
+  --background: transparent;
+}
