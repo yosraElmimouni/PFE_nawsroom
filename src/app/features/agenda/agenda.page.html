@@ -68,8 +68,11 @@
   <ion-list lines="none">
     <ion-item-sliding *ngFor="let event of filteredEvents">
 
-      <ion-item button lines="none" class="article-item">
-
+      <ion-item
+              button
+              lines="none"
+              class="article-item"
+              (click)="openDetail(event)">
        
 
         <ion-label>
@@ -85,9 +88,9 @@
           </h2>
           <p class="article-date">
 
-            {{ event.dateDebut | date:'dd MMMM yyyy' }}
+            {{ event.dateDebut | date:'dd/MM/yyyy' }}
             →
-            {{ event.dateFin | date:'dd MMMM yyyy' }}
+            {{ event.dateFin | date:'dd/MM/yyyy' }}
           </p>
 
         </ion-label>

@@ -1,0 +1,99 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="nr-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/agenda"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Détail de l'événement</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="modifierEvent()">
+        <ion-icon slot="icon-only" name="create-outline"> </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="content-page">
+
+  <!-- Badge importance + catégorie -->
+  <!-- <div class="event-badges">
+    <span class="badge-categorie">{{ event.categorie }}</span>
+    <span class="badge-importance" [ngClass]="event.importance === 'important' ? 'badge-important' : 'badge-normale'">
+      <ion-icon name="flag-outline"></ion-icon>
+      {{ event.importance === 'important' ? 'Important' : 'Normale' }}
+    </span>
+  </div> -->
+
+  <!-- Titre -->
+  <div class="section-block">
+    <ion-label class="section-label">Titre</ion-label>
+    <div class="title-input title">{{ event.titre }}</div>
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">Catégorie</ion-label>
+
+    <ion-item lines="none">
+      <div class="title-input">
+          <span>{{ event.categorie }}</span>
+      </div>
+    </ion-item>
+  </div>
+  <!-- Résumé -->
+  <div class="section-block">
+    <ion-label class="section-label">Résumé</ion-label>
+    <div class="title-input resume-text">{{ event.resume }}</div>
+  </div>
+
+  <div class="section-block">
+    <ion-label class="section-label">Importance</ion-label>
+
+    <ion-item lines="none">
+      
+        
+      <div class="title-input">
+          <span >{{ event.importance === 'important' ? 'Important' : 'Normale' }}</span>
+      </div>
+   
+      
+    
+    </ion-item>
+  </div>
+
+  <!-- Dates -->
+  <div class="section-block">
+    <ion-label class="section-label">Dates</ion-label>
+    <div class="date-card">
+      <div class="date-row">
+        <div class="date-icon-wrap">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </div>
+        <div class="date-info">
+          <span class="date-label-text">Début</span>
+          <span class="date-value">{{ event.dateDebut | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+      <div class="date-divider"></div>
+      <div class="date-row">
+        <div class="date-icon-wrap">
+          <ion-icon name="calendar-clear-outline"></ion-icon>
+        </div>
+        <div class="date-info">
+          <span class="date-label-text">Fin</span>
+          <span class="date-value">{{ event.dateFin | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lieu -->
+  <div class="section-block">
+    <ion-label class="section-label">Lieu</ion-label>
+    <div class="lieu-row">
+      <ion-icon name="location-outline" class="lieu-icon"></ion-icon>
+      <span class="lieu-text">{{ event.lieu }}</span>
+    </div>
+  </div>
+
+  
+
+</ion-content>

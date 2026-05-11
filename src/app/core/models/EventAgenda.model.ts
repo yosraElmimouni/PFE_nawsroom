@@ -1,4 +1,5 @@
 export interface EventAgenda {
+  id:number;
   titre: string;
   categorie: string;
   resume: string;
