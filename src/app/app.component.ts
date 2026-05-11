@@ -21,6 +21,11 @@ export class AppComponent implements OnInit {
   user: any;
   activeModule: string = 'redaction';
   activeTab: 'progress' | 'published' | 'draft' = 'progress';
+  profile = {
+    name: 'Amine H.',
+    role: 'Journaliste',
+    initials: 'AH',
+  };
 
   constructor(
     private msalService: MsalService,
@@ -28,7 +33,7 @@ export class AppComponent implements OnInit {
   ) {}
 
    modules = [
-    { id:3, name: 'Veille',    icon: 'newspaper' },
+    { id:3, name: 'Veille',    icon: 'radio' },
     { id:8, name: 'Agenda',  icon: 'calendar' },
 { id:5, name: 'Articles',  icon: 'library' },
     { id:1, name: 'Redaction', icon: 'create' },

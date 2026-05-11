@@ -1,0 +1,161 @@
+ion-button {
+  --color: #ffffff;
+  text-transform: none;
+}
+
+.nr-toolbar {
+  color: #ffffff;
+  --background: rgb(29, 0, 214);
+  font-size: 20px;
+}
+
+.section-block {
+  margin: 20px 30px;
+
+  ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --background: transparent;
+  }
+}
+
+.section-label {
+  font-size: 17px;
+  font-weight: 500;
+  color: #1d00d6;
+  margin-bottom: 8px;
+  display: block;
+}
+
+// Texte / champs lecture seule
+.title-input {
+  line-height: 1.5;
+  color: var(--ion-color-dark);
+  border: 1px solid rgba(29, 0, 214, 0.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.title{
+    text-align: center;
+    font-weight: 600;
+    font-size: 17px;
+}
+.resume-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.7;
+}
+
+// Badges
+.badge-categorie {
+  background: rgba(29, 0, 214, 0.1);
+  color: rgb(29, 0, 214);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 20px;
+}
+
+.badge-importance {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 20px;
+
+  ion-icon {
+    font-size: 13px;
+  }
+}
+
+.badge-important {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
+.badge-normale {
+  background: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+}
+
+// Carte dates
+.date-card {
+  border: 1px solid rgba(29, 0, 214, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.date-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+}
+
+.date-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(29, 0, 214, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 18px;
+    color: rgb(29, 0, 214);
+  }
+}
+
+.date-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.date-label-text {
+  font-size: 11px;
+  color: #9a9a9a;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.date-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(29, 0, 214);
+}
+
+.date-divider {
+  height: 0.5px;
+  background: rgba(29, 0, 214, 0.15);
+  margin: 0 16px;
+}
+
+// Lieu
+.lieu-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(29, 0, 214, 0.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.lieu-icon {
+  font-size: 20px;
+  color: rgb(29, 0, 214);
+  flex-shrink: 0;
+}
+
+.lieu-text {
+  font-size: 14px;
+  color: var(--ion-color-dark);
+}

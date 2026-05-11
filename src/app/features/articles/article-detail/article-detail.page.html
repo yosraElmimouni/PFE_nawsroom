@@ -1,12 +1,9 @@
 <ion-header>
   <ion-toolbar class="nr-toolbar">
     <ion-buttons slot="start">
-      <ion-back-button
-       
-        defaultHref="/articles"
-      ></ion-back-button>
+      <ion-back-button defaultHref="/articles"></ion-back-button>
     </ion-buttons>
-    <ion-title >Article</ion-title>
+    <ion-title>Article</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="modifierArticle(article.id)">
         <ion-icon slot="icon-only" name="create-outline"> </ion-icon>
@@ -19,191 +16,100 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="content-page" [fullscreen]="true">
-  <div class="article-content">
-    <div class="article-header">
-      <div class="article-meta">
-       
-        <div class="hero-overlay">
-          <ion-chip slot="end" [ngClass]="article.status" class="status-chip">
-            <ion-label>{{ article.status }}</ion-label>
-          </ion-chip>
-        </div>
-        <p *ngIf="article.status !== 'draft'" class="article-date">
-          {{ article.date }}
-        </p>
-      </div>
+<ion-content class="content-page">
+  <!-- Titre -->
+  <div class="section-block">
+    <ion-label class="section-label">Titre</ion-label>
+    <div class="title-input title">{{ article.title }}</div>
+  </div>
 
-      <h1 class="article-title">{{ article.title }}</h1>
+  <!-- Statut -->
+  <div class="section-block">
+    <ion-label class="section-label">Statut</ion-label>
+    <div class="title-input">
+      <span class="badge-status" [ngClass]="article.status">
+        {{ article.status === 'published' ? 'Publié' : article.status ===
+        'draft' ? 'Brouillon' : 'En relecture' }}
+      </span>
     </div>
-    <div class="ligne"></div>
+  </div>
 
-    <!-- <div class="article-body" *ngIf="article.status === 'draft'">
-      <ion-textarea
-        class="descroption-body-draft"
-        placeholder="Rédigez votre article ici..."
-        rows="10"
-        auto-grow="true"
-        value="{{ article.description }}"
-      ></ion-textarea>
-      <div class="ai-suggestion" *ngIf="article.status === 'draft'">
-        <ion-icon name="flash-outline"></ion-icon>
-        <span
-          >Besoin d'inspiration ? Découvrez nos suggestions basées sur l'IA pour
-          enrichir votre article.</span
+  <div class="section-block" *ngIf="article.status !== 'draft'">
+    <ion-label class="section-label">Date de publication</ion-label>
+    <div class="date-card">
+      <div class="title-input">
+        <span class="badge-status" [ngClass]="article.status">
+          {{ article.date | date:'dd/MM/yyyy' }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Catégorie -->
+  <div class="section-block">
+    <ion-label class="section-label">Catégorie</ion-label>
+    <div class="title-input">
+      <span>{{ article.categorie }}</span>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="section-block">
+    <ion-label class="section-label">Description</ion-label>
+    <div class="title-input resume-text">{{ article.description }}</div>
+  </div>
+
+  <!-- Tags -->
+  <div class="section-block">
+    <ion-label class="section-label">Tags</ion-label>
+    <div class="tags-list">
+      <ion-chip *ngFor="let tag of article.tags" class="chip-tag"
+        >{{ tag }}</ion-chip
+      >
+      <ion-chip *ngIf="isAddingTag" class="chip-tag chip-edit">
+        <ion-input
+          placeholder="Tag"
+          [(ngModel)]="newTag"
+          autofocus
+          (ionBlur)="addTag()"
+          (keyup.enter)="addTag()"
         >
-        <div class="ai-buttons">
-          <ion-button class="btn-ai-suggestion" fill="outline" size="small">
-            <ion-icon name="bulb-outline"></ion-icon>
-            suggestion
-          </ion-button>
-          <ion-button class="btn-ai-correction" fill="outline" size="small">
-            <ion-icon name="build-outline"></ion-icon>
-            correction
-          </ion-button>
-          <ion-button class="btn-ai-resumer" fill="outline" size="small">
-            <ion-icon name="document-text-outline"></ion-icon>
-            résumer
-          </ion-button>
-        </div>
-      </div>
-    </div> -->
-    <div class="article-body">
-      <p>{{ article.description }}</p>
-    </div>
-
-    <div class="article-tags">
-      <ion-label class="section-label">Catégorie</ion-label>
-      <ion-chip class="categorie-chip">
-        <ion-label>{{article.categorie}}</ion-label>
+        </ion-input>
+      </ion-chip>
+      <ion-chip
+        *ngIf="article.status === 'draft' && !isAddingTag"
+        class="chip-tag add-tag"
+        (click)="startAddingTag()"
+      >
+        <ion-icon name="add-outline"></ion-icon>
       </ion-chip>
     </div>
-
-    <div class="article-tags">
-      <ion-label class="section-label">Tags</ion-label>
-      <div class="tags-list">
-        <ion-chip *ngFor="let tag of article.tags" class="chip-tag">
-          {{ tag }}
-        </ion-chip>
-
-        <ion-chip *ngIf="isAddingTag" class="chip-tag chip-edit">
-          <ion-input
-            placeholder="Tag"
-            [(ngModel)]="newTag"
-            autofocus
-            (ionBlur)="addTag()"
-            (keyup.enter)="addTag()"
-          ></ion-input>
-        </ion-chip>
-
-        <ion-chip
-          *ngIf="article.status === 'draft' && !isAddingTag"
-          class="chip-tag add-tag"
-          (click)="startAddingTag()"
-        >
-          <ion-icon name="add-outline"></ion-icon>
-        </ion-chip>
-      </div>
-    </div>
-
-    <div class="section-block">
-      <ion-label class="section-label">Médias associés</ion-label>
-      <div class="capture-grid">
-        <button class="capture-btn photo">
-          <ion-icon name="camera-outline"></ion-icon>
-          <span>Photo {{countMediaByType(article).images}}</span>
-        </button>
-
-        <button class="capture-btn video">
-          <ion-icon name="videocam-outline"></ion-icon>
-          <span>Vidéo {{countMediaByType(article).videos}}</span>
-        </button>
-
-        <button class="capture-btn audio">
-          <ion-icon name="mic-outline"></ion-icon>
-          <span>Audio {{countMediaByType(article).audios}}</span>
-        </button>
-
-        <!-- <button class="capture-btn file" (click)="pickFile()">
-        <ion-icon name="document-attach-outline"></ion-icon>
-        <span>Fichier</span>
-      </button> -->
-      </div>
-    </div>
-    <!-- <div class="media-section" *ngIf="article.media?.length">
-      <span class="section-title">Médias associés</span>
-
-      <ion-segment
-        value="all"
-        scrollable
-        class="filter-bar"
-        (ionChange)="onMediaFilterChange($event)"
-      >
-        <ion-segment-button class="all" value="all">
-          <div class="icon-with-count">
-            <ion-icon name="albums-outline"></ion-icon>
-            <span class="count">Tous {{ article.media.length }}</span>
-          </div>
-        </ion-segment-button>
-        <ion-segment-button class="img" value="image"
-          >Images</ion-segment-button
-        >
-        <ion-segment-button class="video" value="video"
-          >Vidéos</ion-segment-button
-        >
-      </ion-segment>
-
-      <div class="media-scroll">
-        <div
-          class="media-card"
-          *ngFor="let media of filteredMedia"
-          [ngSwitch]="media.type"
-        >
-          <ng-container *ngSwitchCase="'image'">
-            <img [src]="media.src" [alt]="media.label" />
-            <span class="media-caption">{{ media.label }}</span>
-          </ng-container>
-          <ng-container *ngSwitchCase="'video'">
-            <div class="video-thumb" (click)="openVideo(media.src)">
-              <img [src]="media.thumbnail" [alt]="media.label" />
-              <ion-icon name="play-circle-outline"></ion-icon>
-            </div>
-          </ng-container>
-        </div>
-      </div>
-    </div> -->
   </div>
-  <div style="height: 50px"></div>
+
+  <!-- Médias -->
+  <div class="section-block">
+    <ion-label class="section-label">Médias associés</ion-label>
+    <div class="capture-grid">
+      <button class="capture-btn photo">
+        <ion-icon name="camera-outline"></ion-icon>
+        <span>Photo {{ countMediaByType(article).images }}</span>
+      </button>
+      <button class="capture-btn video">
+        <ion-icon name="videocam-outline"></ion-icon>
+        <span>Vidéo {{ countMediaByType(article).videos }}</span>
+      </button>
+      <button class="capture-btn audio">
+        <ion-icon name="mic-outline"></ion-icon>
+        <span>Audio {{ countMediaByType(article).audios }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div style="height: 80px"></div>
 </ion-content>
 
-<!-- <ion-fab *ngIf="article.status !== 'review'" class="fab-btn" slot="fixed">
-  <ion-fab-button class="float-btn">
-    <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-  </ion-fab-button>
-
-  <ion-fab-list side="top">
-    <ng-container [ngSwitch]="article.status">
-      <ng-container *ngSwitchCase="'published'">
-
-        <ion-fab-button class="historique-btn">
-          <ion-icon name="time-outline"></ion-icon>
-        </ion-fab-button>
-      </ng-container>
-      <ng-container *ngSwitchCase="'draft'">
-        <ion-fab-button class="create-btn">
-          <ion-icon name="save-outline"></ion-icon>
-        </ion-fab-button>
-
-        <ion-fab-button class="ai-btn">
-          <ion-icon name="cloud-upload-outline"></ion-icon>
-        </ion-fab-button>
-      </ng-container>
-    </ng-container>
-  </ion-fab-list>
-</ion-fab> -->
-
-<ion-fab  vertical="bottom" horizontal="end" slot="fixed">
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
   <ion-fab-button class="fab-button" (click)="openAiAssistant()">
-    <ion-icon  name="chatbubble-ellipses-outline"></ion-icon>
+    <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
   </ion-fab-button>
 </ion-fab>

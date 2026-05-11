@@ -23,11 +23,7 @@ export class ArticlesListPage {
       // badgeColor: 'success',
       // badgeLabel: 'Publié',
       categorie: 'Politique',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
+      date: new Date(),
       title: "Réforme constitutionnelle : le débat s'intensifie au parlement",
       description:
         "Le gouvernement présente ce mardi matin devant l'Assemblée nationale son projet de réforme constitutionnelle, une initiative qui vise à renforcer les prérogatives du pouvoir exécutif tout en encadrant davantage le contrôle parlementaire. ",
@@ -74,11 +70,7 @@ export class ArticlesListPage {
       // badgeColor: 'warning',
       // badgeLabel: 'Brouillon',
       categorie: 'Environnement & Agriculture',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
+      date: new Date(),
       title: 'Sécheresse : les agriculteurs du sud face à la crise hydrique',
       description:
         'La sécheresse qui sévit actuellement dans le sud du pays a des conséquences dramatiques pour les agriculteurs, qui voient leurs récoltes menacées et leurs moyens de subsistance compromis.',
@@ -125,11 +117,7 @@ export class ArticlesListPage {
       // badgeColor: 'warning',
       // badgeLabel: 'En relecture',
       categorie: 'Transport & Urbanisme',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
+      date: new Date(),
       title: 'Lancement du nouveau métro : les défis de la mobilité urbaine',
       description:
         'Le lancement du nouveau métro dans la capitale soulève de nombreux défis en matière de mobilité urbaine.',
@@ -171,11 +159,7 @@ export class ArticlesListPage {
       // badgeColor: 'success',
       // badgeLabel: 'Publié',
       categorie: 'Politique',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
+      date: new Date(),
       title: 'Élections municipales : les enjeux pour les grandes villes',
       description:
         'À l’approche des élections municipales, les grandes villes du pays sont au cœur de l’attention.',

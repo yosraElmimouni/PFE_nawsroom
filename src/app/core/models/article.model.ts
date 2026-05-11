@@ -9,7 +9,7 @@ export interface Article {
 //   badgeLabel: string;
 
   categorie: string;
-  date: string;
+  date: Date;
 
   title: string;
   description: string;

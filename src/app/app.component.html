@@ -24,6 +24,7 @@
               <ion-label>
                 <h2 class="article-title">dashboard</h2>
               </ion-label>
+              <ion-icon class="icon-suivant" name="chevron-forward-outline"></ion-icon>
             </ion-item>
           </div>
         </ion-menu-toggle>
@@ -42,6 +43,7 @@
               <ion-label>
                 <h2 class="article-title">{{ module.name }}</h2>
               </ion-label>
+              <ion-icon class="icon-suivant" name="chevron-forward-outline"></ion-icon>
             </ion-item>
           </div>
         </ion-menu-toggle>
@@ -73,7 +75,18 @@
             <ion-label>Paramètres</ion-label>
           </ion-item>
         </ion-menu-toggle> -->
-        
+        <ion-footer class="nr-footer">
+  <ion-toolbar>
+    <div class="footer-profile">
+      <div class="footer-avatar">{{ profile.initials }}</div>
+
+      <div class="footer-info">
+        <span class="footer-name">{{ profile.name }}</span>
+        <span class="footer-role">{{ profile.role }}</span>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>
       
       </div>
     

@@ -1,34 +1,51 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router,ActivatedRoute } from '@angular/router';
+import { Route, Router, ActivatedRoute } from '@angular/router';
 import { ToastController, LoadingController } from '@ionic/angular';
 import { routes } from 'src/app/app-routing.module';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { VoiceRecorder } from 'capacitor-voice-recorder';
+import { Geolocation } from '@capacitor/geolocation';
+
 
 @Component({
   selector: 'app-infos-media',
   templateUrl: './infos-media.page.html',
   styleUrls: ['./infos-media.page.scss'],
-  standalone:false,
+  standalone: false,
 })
 export class InfosMediaPage implements OnInit {
-
   media = {
-  title: '',
-  description: '',
-  location: '',
-  type: '',
-  articleId: null
-};
-showArticleSelector = false;
-name!: string | null;
-linkedArticle: any = null;
-articles = [
+    title: '',
+    description: '',
+    location: '',
+    type: '',
+    articleId: null,
+  };
+  mediaRecorder!: MediaRecorder;
+  recordedChunks: Blob[] = [];
+  videoUrl: string = '';
+  stream!: MediaStream;
+  isRecordingVideo = false;
+  isRecording = false;
+  showArticleSelector = false;
+  name!: string | null;
+  audioUrl: string = '';
+  linkedArticle: any = null;
+  latitude: number | null = null;
+  longitude: number | null = null;
+  locationText: string = '';
+  articles = [
     {
       id: 1,
       status: 'published',
       badgeColor: 'success',
       badgeLabel: 'Publié',
-      categorie:"Politique",
-      date: new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
+      categorie: 'Politique',
+      date: new Date().toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
       title: "Réforme constitutionnelle : le débat s'intensifie au parlement",
       excerpt:
         'Le gouvernement présente son projet ce mardi, suscitant de vives réactions...',
@@ -58,13 +75,20 @@ articles = [
           src: 'https://www.w3schools.com/html/mov_bbb.mp4',
           thumbnail: 'https://dummyimage.com/600x400/000/fff.jpg&text=Video',
           label: 'Extrait du débat',
-        }
+        },
       ],
       progress: 100,
       wordCount: 1250,
       views: 2340,
       comments: 14,
-      tags: ['Politique', 'Réforme', 'Parlement', 'Gouvernement', 'Constitution', 'Débat'],
+      tags: [
+        'Politique',
+        'Réforme',
+        'Parlement',
+        'Gouvernement',
+        'Constitution',
+        'Débat',
+      ],
     },
 
     {
@@ -72,8 +96,12 @@ articles = [
       status: 'draft',
       badgeColor: 'secondary',
       badgeLabel: 'Brouillon',
-      categorie:"Environnement & Agriculture",
-      date: new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
+      categorie: 'Environnement & Agriculture',
+      date: new Date().toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
       title: 'Sécheresse : les agriculteurs du sud face à la crise hydrique',
       excerpt: 'Reportage de terrain sur les conséquences de la sécheresse...',
       description:
@@ -104,21 +132,31 @@ articles = [
             'https://dummyimage.com/600x400/795548/ffffff.jpg&text=Sécheresse',
           label: 'Témoignage d’un agriculteur',
           duration: '01:45',
-        }
+        },
       ],
       progress: 58,
       wordCount: 347,
       views: 0,
       comments: 0,
-      tags: ['Environnement', 'Agriculture', 'Sécheresse', 'Crise hydrique', 'Climat'],
+      tags: [
+        'Environnement',
+        'Agriculture',
+        'Sécheresse',
+        'Crise hydrique',
+        'Climat',
+      ],
     },
     {
       id: 3,
       status: 'review',
       badgeColor: 'warning',
       badgeLabel: 'En relecture',
-      categorie:"Transport & Urbanisme",
-      date: new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
+      categorie: 'Transport & Urbanisme',
+      date: new Date().toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
       title: 'Lancement du nouveau métro : les défis de la mobilité urbaine',
       excerpt: 'Analyse des enjeux et des perspectives du nouveau métro...',
       description:
@@ -149,7 +187,7 @@ articles = [
             'https://dummyimage.com/600x400/607d8b/ffffff.jpg&text=Metro',
           label: 'Vidéo de présentation du métro',
           duration: '02:10',
-        }
+        },
       ],
       reviewDuration: '3h',
       views: 560,
@@ -162,8 +200,12 @@ articles = [
       status: 'published',
       badgeColor: 'success',
       badgeLabel: 'Publié',
-      categorie:'Politique',
-      date:new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }),
+      categorie: 'Politique',
+      date: new Date().toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }),
       title: 'Élections municipales : les enjeux pour les grandes villes',
       excerpt:
         'Zoom sur les candidats et les programmes pour les municipales...',
@@ -196,44 +238,32 @@ articles = [
             'https://dummyimage.com/600x400/3f51b5/ffffff.jpg&text=Elections',
           label: 'Discours d’un candidat',
           duration: '02:50',
-        }
+        },
       ],
       views: 1120,
       comments: 20,
-      tags: ['Élections', 'Politique locale', 'Municipales', 'Candidats', 'Programmes'],
+      tags: [
+        'Élections',
+        'Politique locale',
+        'Municipales',
+        'Candidats',
+        'Programmes',
+      ],
     },
   ];
-
-
 
   constructor(
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    private router:Router,
-    private route:ActivatedRoute
+    private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
-this.name = this.route.snapshot.paramMap.get('name');  }
-
-   async getLocation() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Localisation en cours...',
-      duration: 2000,
-    });
-    await loading.present();
-
-    setTimeout(async () => {
-      await loading.dismiss();
-      const toast = await this.toastCtrl.create({
-        message: '📍 Localisation : Rabat, Maroc (34.0209° N, 6.8416° W)',
-        duration: 2500,
-        color: 'primary',
-        position: 'bottom',
-      });
-      await toast.present();
-    }, 2000);
+    this.name = this.route.snapshot.paramMap.get('name');
+   
   }
+
   async analyzeMedia() {
     const loading = await this.loadingCtrl.create({
       message: 'Analyse IA en cours...',
@@ -275,8 +305,8 @@ this.name = this.route.snapshot.paramMap.get('name');  }
     const isOn = event.detail.checked;
     const toast = await this.toastCtrl.create({
       message: isOn
-        ? '📶 Mode hors ligne activé — stockage local prêt'
-        : '🌐 Mode hors ligne désactivé',
+        ? ' Mode hors ligne activé — stockage local prêt'
+        : '🌐Mode hors ligne désactivé',
       duration: 2000,
       color: isOn ? 'warning' : 'medium',
       position: 'bottom',
@@ -294,18 +324,163 @@ this.name = this.route.snapshot.paramMap.get('name');  }
     await toast.present();
   }
   openArticleSelector() {
-  this.showArticleSelector = true;
+    this.showArticleSelector = true;
+  }
+  selectArticle(article: any) {
+    this.linkedArticle = article;
+    this.media.articleId = article.id;
+    this.showArticleSelector = false;
+  }
+  closeArticleSelector() {
+    this.showArticleSelector = false;
+  }
+
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+    });
+
+    console.log(image.webPath);
+  }
+
+  async toggleRecording() {
+    if (!this.isRecording) {
+      const permission = await VoiceRecorder.requestAudioRecordingPermission();
+
+      if (permission.value) {
+        await VoiceRecorder.startRecording();
+
+        this.isRecording = true;
+      }
+    } else {
+      const result = await VoiceRecorder.stopRecording();
+
+      this.isRecording = false;
+
+      if (result.value?.recordDataBase64) {
+        const audioBlob = this.b64toBlob(
+          result.value.recordDataBase64,
+          'audio/mp3',
+        );
+
+        this.audioUrl = URL.createObjectURL(audioBlob);
+
+        console.log(this.audioUrl);
+      }
+    }
+  }
+
+  async toggleVideoRecording() {
+    try {
+      if (!this.isRecordingVideo) {
+        this.stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
+        this.mediaRecorder = new MediaRecorder(this.stream);
+
+        this.recordedChunks = [];
+
+        this.mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            this.recordedChunks.push(event.data);
+          }
+        };
+
+        this.mediaRecorder.onstop = () => {
+          const blob = new Blob(this.recordedChunks, {
+            type: 'video/mp4',
+          });
+
+          this.videoUrl = URL.createObjectURL(blob);
+
+          console.log(this.videoUrl);
+        };
+
+        this.mediaRecorder.start();
+
+        this.isRecordingVideo = true;
+      } else {
+        this.mediaRecorder.stop();
+
+        this.stream.getTracks().forEach((track) => track.stop());
+
+        this.isRecordingVideo = false;
+      }
+    } catch (error) {
+      console.error('VIDEO ERROR : ', error);
+    }
+  }
+
+  b64toBlob(b64Data: string, contentType: string) {
+    const byteCharacters = atob(b64Data);
+
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+
+      const byteNumbers = new Array(slice.length);
+
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+
+      byteArrays.push(byteArray);
+    }
+
+    return new Blob(byteArrays, {
+      type: contentType,
+    });
+  }
+
+
+ async getLocation() {
+
+  try {
+
+    navigator.geolocation.getCurrentPosition(
+
+      async (position) => {
+
+        const latitude =
+          position.coords.latitude;
+
+        const longitude =
+          position.coords.longitude;
+
+        console.log(latitude, longitude);
+
+        const response = await fetch(
+
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+        );
+
+        const data = await response.json();
+
+        this.locationText =
+          data.display_name;
+
+        console.log(this.locationText);
+      },
+
+      (error) => {
+
+        console.error(error);
+      }
+    );
+
+  } catch (error) {
+
+    console.error(
+      'LOCATION ERROR : ',
+      error
+    );
+  }
 }
-selectArticle(article: any) {
-  this.linkedArticle = article;
-  this.media.articleId = article.id;
-  this.showArticleSelector = false;
-}
-closeArticleSelector() {
-  this.showArticleSelector = false;
-}
-
-
-
-
 }

@@ -241,6 +241,7 @@ isAiGenerate:boolean=false;
     source: 'MAP — Maghreb Arabe Presse',
     domaine: 'Politique',
     time: 'il y a 10 min',
+    date: new Date('2026-05-08'),
     title: 'Maroc–France : signature d’un nouveau partenariat stratégique renforcé',
     summary:
       'Le Maroc et la France ont signé à Rabat un accord de partenariat stratégique visant à renforcer la coopération bilatérale dans plusieurs secteurs clés. Cet accord couvre notamment la coopération économique, la transition énergétique, l’enseignement supérieur, la formation professionnelle ainsi que la sécurité régionale. Les deux parties ont réaffirmé leur volonté de consolider leurs relations historiques à travers des projets concrets favorisant l’investissement, l’innovation et la stabilité régionale.',
@@ -249,6 +250,7 @@ isAiGenerate:boolean=false;
     id: 2,
     source: 'Reuters Afrique',
     domaine: 'Sport',
+    date: new Date('2026-05-07'),
     time: 'il y a 30 min',
     title: 'CAN 2025 : avancées majeures sur les infrastructures et l’organisation',
     summary:
@@ -258,6 +260,7 @@ isAiGenerate:boolean=false;
     id: 3,
     source: 'Le Monde Afrique',
     domaine: 'Économie',
+    date: new Date('2026-05-06'),
     time: 'il y a 50 min',
     title: 'Croissance économique : le Maroc affiche des perspectives encourageantes',
     summary:
@@ -267,12 +270,15 @@ isAiGenerate:boolean=false;
     id: 4,
     source: 'Hespress',
     domaine: 'Société',
+    date: new Date('2026-05-05'),
     time: 'il y a 1h',
     title: 'Éducation : lancement d’un programme national de digitalisation des écoles',
     summary:
       'Le ministère de l’Éducation nationale a annoncé le lancement d’un vaste programme de digitalisation visant à moderniser les établissements scolaires publics. Ce projet prévoit l’équipement des écoles en matériel informatique, la formation des enseignants aux outils numériques et le développement de contenus pédagogiques interactifs. L’objectif est de réduire la fracture numérique et d’améliorer la qualité de l’enseignement.',
   },
 ];
+selectedDate: string = '';
+isDateModalOpen: boolean = false;
   
 
 
@@ -318,8 +324,33 @@ applyFilters() {
     const matchDomaine =
       !this.selectedDomaine || item.domaine === this.selectedDomaine;
 
-    return matchSource && matchDomaine;
+    let matchDate = true;
+    if (this.selectedDate) {
+      const selected = new Date(this.selectedDate);
+      const itemDate = new Date(item.date);
+      matchDate =
+        itemDate.getFullYear() === selected.getFullYear() &&
+        itemDate.getMonth() === selected.getMonth() &&
+        itemDate.getDate() === selected.getDate();
+    }
+
+    return matchSource && matchDomaine && matchDate;
   });
+}
+
+openDatePicker() {
+  this.isDateModalOpen = true;
+}
+
+onDateSelected() {
+  this.isDateModalOpen = false;
+  this.applyFilters();
+}
+
+clearDate(event: Event) {
+  event.stopPropagation();
+  this.selectedDate = '';
+  this.applyFilters();
 }
 goToProduction() {
   this.router.navigate(['/articles'], {

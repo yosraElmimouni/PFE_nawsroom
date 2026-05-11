@@ -131,8 +131,8 @@
 .article-thumb.tech-thumb      { background: #afa9ec; }
 
 ion-fab-button {
-  --background: #f2f0ec64;
-  --color: #754c00;
+  --background: #4caf50;
+  --color: #ffffff;
 }
 
 .actions-edit-supp{
@@ -165,13 +165,13 @@ ion-fab-button {
   align-self:flex-end;
   margin-right: 30px;
   margin-top: 195%;
-  --background: rgb(126, 87, 194);
+  --background: rgb(76, 175, 80);
 }
 .button-flottant{
-  --background: rgb(126, 87, 194);
+  --background: rgb(76, 175, 80);
 }
 .Publier{
-  color: #27500a;
+  color: rgb(35, 132, 38);
   background: #eaf3de;
   
   border-radius: 8px;
@@ -193,8 +193,8 @@ ion-fab-button {
   margin-right: 10px;
 }
 
-.status-bar.Publier { background: #27500a; margin-left: -16px;  }
-.status-bar.Brouillon     { background: #fac775; margin-left: -16px; }
+.status-bar.Publier { background: rgb(78, 186, 82);; margin-left: -16px;  }
+.status-bar.Brouillon     { background: #fbb546; margin-left: -16px; }
 
 
 

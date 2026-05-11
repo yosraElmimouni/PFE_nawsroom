@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AiAssistantPage } from '../../ai-assistant/ai-assistant.page';
 import { Article } from 'src/app/core/models/article.model';
 import { ArticleStatus, MediaType } from 'src/app/core/models/article.enums';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { VoiceRecorder } from 'capacitor-voice-recorder';
 
 @Component({
   selector: 'app-add-article',
@@ -18,6 +20,12 @@ export class AddArticlePage implements OnInit {
     tags: [],
     status: 'Brouillon',
   };
+  mediaRecorder!: MediaRecorder;
+  recordedChunks: Blob[] = [];
+  videoUrl: string = '';
+  stream!: MediaStream;
+  isRecordingVideo = false;
+  isRecording = false;
   categories: string[] = [
     'Politique',
     'Économie',
@@ -47,11 +55,7 @@ export class AddArticlePage implements OnInit {
       // badgeColor: 'success',
       // badgeLabel: 'Publié',
       categorie: 'Politique',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
+      date: new Date(),
       title: "Réforme constitutionnelle : le débat s'intensifie au parlement",
       description:
         "Le gouvernement présente ce mardi matin devant l'Assemblée nationale son projet de réforme constitutionnelle, une initiative qui vise à renforcer les prérogatives du pouvoir exécutif tout en encadrant davantage le contrôle parlementaire. ",
@@ -98,11 +102,7 @@ export class AddArticlePage implements OnInit {
       // badgeColor: 'warning',
       // badgeLabel: 'Brouillon',
       categorie: 'Environnement & Agriculture',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
+      date: new Date(),
       title: 'Sécheresse : les agriculteurs du sud face à la crise hydrique',
       description:
         'La sécheresse qui sévit actuellement dans le sud du pays a des conséquences dramatiques pour les agriculteurs, qui voient leurs récoltes menacées et leurs moyens de subsistance compromis.',
@@ -149,11 +149,7 @@ export class AddArticlePage implements OnInit {
       // badgeColor: 'warning',
       // badgeLabel: 'En relecture',
       categorie: 'Transport & Urbanisme',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
+      date: new Date(),
       title: 'Lancement du nouveau métro : les défis de la mobilité urbaine',
       description:
         'Le lancement du nouveau métro dans la capitale soulève de nombreux défis en matière de mobilité urbaine.',
@@ -195,11 +191,7 @@ export class AddArticlePage implements OnInit {
       // badgeColor: 'success',
       // badgeLabel: 'Publié',
       categorie: 'Politique',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
+      date: new Date(),
       title: 'Élections municipales : les enjeux pour les grandes villes',
       description:
         'À l’approche des élections municipales, les grandes villes du pays sont au cœur de l’attention.',
@@ -393,5 +385,90 @@ export class AddArticlePage implements OnInit {
       component: AiAssistantPage,
     });
     await modal.present();
+  }
+
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Camera,
+    });
+
+    console.log(image.webPath);
+  }
+
+  async toggleRecording() {
+    if (!this.isRecording) {
+      const permission = await VoiceRecorder.requestAudioRecordingPermission();
+
+      if (permission.value) {
+        await VoiceRecorder.startRecording();
+        this.isRecording = true;
+      }
+    } else {
+      const result = await VoiceRecorder.stopRecording();
+
+      this.isRecording = false;
+
+      console.log(result.value.recordDataBase64);
+    }
+  }
+  
+
+  async toggleVideoRecording() {
+    try {
+      if (!this.isRecordingVideo) {
+        this.stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true,
+        });
+
+        // let mimeType = '';
+
+        // if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+        //   mimeType = 'video/webm;codecs=vp8';
+        // } else if (MediaRecorder.isTypeSupported('video/webm')) {
+        //   mimeType = 'video/webm';
+        // } else if (MediaRecorder.isTypeSupported('video/mp4')) {
+        //   mimeType = 'video/mp4';
+        // }
+
+        // console.log('MimeType utilisé : ', mimeType);
+
+        this.mediaRecorder =
+  new MediaRecorder(this.stream);
+
+        this.recordedChunks = [];
+
+        this.mediaRecorder.ondataavailable = (event) => {
+          if (event.data.size > 0) {
+            this.recordedChunks.push(event.data);
+          }
+        };
+
+        this.mediaRecorder.onstop = () => {
+          const blob = new Blob(this.recordedChunks, {
+            type: 'video/mp4'
+          });
+
+          this.videoUrl = URL.createObjectURL(blob);
+
+          console.log(this.videoUrl);
+        };
+
+        this.mediaRecorder.start();
+
+        this.isRecordingVideo = true;
+      } else {
+        this.mediaRecorder.stop();
+
+        this.stream.getTracks().forEach((track) => track.stop());
+
+        this.isRecordingVideo = false;
+      }
+    } catch (error) {
+      console.error('VIDEO ERROR : ', error);
+    }
   }
 }
