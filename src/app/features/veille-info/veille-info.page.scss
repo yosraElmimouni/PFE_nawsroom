@@ -15,12 +15,12 @@
 
 .nr-section-title {
   font-size: 19px;
-  margin-bottom: 6px;
+  margin-bottom: 0px;
   color: rgb(33, 150, 243);
   
 }
 .nr-section-header {
-  padding: 18px 22px 10px;
+  padding: 0px 28px 0px;
   display: flex;
   justify-content: space-between;
 }
@@ -33,7 +33,7 @@
 .nr-feed-item {
   border: 1px solid #8ac6f7b9;
   box-shadow: 0 6px 16px rgba(67, 130, 255, 0.075);
-  margin: 14px 26px;  
+  margin: 8px 26px;  
   background: #fff;
   border-radius: 18px;
   padding: 9px 0px;
@@ -61,22 +61,20 @@
 
 .newssummary {
   font-size: 12px;
-  color: #3c2911;
+  color: rgb(24, 24, 24);
   margin-top: 5px;
-white-space: nowrap;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
-
-
 }
 
 
 .nr-filters {
   display: flex;
-  gap: 17px;
-  padding: 15px 18px;
-  margin-top: 15px;
+  gap: 7px;
+  padding: 5px 26px;
+  margin-top: 9px;
 }
 
 .nr-filters ion-item {
@@ -112,7 +110,7 @@ white-space: nowrap;
 
 .nr-filters ion-item.item-has-focus,
 .nr-filters ion-item.ion-focused {
-  border-color: rgb(0, 93, 168);
+  border-color: #005da8;
   box-shadow: 0 6px 16px rgba(67, 130, 255, 0.075);
 }
 
@@ -152,4 +150,51 @@ white-space: nowrap;
   --background:  linear-gradient(135deg, #7c5cff, #2b47ff);
   margin-bottom: 20px;
   margin-right: 20px;
+}
+.date-filter-item {
+  cursor: pointer;
+  display: flex;
+  ion-icon { 
+    color: #005da8; 
+    font-size: 18px; 
+  }
+  ion-label { 
+    font-size: 14px; 
+    color: #005da8; 
+    font-weight: 500;
+  }
+}
+
+.feed-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.08);
+
+  .feed-footer-source,
+  .feed-footer-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    ion-icon {
+      font-size: 13px;
+      color: #9a9a9a;
+    }
+
+    span {
+      font-size: 11px;
+      color: #9a9a9a;
+      font-weight: 400;
+    }
+  }
+
+  .feed-footer-source span {
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
