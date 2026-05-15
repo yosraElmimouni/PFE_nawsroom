@@ -17,19 +17,17 @@
 </ion-header>
 
 <ion-content class="content-page">
-  <!-- Titre -->
+
   <div class="section-block">
     <ion-label class="section-label">Titre</ion-label>
     <div class="title-input title">{{ article.title }}</div>
   </div>
 
-  <!-- Statut -->
   <div class="section-block">
     <ion-label class="section-label">Statut</ion-label>
     <div class="title-input">
       <span class="badge-status" [ngClass]="article.status">
-        {{ article.status === 'published' ? 'Publié' : article.status ===
-        'draft' ? 'Brouillon' : 'En relecture' }}
+        {{ article.status }}
       </span>
     </div>
   </div>

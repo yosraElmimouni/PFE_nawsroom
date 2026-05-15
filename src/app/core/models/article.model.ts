@@ -5,8 +5,6 @@ export interface Article {
   id: number;
 
   status: ArticleStatus;
-//   badgeColor: 'success' | 'warning' | 'danger' | 'info';
-//   badgeLabel: string;
 
   categorie: string;
   date: Date;

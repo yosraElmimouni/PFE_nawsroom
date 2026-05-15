@@ -212,10 +212,14 @@
   </div> -->
 
   <div class="ajoute-btn">
-    <ion-button class="save-btn" expand="block" (click)="saveDraft()">
-      Enregistrer
-    </ion-button>
-  </div>
+  <ion-button
+    class="save-btn"
+    expand="block"
+    (click)="isEditMode ? saveDraft() : addArticle()"
+  >
+    {{ isEditMode ? 'Mettre à jour' : 'Créer article' }}
+  </ion-button>
+</div>
   <!-- Espace en bas pour ne pas cacher le contenu -->
   <div style="height: 40px"></div>
 </ion-content>
