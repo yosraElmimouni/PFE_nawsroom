@@ -25,4 +25,9 @@ export class Gemini {
 
     return this.http.post(this.apiUrl, body);
   }
+
+  getHistory() {
+    const historyUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=' + this.apikey;
+    return this.http.get(historyUrl);
+  }
 }

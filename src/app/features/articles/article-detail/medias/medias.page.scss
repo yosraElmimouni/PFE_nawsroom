@@ -1,0 +1,232 @@
+// ─── Variables ───────────────────────────────────────────────────────────────
+:host {
+  --green:        rgb(76, 175, 80);
+  --green-dark:   rgb(56, 142, 60);
+  --green-light:  rgba(76, 175, 80, 0.08);
+  --green-border: rgba(76, 175, 80, 0.22);
+  --green-soft:   rgba(76, 175, 80, 0.15);
+}
+
+// ─── Toolbar principale ───────────────────────────────────────────────────────
+.nr-toolbar {
+  --background: var(--green);
+  --color: #fff;
+  --border-color: transparent;
+
+  ion-title {
+    font-size: 17px;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  ion-back-button,
+  ion-button {
+    --color: #fff;
+  }
+
+  ion-icon {
+    font-size: 22px;
+  }
+}
+
+// ─── Toolbar des onglets ──────────────────────────────────────────────────────
+.tabs-toolbar {
+  --background: var(--ion-color-light, #fff);
+  --border-color: var(--green-border);
+  padding: 0;
+}
+
+.media-tabs {
+  display: flex;
+  width: 100%;
+  border-bottom: 1.5px solid var(--green-border);
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1.5px;
+  color: var(--ion-color-medium, #92949c);
+  font-size: 12px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+
+  ion-icon {
+    font-size: 18px;
+  }
+
+  span {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &.active {
+    color: var(--green);
+    border-bottom-color: var(--green);
+  }
+
+  &:not(.active):hover {
+    background: var(--green-light);
+    color: var(--ion-color-dark, #222);
+  }
+}
+
+// ─── Contenu ─────────────────────────────────────────────────────────────────
+.media-content {
+  --background: var(--ion-color-light, #f4f5f8);
+}
+
+.tab-panel {
+  padding: 16px;
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--green-dark);
+  margin: 0 0 12px;
+}
+
+// ─── Images ──────────────────────────────────────────────────────────────────
+.image-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.image-card {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0.5px solid var(--green-border);
+  background: var(--green-light);
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:hover {
+    border-color: var(--green);
+  }
+}
+
+.media-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.media-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: var(--green);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 20px;
+}
+
+// ─── Vidéos ──────────────────────────────────────────────────────────────────
+.video-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.video-card {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0.5px solid var(--green-border);
+  background: var(--ion-color-light, #fff);
+}
+
+.video-thumb {
+  aspect-ratio: 16 / 9;
+  background: var(--green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .play-icon {
+    font-size: 52px;
+    color: var(--green);
+    opacity: 0.85;
+  }
+}
+
+.media-video {
+  width: 100%;
+  display: block;
+  background: #000;
+}
+
+// ─── Audios ───────────────────────────────────────────────────────────────────
+.audio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.audio-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 0.5px solid var(--green-border);
+  background: var(--ion-color-light, #fff);
+}
+
+.audio-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  .audio-icon {
+    font-size: 22px;
+    color: #fff;
+  }
+}
+
+.audio-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.media-filename {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ion-color-dark, #222);
+  margin: 0 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.media-audio {
+  width: 100%;
+  height: 36px;
+  accent-color: var(--green);
+}

@@ -286,7 +286,7 @@ ion-input:focus-within {
 
 .fab-button {
   --background: linear-gradient(135deg, #7c5cff, #2b47ff);
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   margin-right: 20px;
 }
 
@@ -304,4 +304,71 @@ ion-input {
   --highlight-color-focused: transparent !important;
   --highlight-color: transparent !important;
   --placeholder-color: rgba(29, 0, 214, 0.4);
+}
+.tag-label {
+  cursor: pointer;
+  flex: 1;
+}
+
+.tag-remove {
+  font-size: 1rem;
+  color: #aaa;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: color 0.2s;
+
+  &:hover { color: #e53e3e; }
+}
+
+.chip-editing {
+  border: 1.5px solid var(--ion-color-primary);
+  background: rgba(var(--ion-color-primary-rgb), 0.08);
+}
+
+.tag-label {
+  cursor: pointer;
+  flex: 1;
+}
+
+.tag-remove {
+  font-size: 1rem;
+  color: #aaa;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: color 0.2s;
+
+  &:hover { color: #e53e3e; }
+}
+
+.chip-editing {
+  border: 1.5px solid var(--ion-color-primary);
+  background: rgba(var(--ion-color-primary-rgb), 0.08);
+}
+
+.button-flottant-add {
+  --color: #fff;
+  display: block;
+  align-self: flex-end;
+  margin-right: 40px;
+  margin-top: 185%;
+  margin-bottom: 80px;
+}
+
+.chip-tag ion-input,
+.chip-edit ion-input {
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  width: auto !important;
+  --background: transparent !important;
+  --highlight-color-focused: transparent !important;
+  --placeholder-color: #4caf50;
+  font-size: 12px;
+  min-width: 60px;
+}
+
+.chip-tag ion-input:focus-within {
+  border: none !important;
+  box-shadow: none !important;
 }

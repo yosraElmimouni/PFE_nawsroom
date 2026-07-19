@@ -3,6 +3,9 @@
     <ion-title class="title-toolbar"> Assistant IA </ion-title>
 
     <ion-buttons slot="end">
+      <ion-button (click)="resetConversation()" title="Nouvelle conversation">
+        <ion-icon class="add-icon" name="refresh-outline"></ion-icon>
+      </ion-button>
       <ion-button (click)="close()">
         <ion-icon class="add-icon" name="close-outline"></ion-icon>
       </ion-button>
@@ -11,32 +14,39 @@
 </ion-header>
 
 <ion-content class="chat-content">
-  <div
-    *ngFor="let msg of messages"
-    class="message-wrapper"
-    [ngClass]="msg.from"
-  >
-    <div class="chat-bubble" [ngClass]="msg.from">
-      <div *ngIf="msg.text === 'Loading ...'" class="typing">
-        <span></span><span></span><span></span>
-      </div>
-
-      <markdown
-        *ngIf="msg.text !== 'Loading ...'"
-        [data]="msg.text"
-      ></markdown>
-      
-
-
-    </div>
-    <ion-icon
-      *ngIf="msg.text !== 'Loading ...'"
-    name="copy-outline"
-    class="copy-icon"
-    (click)="copyMessage(msg.text)"
-    slot="end"
-  ></ion-icon>
+  <div *ngIf="isHistoryLoading" class="history-loading">
+    <ion-spinner name="dots"></ion-spinner>
+    <span>Chargement de la conversation...</span>
   </div>
+
+  <ng-container *ngIf="!isHistoryLoading">
+    <div
+      *ngFor="let msg of messages"
+      class="message-wrapper"
+      [ngClass]="msg.from"
+    >
+      <div class="chat-bubble" [ngClass]="msg.from">
+        <div *ngIf="msg.text === 'Loading ...'" class="typing">
+          <span></span><span></span><span></span>
+        </div>
+
+        <markdown
+          *ngIf="msg.text !== 'Loading ...'"
+          [data]="msg.text"
+        ></markdown>
+
+
+
+      </div>
+      <ion-icon
+        *ngIf="msg.text !== 'Loading ...'"
+      name="copy-outline"
+      class="copy-icon"
+      (click)="copyMessage(msg.text)"
+      slot="end"
+    ></ion-icon>
+    </div>
+  </ng-container>
   <div style="height: 140px"></div>
 </ion-content>
 

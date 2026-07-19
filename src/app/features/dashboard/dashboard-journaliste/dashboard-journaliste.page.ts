@@ -7,32 +7,10 @@ import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
 import pkg from './../../../../../package.json';
 import { MsalService } from '@azure/msal-angular';
-// export interface Article {
-//   id: number;
-//   title: string;
-//   status: 'progress' | 'published' | 'draft' | 'urgent';
-//   date: Date;
-//   image:string,
-//   author: string;
-// }
-
-// export interface FeedItem {
-//   id: number;
-//   source: string;
-//   sourceColor: string;
-//   time: string;
-//   title: string;
-//   summary: string;
-// }
-
-export interface StatCard {
-  icon: string;
-  value: number | string;
-  valueColor: string;
-  label: string;
-  deltaColor: string;
-  active?: boolean;
-}
+import { StatCard } from 'src/app/core/models/StatCard.model';
+import { ArticleService } from '../../articles/services/article.service';
+import { ArticleStatus } from 'src/app/core/models/enums/ArticleStatus';
+import { ServiceDashJournaliste } from '../services/service-dash-journaliste';
 
 @Component({
   selector: 'app-dashboard-journaliste',
@@ -69,13 +47,7 @@ export class DashboardJournalistePage implements OnInit {
       label: 'Publiés',
       deltaColor: '#4aaa70',
     },
-    {
-      icon: 'diamond-outline',
-      value: 38,
-      valueColor: '#9b7acc',
-      label: 'IA utilisée',
-      deltaColor: '#9b7acc88',
-    },
+
     {
       icon: 'document-text-outline',
       value: 3,
@@ -91,9 +63,7 @@ export class DashboardJournalistePage implements OnInit {
     { id: 5, name: 'Articles', icon: 'library' },
     { id: 1, name: 'Redaction', icon: 'create' },
     { id: 2, name: 'Capture', icon: 'scan' },
-
     { id: 4, name: 'Fusion', icon: 'git-merge' },
-
     { id: 6, name: 'Profil', icon: 'person' },
     { id: 7, name: 'Déconnexion', icon: 'log-out' },
   ];
@@ -101,9 +71,11 @@ export class DashboardJournalistePage implements OnInit {
   constructor(
     private router: Router,
     private msalService: MsalService,
+    private articleService: ServiceDashJournaliste,
   ) {}
 
   async ngOnInit(): Promise<void> {
+    this.loadStats();
     const currentUrl = this.router.url;
     for (let m of this.modules) {
       if (currentUrl.includes(m.name.toLowerCase())) {
@@ -120,6 +92,26 @@ export class DashboardJournalistePage implements OnInit {
     } else {
       this.version = pkg.version; // Web
     }
+  }
+
+  loadStats() {
+    this.articleService
+      .getArticleCountByStatus(ArticleStatus.Brouillon)
+      .subscribe((count) => {
+        this.production.drafts = count;
+
+        this.stats[2].value = count;
+      });
+
+    this.articleService
+      .getArticleCountByStatus(ArticleStatus.Publier)
+      .subscribe((count) => {
+        this.production.published = count;
+
+        this.stats[1].value = count;
+      });
+
+    
   }
 
   navigateTo(module: string): void {
@@ -184,23 +176,21 @@ export class DashboardJournalistePage implements OnInit {
   }
 
   logout() {
-    this.msalService.logoutRedirect({
-      postLogoutRedirectUri: 'http://localhost:8100',
-    });
+    if (Capacitor.isNativePlatform()) {
+      localStorage.clear();
+      // pas de redirect, on reste sur login
+    } else {
+      this.msalService.logoutRedirect({
+        postLogoutRedirectUri: 'http://localhost:8100',
+      });
+    }
   }
 
   get total(): number {
-  return this.production.published + this.production.inProgress + this.production.drafts;
-}
-  // onArticleTap(article: Article) {
-  //   console.log('Open article:', article.id);
-  // }
-
-  // onFeedTap(item: FeedItem) {
-  //   console.log('Open feed item:', item.id);
-  // }
-
-  // onCapture() {
-  //   console.log('Open capture modal');
-  // }
+    return (
+      this.production.published +
+      this.production.inProgress +
+      this.production.drafts
+    );
+  }
 }

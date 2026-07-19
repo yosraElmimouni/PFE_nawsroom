@@ -55,8 +55,13 @@
 }
 
 .feed-title {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top:  -12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .newssummary {
@@ -73,7 +78,7 @@
 .nr-filters {
   display: flex;
   gap: 7px;
-  padding: 5px 26px;
+  padding: 5px 20px;
   margin-top: 9px;
 }
 
@@ -87,13 +92,15 @@
 }
 .select-filter{
   border-radius: 10px;
+  --padding-start: 0px;
+  --padding-end: 0px;
 }
 
 .nr-filters ion-select {
   font-size: 13px;
   font-weight: 500;
   color: rgb(0, 93, 168);
-  padding: 6px 10px; 
+  padding: 0; 
 }
 
 
@@ -157,6 +164,7 @@
   ion-icon { 
     color: #005da8; 
     font-size: 18px; 
+    margin-right: 7px;
   }
   ion-label { 
     font-size: 14px; 
@@ -169,10 +177,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
-  padding-top: 10px;
+  margin-top: 10px;
+  padding-top: 5px;
   border-top: 0.5px solid rgba(0, 0, 0, 0.08);
-
+  margin-bottom: -10px;
   .feed-footer-source,
   .feed-footer-date {
     display: flex;
@@ -201,4 +209,32 @@
 
 .date-filter-item ion-label {
   font-size: 11px;
+}
+
+.nr-filters ion-item {
+  flex: 1;
+  border-radius: 14px;
+  border: 1px solid #8ac6f782;
+  box-shadow: 0 6px 16px rgba(67, 130, 255, 0.075);
+  --padding-start: 2px;
+  --min-height: 36px;
+}
+
+.closeicon{
+  margin-left: -1px;
+}
+
+.calendar-inline {
+  margin: 0 15px 8px;
+  border-radius: 16px;
+  border: 1px solid rgba(29, 0, 214, 0.15);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(29, 0, 214, 0.1);
+  background: #fff;
+}
+
+ion-datetime {
+  width: 100%;
+  --background: #ffffff;
+  --color: rgb(29, 0, 214);
 }

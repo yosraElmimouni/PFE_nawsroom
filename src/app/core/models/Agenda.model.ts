@@ -1,4 +1,4 @@
-export interface EventAgenda {
+export interface Agenda {
   id:number;
   titre: string;
   categorie: string;

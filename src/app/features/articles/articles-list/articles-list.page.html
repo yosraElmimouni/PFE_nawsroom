@@ -53,49 +53,26 @@
   <ion-item-sliding *ngFor="let article of filteredArticles">
 
     <ion-item button lines="none"  (click)="detailleArticle(article.id)" class="article-item">
-      <div class="status-bar" [ngClass]="article.status" slot="start"></div>
 
       <ion-label>
         <div class="article-header">
-          <ion-badge [ngClass]="article.status">
-            {{ article.status }}
+          <ion-badge [ngClass]="article.statut">
+            {{ article.statut }}
           </ion-badge>
         </div>
 
-        <h2 class="article-title">{{ article.title }}</h2>
-        <!-- <p class="article-excerpt">{{ article.excerpt }}</p> -->
-        <!-- date de publication -->
+        <h2 class="article-title">{{ article.titre }}</h2>
         <p class="article-date">
-          {{ article.date | date:'dd/MM/yyyy' }}
+          {{ article.dateCreation | date:'dd/MM/yyyy' }}
         </p>
-        <!-- <div class="article-footer">
-          <span class="article-meta">
-            <ion-icon [name]="article.metaIcon"></ion-icon>
-            {{ article.metaText }}
-          </span>
-        </div> -->
+        
       </ion-label>
 
-      <!-- <ion-avatar slot="end" >
-        <ion-img
-          class="article-img"
-          [src]="article.image">
-        </ion-img>
-      </ion-avatar> -->
+     
     </ion-item>
-
-    <ion-item-options class="actions-edit-supp" side="end">
-      <ion-item-option >
-        <ion-icon class="edit-icon" slot="icon-only" name="create-outline"></ion-icon>
-      </ion-item-option>
-      <ion-item-option *ngIf="article.status !== 'Publier'" >
-        <ion-icon class="supp-icon" slot="icon-only" name="trash-outline"></ion-icon>
-      </ion-item-option>
-    </ion-item-options>
-
   </ion-item-sliding>
 </ion-list>
-
+ <div style="height: 80px"></div>
 </ion-content>
 
 <ion-fab class="button-flottant-add">

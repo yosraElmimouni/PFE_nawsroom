@@ -18,48 +18,47 @@
      Casablanca
   </div>
 
- <div class="date-filter">
-
+<div class="date-filter" *ngIf="isFiltersReady">
   <div class="date-box">
     <ion-item class="date-inline" lines="none">
-      <ion-label class="label-inline">
-        Date début
-      </ion-label>
-
-      <ion-datetime-button datetime="debut"></ion-datetime-button>
+      <div class="date-content">
+        <span class="label-inline">Date début</span>
+        <button class="date-btn" (click)="toggleCalendar('debut')">
+          {{ dateDebutFilter ? (dateDebutFilter | date:'dd/MM/yyyy') : 'jj/mm/aaaa' }}
+        </button>
+      </div>
     </ion-item>
-
-    <ion-modal keepContentsMounted="true">
-      <ng-template>
-        <ion-datetime
-          id="debut"
-          presentation="date"
-          [(ngModel)]="dateDebutFilter">
-        </ion-datetime>
-      </ng-template>
-    </ion-modal>
   </div>
 
   <div class="date-box">
     <ion-item class="date-inline" lines="none">
-      <ion-label class="label-inline">
-        Date fin
-      </ion-label>
-
-      <ion-datetime-button datetime="fin"></ion-datetime-button>
+      <div class="date-content">
+        <span class="label-inline">Date fin</span>
+        <button class="date-btn" (click)="toggleCalendar('fin')">
+          {{ dateFinFilter ? (dateFinFilter | date:'dd/MM/yyyy') : 'jj/mm/aaaa' }}
+        </button>
+      </div>
     </ion-item>
-
-    <ion-modal keepContentsMounted="true">
-      <ng-template>
-        <ion-datetime
-          id="fin"
-          presentation="date"
-          [(ngModel)]="dateFinFilter">
-        </ion-datetime>
-      </ng-template>
-    </ion-modal>
   </div>
+</div>
 
+<!-- Calendrier inline en dessous -->
+<div class="calendar-inline" *ngIf="activeCalendar">
+  <ion-datetime
+    *ngIf="activeCalendar === 'debut'"
+    presentation="date"
+    locale="fr-FR"
+    [(ngModel)]="dateDebutFilter"
+    (ionChange)="onDateChange()">
+  </ion-datetime>
+
+  <ion-datetime
+    *ngIf="activeCalendar === 'fin'"
+    presentation="date"
+    locale="fr-FR"
+    [(ngModel)]="dateFinFilter"
+    (ionChange)="onDateChange()">
+  </ion-datetime>
 </div>
 
 
@@ -99,6 +98,7 @@
 
     </ion-item-sliding>
   </ion-list>
+    <div style="height: 80px"></div>
 
 </ion-content>
 

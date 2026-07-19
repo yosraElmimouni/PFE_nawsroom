@@ -24,18 +24,18 @@
       <div class="article-meta">
        
         <div class="hero-overlay">
-            <ion-label> {{ item?.source }}</ion-label>
+            <ion-label> {{ item?.source.nom }}</ion-label>
         </div>
         <p class="article-date">
-          {{ item?.date  | date:'dd/MM/yyyy'  }}
+          {{ item?.datePublication  | date:'dd/MM/yyyy'  }}
         </p>
       </div>
 
-      <h1 class="article-title">{{ item?.title }}</h1>
+      <h1 class="article-title">{{ item?.titre }}</h1>
     </div>
 
     <div class="article-body">
-      <p>{{ item?.summary }}</p>
+      <p>{{ item?.contenu }}</p>
     </div>
     
     </div>

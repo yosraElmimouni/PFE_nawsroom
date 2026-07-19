@@ -4,9 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { AiAssistantPage } from '../../ai-assistant/ai-assistant.page';
-import { ArticleStatus, MediaType } from 'src/app/core/models/article.enums';
 import { Article } from 'src/app/core/models/article.model';
-import { ArticleService } from '../services/article';
+import { ArticleService } from './../services/article.service'
 
 @Component({
   selector: 'app-articles-list',
@@ -29,8 +28,8 @@ export class ArticlesListPage {
 
   get filteredArticles() {
     if (this.filter === 'all') return this.articles;
-    if (this.filter === 'Publier') return this.articles.filter(a => a.status === 'Publier');
-    if (this.filter === 'Brouillon') return this.articles.filter(a => a.status === 'Brouillon');
+    if (this.filter === 'Publier') return this.articles.filter(a => a.statut === 'Publier');
+    if (this.filter === 'Brouillon') return this.articles.filter(a => a.statut === 'Brouillon');
     return this.articles;
   }
 

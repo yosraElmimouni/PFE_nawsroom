@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/auth/auth.guard';
 
 export const routes: Routes = [
   
@@ -10,6 +11,7 @@ export const routes: Routes = [
   },
   {
     path: 'login',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./features/auth/login/login.module').then( m => m.LoginPageModule)
   },
   {
@@ -52,13 +54,18 @@ export const routes: Routes = [
   {
     path:'capture',
     loadChildren: () => import('./features/capture/capture.module').then(m => m.CapturePageModule)
-  },  {
+  },
+  {
     path: 'ai-assistant',
     loadChildren: () => import('./features/ai-assistant/ai-assistant.module').then( m => m.AiAssistantPageModule)
   },
   {
     path: 'agenda',
     loadChildren: () => import('./features/agenda/agenda.module').then( m => m.AgendaPageModule)
+  },
+  {
+    path: 'profil',
+    loadChildren: () => import('./features/profile/profile.module').then( m => m.ProfilePageModule)
   }
 
 

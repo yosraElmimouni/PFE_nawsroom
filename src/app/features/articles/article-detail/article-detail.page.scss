@@ -51,7 +51,6 @@ ion-button {
 }
 
 .title {
-  text-align: center;
   font-weight: 500;
   font-size: 15px;
 }
@@ -227,4 +226,16 @@ ion-button {
   font-size: 14px;
   font-weight: 500;
   color: rgb(76, 175, 80);
+}
+.custom-alert .alert-button.alert-cancel-btn {
+  color: gray !important;
+}
+
+.custom-alert .alert-button.alert-delete-btn {
+  color: red !important;
+  font-weight: bold;
+}
+
+.custom-alert .alert-wrapper {
+  border-radius: 16px;
 }

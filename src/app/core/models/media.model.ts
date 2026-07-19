@@ -1,13 +1,12 @@
-import { MediaType } from './article.enums';
+import { MediaType } from "./enums/MediaType";
 
 export interface Media {
   id: number;
   type: MediaType;
-  src: string;
-  label: string;
-
+  urlFichier: string;
+  titre: string;
+  description: string;
+  localisation: string;
   author?: string;
-  date?: string;
-  thumbnail?: string;
-  duration?: string;
+  dateCapture?: string;
 }

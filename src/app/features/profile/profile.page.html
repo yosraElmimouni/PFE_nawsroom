@@ -1,0 +1,77 @@
+<ion-header class="nr-header" translucent>
+  <ion-toolbar class="nr-toolbar">
+    <ion-buttons slot="start">
+      <ion-menu-button class="menu-header"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="true">
+
+  <!-- Hero -->
+  <div class="profile-hero">
+    <div class="avatar-wrap">
+      <!-- Si photo dispo, sinon initiales -->
+      <img
+        *ngIf="user.photo"
+        class="avatar-img"
+        [src]="user.photo"
+        alt="Photo de profil"
+      />
+      <div *ngIf="!user.photo" class="avatar-initiales">
+        {{ user.initiales }}
+      </div>
+    </div>
+    <h2 class="profile-name">{{ user.prenom }} {{ user.nom }}</h2>
+    <span class="profile-role">{{ user.role }}</span>
+  </div>
+
+  <!-- Card infos -->
+  <div class="section-card">
+    <div class="section-card-title">Informations personnelles</div>
+
+    <div class="info-row">
+      <div class="info-icon-wrap">
+        <ion-icon name="person-outline"></ion-icon>
+      </div>
+      <div class="info-content">
+        <span class="info-label">Nom complet</span>
+        <span class="info-value">{{ user.prenom }} {{ user.nom }}</span>
+      </div>
+    </div>
+
+    <div class="info-divider"></div>
+
+    <div class="info-row">
+      <div class="info-icon-wrap">
+        <ion-icon name="mail-outline"></ion-icon>
+      </div>
+      <div class="info-content">
+        <span class="info-label">Email</span>
+        <span class="info-value">{{ user.email }}</span>
+      </div>
+    </div>
+
+    <div class="info-divider"></div>
+
+    <div class="info-row">
+      <div class="info-icon-wrap">
+        <ion-icon name="shield-checkmark-outline"></ion-icon>
+      </div>
+      <div class="info-content">
+        <span class="info-label">Rôle</span>
+        <span class="info-value role-badge">{{ user.role }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Déconnexion -->
+  <div class="logout-wrap">
+    <ion-button class="logout-btn" expand="block" (click)="logout()">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      Se déconnecter
+    </ion-button>
+  </div>
+
+</ion-content>

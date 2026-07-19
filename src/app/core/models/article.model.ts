@@ -1,18 +1,22 @@
-import { ArticleStatus } from './article.enums';
+import { ArticleStatus } from './enums/ArticleStatus';
 import { Media } from './media.model';
 
 export interface Article {
   id: number;
-
-  status: ArticleStatus;
-
+  statut: ArticleStatus;
   categorie: string;
-  date: Date;
-
-  title: string;
-  description: string;
-
+  dateCreation: string;
+  dateModification: string;
+  datePublication: string | null;
+  titre: string;
+  contenu: string;
   image: string;
   media: Media[];
   tags: string[];
+  auteur?: {          // ← ajouter
+    id: number;
+    nom: string;
+    prenom: string;
+    role?: { nomRole: string };
+  };
 }

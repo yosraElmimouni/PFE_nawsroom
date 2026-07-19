@@ -1,0 +1,119 @@
+<ion-header>
+  <ion-toolbar class="nr-toolbar">
+    
+    <ion-title>Medias</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar class="tabs-toolbar">
+    <div class="media-tabs">
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === MediaType.Image"
+        (click)="switchTab(MediaType.Image)"
+      >
+        <ion-icon name="image-outline"></ion-icon>
+        <span>Images</span>
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === MediaType.Video"
+        (click)="switchTab(MediaType.Video)"
+      >
+        <ion-icon name="videocam-outline"></ion-icon>
+        <span>Vidéos</span>
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === MediaType.Audio"
+        (click)="switchTab(MediaType.Audio)"
+      >
+        <ion-icon name="musical-notes-outline"></ion-icon>
+        <span>Audios</span>
+      </button>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="media-content">
+
+  <!-- Images -->
+  <div *ngIf="activeTab === MediaType.Image" class="tab-panel">
+    <p class="section-label">{{ filteredMedias.length }} image(s)</p>
+    <div class="image-grid">
+      <div
+        *ngFor="let item of filteredMedias"
+        class="image-card"
+      >
+        <img [src]="item.urlFichier" class="media-image" [alt]="item.titre" />
+        <span class="media-badge">{{ item.titre }}</span>
+      </div>
+      <div
+        class="image-card"
+        *ngIf="filteredMedias.length===0"
+      >
+        <img src="../../../../../assets/default.jpg" class="media-image"  />
+        
+      </div>
+    </div>
+
+      
+    
+  </div>
+
+  <!-- Videos -->
+  <div *ngIf="activeTab === MediaType.Video" class="tab-panel">
+    <p class="section-label">{{ filteredMedias.length }} vidéo(s)</p>
+    <div class="video-list">
+      <div *ngFor="let item of filteredMedias" class="video-card">
+        <div class="video-thumb">
+          <ion-icon name="play-circle" class="play-icon"></ion-icon>
+        </div>
+        <video controls class="media-video">
+          <source [src]="item.urlFichier" />
+        </video>
+        <p class="media-filename">{{ item.titre }}</p>
+        <p class="media-description" *ngIf="item.description">{{ item.description }}</p>
+      </div>
+      <div
+        class="video-card"
+        *ngIf="filteredMedias.length===0"
+      >
+        <img src="../../../../../assets/default.jpg" class="media-image"  />
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Audios -->
+  <div *ngIf="activeTab === MediaType.Audio" class="tab-panel">
+    <p class="section-label">{{ filteredMedias.length }} piste(s) audio</p>
+    <div class="audio-list">
+      <div *ngFor="let item of filteredMedias" class="audio-card">
+        <div class="audio-icon-wrap">
+          <ion-icon name="musical-note-outline" class="audio-icon"></ion-icon>
+        </div>
+        <div class="audio-info">
+          <p class="media-filename">{{ item.titre }}</p>
+          <p class="media-description" *ngIf="item.description">{{ item.description }}</p>
+          <audio controls class="media-audio">
+            <source [src]="item.urlFichier" />
+          </audio>
+        </div>
+      </div>
+
+      <div
+        class="audio-card"
+        *ngIf="filteredMedias.length===0"
+      >
+        <img src="../../../../../assets/default.jpg" class="media-image"  />
+        
+      </div>
+    </div>
+  </div>
+ <div style="height: 80px"></div>
+</ion-content>

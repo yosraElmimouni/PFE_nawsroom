@@ -9,7 +9,7 @@
         <ion-icon slot="icon-only" name="create-outline"> </ion-icon>
       </ion-button>
 
-      <ion-button *ngIf="article.status === 'draft'" color="danger">
+      <ion-button (click)="SupprimeArticle(article.id)" *ngIf="article.statut === 'Brouillon'" color="danger">
         <ion-icon slot="icon-only" name="trash-outline"> </ion-icon>
       </ion-button>
     </ion-buttons>
@@ -20,23 +20,23 @@
 
   <div class="section-block">
     <ion-label class="section-label">Titre</ion-label>
-    <div class="title-input title">{{ article.title }}</div>
+    <div class="title-input title">{{ article.titre }}</div>
   </div>
 
   <div class="section-block">
     <ion-label class="section-label">Statut</ion-label>
     <div class="title-input">
-      <span class="badge-status" [ngClass]="article.status">
-        {{ article.status }}
+      <span class="badge-statut" [ngClass]="article.statut">
+        {{ article.statut }}
       </span>
     </div>
   </div>
 
-  <div class="section-block" *ngIf="article.status !== 'draft'">
+  <div  class="section-block" *ngIf="article.statut !== 'Brouillon'">
     <ion-label class="section-label">Date de publication</ion-label>
     <div class="date-card">
       <div class="title-input">
-        <span class="badge-status" [ngClass]="article.status">
+        <span class="badge-statut" [ngClass]="article.statut">
           {{ article.date | date:'dd/MM/yyyy' }}
         </span>
       </div>
@@ -54,7 +54,7 @@
   <!-- Description -->
   <div class="section-block">
     <ion-label class="section-label">Description</ion-label>
-    <div class="title-input resume-text">{{ article.description }}</div>
+    <div class="title-input resume-text">{{ article.contenu }}</div>
   </div>
 
   <!-- Tags -->
@@ -74,13 +74,7 @@
         >
         </ion-input>
       </ion-chip>
-      <ion-chip
-        *ngIf="article.status === 'draft' && !isAddingTag"
-        class="chip-tag add-tag"
-        (click)="startAddingTag()"
-      >
-        <ion-icon name="add-outline"></ion-icon>
-      </ion-chip>
+      
     </div>
   </div>
 
@@ -88,15 +82,15 @@
   <div class="section-block">
     <ion-label class="section-label">Médias associés</ion-label>
     <div class="capture-grid">
-      <button class="capture-btn photo">
+      <button class="capture-btn photo" (click)="openMedia(article.id, 'image')">
         <ion-icon name="camera-outline"></ion-icon>
         <span>Photo {{ countMediaByType(article).images }}</span>
       </button>
-      <button class="capture-btn video">
+      <button class="capture-btn video" (click)="openMedia(article.id,'video')">
         <ion-icon name="videocam-outline"></ion-icon>
         <span>Vidéo {{ countMediaByType(article).videos }}</span>
       </button>
-      <button class="capture-btn audio">
+      <button class="capture-btn audio" (click)="openMedia(article.id,'audio')">
         <ion-icon name="mic-outline"></ion-icon>
         <span>Audio {{ countMediaByType(article).audios }}</span>
       </button>

@@ -30,72 +30,26 @@
         placeholder="Entrez le titre principal..."
         rows="2"
         auto-grow="true"
-        [(ngModel)]="article.title"
+        [(ngModel)]="article.titre"
       >
       </ion-textarea>
     </div>
   </div>
 
-  <!-- <div class="section-block">
-    <ion-label class="section-label">Informations</ion-label>
-    <ion-list lines="none" class="meta-list">
-      <ion-item>
-        <ion-icon
-          name="calendar-outline"
-          slot="start"
-          color="medium"
-        ></ion-icon>
-        <ion-label>22 Avril 2026</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-icon
-          name="location-outline"
-          slot="start"
-          color="medium"
-        ></ion-icon>
-        <ion-label>Casablanca, Maroc</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="eye-outline" slot="start" color="medium"></ion-icon>
-        <ion-label>Visibilité : Public</ion-label>
-      </ion-item>
-    </ion-list>
-  </div> -->
-  <!-- section d'ajoute des tags a l'article -->
+ 
   <div class="section-tags"></div>
 
   <div class="section-block">
     <div class="title-row">
       <ion-label class="section-label">Corps de l'article</ion-label>
     </div>
-    <!--<div class="format-bar">
-       <ion-button fill="clear" size="small" color="dark">
-        <strong>G</strong>
-      </ion-button>
-      <ion-button fill="clear" size="small" color="dark">
-        <em>I</em>
-      </ion-button>
-      <ion-button fill="clear" size="small" color="dark">
-        <u>S</u>
-      </ion-button>
-      <div class="format-sep"></div>
-      <ion-button fill="clear" size="small" color="dark">H1</ion-button>
-      <ion-button fill="clear" size="small" color="dark">H2</ion-button>
-      <div class="format-sep"></div>
-      <ion-button fill="clear" size="small" color="dark">
-        <ion-icon name="list-outline"></ion-icon>
-      </ion-button>
-      <ion-button fill="clear" size="small" color="dark">
-        <ion-icon name="link-outline"></ion-icon>
-      </ion-button> 
-    </div>-->
-
+   
     <ion-textarea
       class="body-input"
       placeholder="Rédigez le contenu de votre article ici..."
       rows="8"
       auto-grow="true"
-      [(ngModel)]="article.description"
+      [(ngModel)]="article.contenu"
     >
     </ion-textarea>
   </div>
@@ -135,7 +89,7 @@
       </ion-chip>
 
       <ion-chip
-        *ngIf="article.status === 'Brouillon' && !isAddingTag"
+        *ngIf="article.statut === 'Brouillon' && !isAddingTag"
         class="chip-tag add-tag"
         (click)="startAddingTag()"
       >
@@ -164,64 +118,21 @@
         <span> Audio </span>
       </button>
 
-      <!-- <button class="capture-btn file" (click)="pickFile()">
-        <ion-icon name="document-attach-outline"></ion-icon>
-        <span>Fichier</span>
-      </button> -->
+     
     </div>
   </div>
 
-  <!-- Historique des modifications -->
-  <!-- <div class="section-block">
-    <ion-label class="section-label">Historique des modifications</ion-label>
-    <ion-list lines="full" class="history-list">
-
-      <ion-item>
-        <ion-icon name="checkmark-circle-outline" slot="start" color="success"></ion-icon>
-        <ion-label>
-          <p class="history-action">Article enregistré</p>
-          <p class="history-meta">par Yosra — 14:32</p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-icon name="pencil-outline" slot="start" color="warning"></ion-icon>
-        <ion-label>
-          <p class="history-action">Titre modifié</p>
-          <p class="history-meta">par Yosra — 14:18</p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-icon name="sparkles-outline" slot="start" color="tertiary"></ion-icon>
-        <ion-label>
-          <p class="history-action">Suggestion IA acceptée</p>
-          <p class="history-meta">par IA — 14:10</p>
-        </ion-label>
-      </ion-item>
-
-      <ion-item>
-        <ion-icon name="document-outline" slot="start" color="medium"></ion-icon>
-        <ion-label>
-          <p class="history-action">Brouillon créé</p>
-          <p class="history-meta">par Yosra — 13:55</p>
-        </ion-label>
-      </ion-item>
-
-    </ion-list>
-  </div> -->
-
+  
   <div class="ajoute-btn">
   <ion-button
-    class="save-btn"
-    expand="block"
-    (click)="isEditMode ? saveDraft() : addArticle()"
-  >
-    {{ isEditMode ? 'Mettre à jour' : 'Créer article' }}
-  </ion-button>
+  class="save-btn"
+  expand="block"
+  (click)="submitArticle()"
+>
+  {{ buttonLabel }}
+</ion-button>
 </div>
-  <!-- Espace en bas pour ne pas cacher le contenu -->
-  <div style="height: 40px"></div>
+  <div style="height: 80px"></div>
 </ion-content>
 
 <ion-fab vertical="bottom" horizontal="end" slot="fixed">

@@ -1,7 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
-import { EventAgenda } from 'src/app/core/models/EventAgenda.model';
+import { NavController, ToastController } from '@ionic/angular';
+import { Agenda } from 'src/app/core/models/Agenda.model';
+import { ServiceAgenda } from '../service-agenda';
+import * as L from 'leaflet';
+
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
+
 
 @Component({
   selector: 'app-add-event',
@@ -13,6 +23,7 @@ export class AddEventPage implements OnInit {
   isEditMode: boolean = false;
   eventId: number | null = null;
   locationText: string = '';
+  isDataLoaded = false;
   event: any = {
     titre: '',
     categorie: '',
@@ -22,7 +33,16 @@ export class AddEventPage implements OnInit {
     dateFin: '',
     lieu: '',
   };
+  lieuQuery: string = '';
+suggestions: any[] = [];
+showSuggestions: boolean = false;
+isSearching: boolean = false;
+mapVisible: boolean = false;
 
+private map: L.Map | null = null;
+private marker: L.Marker | null = null;
+private searchTimeout: any;
+  activeCalendar: 'debut' | 'fin' | null = null;
   categories: string[] = [
     'Politique',
     'Économie',
@@ -30,104 +50,49 @@ export class AddEventPage implements OnInit {
     'Sport',
     'Culture',
   ];
-  events: EventAgenda[] = [
-    {
-      id: 1,
-      titre: 'Conférence de presse Ministère',
-      categorie: 'Politique',
-      resume: 'Annonce officielle des nouvelles réformes',
-      importance: 'important',
-      dateDebut: new Date('2026-05-08'),
-      dateFin: new Date('2026-05-09'),
-      lieu: 'Rabat',
-    },
-    {
-      id: 2,
-      titre: 'Interview exclusive PDG startup',
-      categorie: 'Économie',
-      resume: 'Discussion sur l’innovation technologique au Maroc',
-      importance: 'important',
-      dateDebut: new Date('2026-05-09'),
-      dateFin: new Date('2026-05-10'),
-      lieu: 'Casablanca - Technopark',
-    },
-    {
-      id: 3,
-      titre: 'Reportage terrain - Quartier populaire',
-      categorie: 'Société',
-      resume: 'Conditions de vie et témoignages des habitants',
-      importance: 'normale',
-      dateDebut: new Date('2026-05-10'),
-      dateFin: new Date('2026-05-11'),
-      lieu: 'Casablanca',
-    },
-    {
-      id: 4,
-      titre: 'Couverture événement sportif',
-      categorie: 'Sport',
-      resume: 'Match de championnat et interviews joueurs',
-      importance: 'normale',
-      dateDebut: new Date('2026-05-11'),
-      dateFin: new Date('2026-05-12'),
-      lieu: 'Stade Mohammed V',
-    },
-    {
-      id: 5,
-      titre: 'Conférence internationale média',
-      categorie: 'Média',
-      resume: 'Transformation digitale du journalisme',
-      importance: 'important',
-      dateDebut: new Date('2026-05-12'),
-      dateFin: new Date('2026-05-13'),
-      lieu: 'Marrakech',
-    },
-    {
-      id: 6,
-      titre: 'Rédaction article d’enquête',
-      categorie: 'Travail',
-      resume: 'Finalisation d’un dossier sur la corruption',
-      importance: 'important',
-      dateDebut: new Date('2026-05-13'),
-      dateFin: new Date('2026-05-14'),
-      lieu: 'Rédaction',
-    },
-    {
-      id: 7,
-      titre: 'Conférence culturelle',
-      categorie: 'Culture',
-      resume: 'Couverture d’un festival artistique',
-      importance: 'normale',
-      dateDebut: new Date('2026-05-14'),
-      dateFin: new Date('2026-05-20'),
-      lieu: 'Théâtre municipal',
-    },
-  ];
+  events: Agenda[] = [];
 
   constructor(
+    private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     private navCtrl: NavController,
     private router: Router,
+    private agendaService: ServiceAgenda,
+    private toastCtrl: ToastController,
   ) {}
 
   ngOnInit() {
-    // Récupère l'id depuis l'URL si présent
-    const idParam = this.route.snapshot.paramMap.get('id');
-
-    if (idParam) {
-      this.isEditMode = true;
-      this.eventId = +idParam; // convertit string → number
-
-      // Charge l'événement existant
-      const existing = this.events.find((e) => e.id === this.eventId);
-      if (existing) {
-        this.event = { ...existing }; // copie pour éviter mutation directe
-      }
-    }
-    if (!this.event.lieu) {
-  this.event.lieu = this.locationText;
-}
-    
+    this.loadEventData();
   }
+
+  ionViewWillEnter() {
+    this.loadEventData();
+  }
+
+  loadEventData() {
+  const idParam = this.route.snapshot.paramMap.get('id');
+  if (idParam) {
+    this.isEditMode = true;
+    this.eventId = +idParam;
+    this.agendaService.getAgendaById(this.eventId).subscribe({
+      next: (existing) => {
+        if (existing) {
+          this.event = { ...existing };
+          if (this.event.dateDebut) {
+            this.event.dateDebut = new Date(this.event.dateDebut).toISOString();
+          }
+          if (this.event.dateFin) {
+            this.event.dateFin = new Date(this.event.dateFin).toISOString();
+          }
+        }
+      },
+    });
+  } else {
+    const now = new Date().toISOString();
+    this.event.dateDebut = now;
+    this.event.dateFin = now;
+  }
+}
 
   addEvent() {
     if (!this.event.dateDebut || !this.event.dateFin) {
@@ -140,73 +105,214 @@ export class AddEventPage implements OnInit {
     this.navCtrl.back();
   }
   get dateDebutISO(): string {
-    if (this.event.dateDebut instanceof Date) {
-      const d = this.event.dateDebut;
-      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}T${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-    }
-    return this.event.dateDebut ?? '';
+    return this.event.dateDebut || '';
   }
-
   set dateDebutISO(value: string) {
-    this.event.dateDebut = new Date(value);
-  }
-
-  get dateFinISO(): string {
-    if (this.event.dateFin instanceof Date) {
-      const d = this.event.dateFin;
-      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}T${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-    }
-    return this.event.dateFin ?? '';
+    this.event.dateDebut = value;
   }
 
   set dateFinISO(value: string) {
-    this.event.dateFin = new Date(value);
+    this.event.dateFin = value;
   }
 
+  get dateFinISO(): string {
+    return this.event.dateFin || '';
+  }
+
+  // set dateFinISO(value: string) {
+  //   this.event.dateFin = new Date(value);
+  // }
+
   async getLocation() {
+    try {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const latitude = position.coords.latitude;
 
+          const longitude = position.coords.longitude;
+
+          console.log(latitude, longitude);
+
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
+          );
+
+          const data = await response.json();
+
+          this.locationText = data.display_name;
+
+          this.event.lieu = this.locationText;
+
+          console.log(this.locationText);
+        },
+
+        (error) => {
+          console.error(error);
+        },
+      );
+    } catch (error) {
+      console.error('LOCATION ERROR : ', error);
+    }
+  }
+
+  async submitAgenda() {
+  console.log('EVENT ENVOYÉ : ', this.event);
+  
+  const request = this.isEditMode
+    ? this.agendaService.updateAgenda(this.event.id, this.event)
+    : this.agendaService.createAgenda(this.event);
+
+  request.subscribe({
+    next: async (response) => {
+      console.log(response);
+      
+      const toast = await this.toastCtrl.create({
+        message: this.isEditMode
+          ? 'Événement modifié avec succès !'
+          : 'Événement ajouté avec succès !',
+        duration: 2500,
+        position: 'bottom',
+        color: 'success',
+      });
+      await toast.present();
+
+      this.router.navigate(['/agenda']);
+    },
+    error: async (error) => {
+      console.log(error);
+      
+      const toast = await this.toastCtrl.create({
+        message: 'Une erreur est survenue, veuillez réessayer.',
+        duration: 2500,
+        position: 'bottom',
+        color: 'danger',
+      });
+      await toast.present();
+    },
+  });
+}
+
+  testDate(event: any) {
+    console.log('DATE CHANGÉE : ', event.detail.value);
+  }
+
+  onDateChange(event: any, field: string) {
+    this.event[field] = event.detail.value;
+    this.cd.detectChanges();
+  }
+  getButtonText(): string {
+    return this.isEditMode
+      ? 'Enregistrer les modifications'
+      : 'Ajouter événement';
+  }
+
+
+toggleCalendar(type: 'debut' | 'fin') {
+  this.activeCalendar = this.activeCalendar === type ? null : type;
+}
+
+onCalendarChange() {
+  this.activeCalendar = null;
+}
+
+// Lieu
+
+
+onLieuSearch() {
+  clearTimeout(this.searchTimeout);
+  if (this.lieuQuery.length < 3) {
+    this.suggestions = [];
+    return;
+  }
+  this.isSearching = true;
+  this.searchTimeout = setTimeout(async () => {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.lieuQuery)}&limit=5&addressdetails=1`,
+        { headers: { 'Accept-Language': 'fr' } }
+      );
+      this.suggestions = await res.json();
+    } catch (e) {
+      this.suggestions = [];
+    } finally {
+      this.isSearching = false;
+    }
+  }, 400);
+}
+
+selectSuggestion(s: any) {
+  this.lieuQuery = s.display_name;
+  this.event.lieu = s.display_name;
+  this.suggestions = [];
+  this.showSuggestions = false;
+  this.mapVisible = true;
+
+  const lat = parseFloat(s.lat);
+  const lon = parseFloat(s.lon);
+
+  setTimeout(() => this.initMap(lat, lon), 100);
+}
+
+initMap(lat: number, lon: number) {
+  if (this.map) {
+    this.map.setView([lat, lon], 14);
+    if (this.marker) {
+      this.marker.setLatLng([lat, lon]);
+    }
+    return;
+  }
+
+  this.map = L.map('lieu-map', { zoomControl: true }).setView([lat, lon], 14);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap',
+  }).addTo(this.map);
+
+  this.marker = L.marker([lat, lon], { draggable: true }).addTo(this.map);
+
+  // Mise à jour du lieu quand on déplace le marker
+  this.marker.on('dragend', async (e) => {
+    const pos = (e.target as L.Marker).getLatLng();
+    await this.reverseGeocode(pos.lat, pos.lng);
+  });
+
+  // Clic sur la carte pour déplacer le marker
+  this.map.on('click', async (e: L.LeafletMouseEvent) => {
+    this.marker?.setLatLng(e.latlng);
+    await this.reverseGeocode(e.latlng.lat, e.latlng.lng);
+  });
+}
+
+async reverseGeocode(lat: number, lon: number) {
   try {
-
-    navigator.geolocation.getCurrentPosition(
-
-      async (position) => {
-
-        const latitude =
-          position.coords.latitude;
-
-        const longitude =
-          position.coords.longitude;
-
-        console.log(latitude, longitude);
-
-        const response = await fetch(
-
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-        );
-
-        const data = await response.json();
-
-      this.locationText =
-  data.display_name;
-
-this.event.lieu =
-  this.locationText;
-
-console.log(this.locationText);
-      },
-
-      (error) => {
-
-        console.error(error);
-      }
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`,
+      { headers: { 'Accept-Language': 'fr' } }
     );
+    const data = await res.json();
+    this.event.lieu = data.display_name;
+    this.lieuQuery = data.display_name;
+    this.cd.detectChanges();
+  } catch (e) {
+    console.error('Reverse geocode error', e);
+  }
+}
 
-  } catch (error) {
+clearLieu() {
+  this.lieuQuery = '';
+  this.event.lieu = '';
+  this.suggestions = [];
+  this.mapVisible = false;
+  if (this.map) {
+    this.map.remove();
+    this.map = null;
+    this.marker = null;
+  }
+}
 
-    console.error(
-      'LOCATION ERROR : ',
-      error
-    );
+ngOnDestroy() {
+  if (this.map) {
+    this.map.remove();
   }
 }
 }

@@ -5,7 +5,7 @@
       <ion-back-button defaultHref="/dashboard"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button (click)="submitMedia()">
         <ion-icon name="send-outline" slot="start"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -21,7 +21,11 @@
         <ion-label class="section-label" position="stacked"
           >Titre du média</ion-label
         >
-        <ion-input placeholder="Ex: Manifestation place centrale"> </ion-input>
+        <ion-input
+          placeholder="Ex: Manifestation place centrale"
+          [(ngModel)]="media.titre"
+        >
+        </ion-input>
       </ion-item>
 
       <ion-item>
@@ -31,37 +35,56 @@
         <ion-textarea
           placeholder="Décrivez le contexte de ce média..."
           rows="3"
+          [(ngModel)]="media.description"
         ></ion-textarea>
       </ion-item>
 
-      <ion-item>
-
-  <ion-label
-    class="section-label"
-    position="stacked">
-
-    Localisation
-
-  </ion-label>
-
-  <ion-input
-  [(ngModel)]="locationText"
-  placeholder="Ex: Casablanca, Maroc">
-</ion-input>
-
-  <ion-button
-    slot="end"
-    fill="clear"
-    (click)="getLocation()">
-
-    <ion-icon
-      color="dark"
-      name="locate-outline">
-    </ion-icon>
-
-  </ion-button>
-
+      
+<ion-item>
+  <ion-label class="section-label" position="stacked">Localisation</ion-label>
+  <div class="lieu-search-wrap">
+    <div class="lieu-input-row">
+      <ion-icon name="search-outline" class="lieu-search-icon"></ion-icon>
+      <input
+        class="lieu-input"
+        type="text"
+        placeholder="Rechercher un lieu..."
+        [(ngModel)]="locationText"
+        (input)="onLieuSearch()"
+        (focus)="showSuggestions = true"
+      />
+      <ion-spinner *ngIf="isSearching" name="crescent" class="lieu-spinner"></ion-spinner>
+      <ion-icon
+        *ngIf="locationText && !isSearching"
+        name="close-circle"
+        class="lieu-clear-icon"
+        (click)="clearLieu()">
+      </ion-icon>
+    </div>
+  </div>
 </ion-item>
+
+<!-- Suggestions ET carte EN DEHORS du ion-item -->
+<div class="lieu-suggestions" *ngIf="showSuggestions && suggestions.length > 0">
+  <div
+    class="suggestion-item"
+    *ngFor="let s of suggestions"
+    (click)="selectSuggestion(s)">
+    <ion-icon name="location-outline" class="suggestion-icon"></ion-icon>
+    <div class="suggestion-text">
+      <span class="suggestion-main">{{ s.display_name.split(',')[0] }}</span>
+      <span class="suggestion-sub">{{ s.display_name.split(',').slice(1, 3).join(',') }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="map-container" *ngIf="mapVisible">
+  <div id="lieu-map"></div>
+  <div class="map-coords" *ngIf="locationText">
+    <ion-icon name="checkmark-circle-outline"></ion-icon>
+    {{ locationText.split(',')[0] }}
+  </div>
+</div>
 
       <ion-item>
         <ion-label class="section-label" position="stacked"
@@ -69,7 +92,7 @@
         >
         <div class="capture-grid">
           <button
-            *ngIf="name==='photo'"
+            *ngIf="name==='image'"
             class="capture-btn photo"
             (click)="takePicture()"
           >
@@ -78,7 +101,7 @@
           </button>
 
           <button
-            *ngIf="name==='vidio'"
+            *ngIf="name==='video'"
             class="capture-btn video"
             (click)="toggleVideoRecording()"
           >
@@ -182,7 +205,7 @@
                 *ngFor="let article of articles"
                 (click)="selectArticle(article)"
               >
-                <ion-label>{{ article.title }}</ion-label>
+                <ion-label>{{ article.titre }}</ion-label>
                 <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
               </ion-item>
             </ion-list>
@@ -190,12 +213,12 @@
         </ng-template>
       </ion-modal>
 
-      <ion-item>
+      <ion-item lines="none">
         <ion-card *ngIf="linkedArticle" class="associated-article">
           <ion-card-header>
-            <ion-card-title class="article-title"
-              >{{ linkedArticle.title }}</ion-card-title
-            >
+            <ion-card-title class="article-title">
+              {{ linkedArticle.titre }}
+            </ion-card-title>
           </ion-card-header>
         </ion-card>
       </ion-item>
@@ -354,4 +377,6 @@
       Sauvegarder en local
     </ion-button>
   </div> -->
+
+   <div style="height: 80px"></div>
 </ion-content>

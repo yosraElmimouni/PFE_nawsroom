@@ -8,58 +8,63 @@
 </ion-header>
 
 <ion-content class="content-page" [fullscreen]="true">
-  <div class="nr-filters">
-    <ion-item lines="none">
-      <ion-select
-        interface="popover"
-        placeholder="Source"
-        [(ngModel)]="selectedSource"
-        (ionChange)="applyFilters()"
-        class="select-filter"
-      >
-        <ion-select-option value="">Toutes les sources</ion-select-option>
-        <ion-select-option *ngFor="let s of sources" [value]="s">
-          {{ s }}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
 
-    <ion-item lines="none" class="date-filter-item" (click)="openDatePicker()">
-      <ion-icon name="calendar-outline" slot="start"></ion-icon>
-      <ion-label class="dateselected"> {{ selectedDate | date:'dd/MM/yyyy' }} </ion-label>
+  
 
-      <ion-icon
-        *ngIf="selectedDate"
-        name="close-circle-outline"
-        slot="end"
-        (click)="clearDate($event)"
-      >
-      </ion-icon>
-    </ion-item>
-  </div>
+  
+<div class="nr-filters">
+  <ion-item lines="none">
+    <ion-select
+      interface="popover"
+      placeholder="Source"
+      [(ngModel)]="selectedSource"
+      (ionChange)="applyFilters()"
+      class="select-filter">
+      <ion-select-option value="">Toutes les sources</ion-select-option>
+      <ion-select-option *ngFor="let s of sources" [value]="s">{{ s }}</ion-select-option>
+    </ion-select>
+  </ion-item>
 
-  <ion-modal
-    [isOpen]="isDateModalOpen"
-    (didDismiss)="isDateModalOpen = false"
-    [breakpoints]="[0, 0.5]"
-    [initialBreakpoint]="0.5"
-  >
-    <ng-template>
-      <ion-content>
-        <ion-datetime
-          presentation="date"
-          [(ngModel)]="selectedDate"
-          (ionChange)="onDateSelected()"
-          [max]="today"
-          locale="fr-FR"
-        ></ion-datetime>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+  <ion-item lines="none" class="date-filter-item" (click)="toggleCalendar()">
+    <ion-icon name="calendar-outline" slot="start"></ion-icon>
+    <ion-label class="dateselected">
+      {{ selectedDate ? (selectedDate | date:'dd/MM/yyyy') : 'Filtrer par date' }}
+    </ion-label>
+    <ion-icon
+      *ngIf="selectedDate"
+      name="close-circle-outline"
+      slot="end"
+      (click)="clearDate($event)"
+      class="closeicon">
+    </ion-icon>
+  </ion-item>
+</div>
+
+<!-- Calendrier inline en dessous des filtres -->
+<div class="calendar-inline" *ngIf="isCalendarOpen">
+  <ion-datetime
+    presentation="date"
+    locale="fr-FR"
+    [(ngModel)]="selectedDate"
+    [max]="todayIso"
+    (ionChange)="onDateSelected()">
+  </ion-datetime>
+</div>
+
+
   <div class="nr-section-header">
     <h2 class="nr-section-title">Actualités du jour</h2>
   </div>
 
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Chargement des actualités...</p>
+  </div>
+
+  <!-- Message si aucun article -->
+  <div *ngIf="!isLoading && filteredFeedItems.length === 0" class="ion-text-center ion-padding">
+    <p>Aucune actualité trouvée pour ces filtres.</p>
+  </div>
   <ion-card class="nr-feed-item" *ngFor="let item of filteredFeedItems">
     <!-- <ion-card-header>
       <ion-icon
@@ -76,30 +81,20 @@
     </ion-card-header> -->
 
     <ion-card-content (click)="goToDetail(item)">
-      <ion-card-title class="feed-title">{{ item.title }}</ion-card-title>
-      <p class="newssummary">{{ item.summary }}</p>
+      <ion-card-title class="feed-title">{{ item.titre }}</ion-card-title>
+      <p class="newssummary">{{ item.contenu }}</p>
 
-      <div *ngIf="item.aiSummary" class="feed-source ai-box">
-        <span class="nr-source-name">Résumé IA</span>
-        <ion-card-subtitle class="feed-time"
-          >{{ item.aiSummary }}</ion-card-subtitle
-        >
-      </div>
-
-      <div *ngIf="item.isAiGenerating" class="feed-source ai-loading">
-        <ion-spinner name="dots"></ion-spinner>
-        <ion-card-subtitle>Analyse IA en cours…</ion-card-subtitle>
-      </div>
+  
 
       <!-- Footer source + date -->
       <div class="feed-footer">
         <div class="feed-footer-source">
           <ion-icon name="globe-outline"></ion-icon>
-          <span>{{ item.source }}</span>
+          <span>{{ item.source.nom }}</span> 
         </div>
         <div class="feed-footer-date">
-          <ion-icon name="calendar-outline"></ion-icon>
-          <span>{{ item.date | date:'dd/MM/yyyy' }}</span>
+          <!-- <ion-icon name="calendar-outline"></ion-icon> -->
+          <span>{{ item.datePublication | date:'dd/MM/yyyy' }}</span>
         </div>
       </div>
     </ion-card-content>

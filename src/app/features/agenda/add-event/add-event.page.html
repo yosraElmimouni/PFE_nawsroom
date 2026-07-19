@@ -62,46 +62,34 @@
       </ion-select>
     </ion-item>
   </div>
-
-  <div class="section-block">
-    <ion-label class="section-label">Dates</ion-label>
-    <div class="date-card">
-      <div class="date-row">
-        <div class="date-icon-wrap">
-          <ion-icon name="calendar-outline"></ion-icon>
-        </div>
-        <div class="date-info">
-          <span class="date-label-text">Début</span>
-          <ion-datetime-button datetime="debut"></ion-datetime-button>
-        </div>
+  <!-- 
+<div class="section-block" *ngIf="isDataLoaded">
+  <ion-label class="section-label">Dates</ion-label>
+  <div class="date-card">
+    <div class="date-row">
+      <div class="date-info">
+        <span class="date-label-text">Début</span>
+        <ion-datetime-button datetime="debut"></ion-datetime-button>
       </div>
-
-      <div class="date-divider"></div>
-
-      <div class="date-row">
-        <div class="date-icon-wrap">
-          <ion-icon name="calendar-clear-outline"></ion-icon>
-        </div>
-        <div class="date-info">
-          <span class="date-label-text">Fin</span>
-          <ion-datetime-button datetime="fin"></ion-datetime-button>
-        </div>
+    </div>
+    <div class="date-divider"></div>
+    <div class="date-row">
+      <div class="date-info">
+        <span class="date-label-text">Fin</span>
+        <ion-datetime-button datetime="fin"></ion-datetime-button>
       </div>
     </div>
   </div>
+</div>
 
+<ng-container *ngIf="isDataLoaded">
   <ion-modal [keepContentsMounted]="true">
     <ng-template>
       <ion-datetime
         id="debut"
         presentation="date"
-        [(ngModel)]="dateDebutISO"
         locale="fr-FR"
-        [showDefaultButtons]="true"
-        doneText="Confirmer"
-        cancelText="Annuler"
-        [preferWheel]="true"
-      >
+        [(ngModel)]="event.dateDebut"> 
       </ion-datetime>
     </ng-template>
   </ion-modal>
@@ -111,43 +99,128 @@
       <ion-datetime
         id="fin"
         presentation="date"
-        [(ngModel)]="dateFinISO"
         locale="fr-FR"
-        [showDefaultButtons]="true"
-        doneText="Confirmer"
-        cancelText="Annuler"
-        [preferWheel]="true"
-        [min]="dateDebutISO"
-      >
+        [(ngModel)]="event.dateFin">
       </ion-datetime>
     </ng-template>
   </ion-modal>
+</ng-container> -->
+
+ <div class="section-block">
+  <ion-label class="section-label">Dates</ion-label>
+
+  <div class="date-card">
+    <!-- Ligne Date début -->
+    <div class="date-row" (click)="toggleCalendar('debut')">
+      <div class="date-icon-wrap">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </div>
+      <div class="date-info">
+        <span class="date-label-text">Date début</span>
+        <span class="date-value" [class.placeholder]="!event.dateDebut">
+          {{ event.dateDebut ? (event.dateDebut | date:'dd/MM/yyyy') : 'jj/mm/aaaa' }}
+        </span>
+      </div>
+      <ion-icon
+        class="chevron-icon"
+        [name]="activeCalendar === 'debut' ? 'chevron-up-outline' : 'chevron-down-outline'">
+      </ion-icon>
+    </div>
+
+    <!-- Calendrier début inline -->
+    <div class="calendar-inline" *ngIf="activeCalendar === 'debut'">
+      <ion-datetime
+        presentation="date"
+        locale="fr-FR"
+        [(ngModel)]="event.dateDebut"
+        (ionChange)="onCalendarChange()">
+      </ion-datetime>
+    </div>
+
+    <div class="date-divider"></div>
+
+    <!-- Ligne Date fin -->
+    <div class="date-row" (click)="toggleCalendar('fin')">
+      <div class="date-icon-wrap">
+        <ion-icon name="calendar-clear-outline"></ion-icon>
+      </div>
+      <div class="date-info">
+        <span class="date-label-text">Date fin</span>
+        <span class="date-value" [class.placeholder]="!event.dateFin">
+          {{ event.dateFin ? (event.dateFin | date:'dd/MM/yyyy') : 'jj/mm/aaaa' }}
+        </span>
+      </div>
+      <ion-icon
+        class="chevron-icon"
+        [name]="activeCalendar === 'fin' ? 'chevron-up-outline' : 'chevron-down-outline'">
+      </ion-icon>
+    </div>
+
+    <!-- Calendrier fin inline -->
+    <div class="calendar-inline" *ngIf="activeCalendar === 'fin'">
+      <ion-datetime
+        presentation="date"
+        locale="fr-FR"
+        [(ngModel)]="event.dateFin"
+        (ionChange)="onCalendarChange()">
+      </ion-datetime>
+    </div>
+  </div>
+</div>
+  
 
   <div class="section-block">
-    <ion-label class="section-label">Lieu</ion-label>
+  <ion-label class="section-label">Lieu</ion-label>
 
-    <ion-input
-  class="title-input"
-  placeholder="Lieu de l'événement"
-  [(ngModel)]="event.lieu">
+  <div class="lieu-search-wrap">
+    <div class="lieu-input-row">
+      <ion-icon name="search-outline" class="lieu-search-icon"></ion-icon>
+      <input
+        class="lieu-input"
+        type="text"
+        placeholder="Rechercher un lieu..."
+        [(ngModel)]="lieuQuery"
+        (input)="onLieuSearch()"
+        (focus)="showSuggestions = true"
+      />
+      <ion-spinner *ngIf="isSearching" name="crescent" class="lieu-spinner"></ion-spinner>
+      <ion-icon
+        *ngIf="lieuQuery && !isSearching"
+        name="close-circle"
+        class="lieu-clear-icon"
+        (click)="clearLieu()">
+      </ion-icon>
+    </div>
 
-  <ion-button
-    class="icon-locat"
-    slot="end"
-    fill="clear"
-    (click)="getLocation()">
-
-    <ion-icon name="locate-outline"></ion-icon>
-
-  </ion-button>
-
-</ion-input>
-    
+    <!-- Suggestions dropdown -->
+    <div class="lieu-suggestions" *ngIf="showSuggestions && suggestions.length > 0">
+      <div
+        class="suggestion-item"
+        *ngFor="let s of suggestions"
+        (click)="selectSuggestion(s)">
+        <ion-icon name="location-outline" class="suggestion-icon"></ion-icon>
+        <div class="suggestion-text">
+          <span class="suggestion-main">{{ s.display_name.split(',')[0] }}</span>
+          <span class="suggestion-sub">{{ s.display_name.split(',').slice(1, 3).join(',') }}</span>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="ajoute-btn">
+  <!-- Carte Leaflet -->
+  <div class="map-container" *ngIf="mapVisible">
+    <div id="lieu-map"></div>
+    <div class="map-coords" *ngIf="event.lieu">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      {{ event.lieu.split(',')[0] }}
+    </div>
+  </div>
+</div>
+  <div (click)="submitAgenda()" class="ajoute-btn">
     <ion-button class="btn-ajoute" expand="block">
-      {{ isEditMode ? 'Enregistrer les modifications' : 'Ajouter événement' }}
+      {{ getButtonText() }}
     </ion-button>
   </div>
+
+  <div style="height: 80px"></div>
 </ion-content>

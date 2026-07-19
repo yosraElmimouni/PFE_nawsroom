@@ -34,9 +34,9 @@ export class DetailleActualitePage implements OnInit {
   }
 
  share() {
-  const text = `${this.item.title} - ${this.item.summary}`;
+  const text = `${this.item.titre} - ${this.item.summary}`;
   navigator.share
-    ? navigator.share({ title: this.item.title, text })
+    ? navigator.share({ title: this.item.titre, text })
     : alert(text);
 }
 async openAiAssistant() {

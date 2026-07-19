@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ArticleDetailPage
+  },
+  {
+    path: 'medias',
+    loadChildren: () => import('./medias/medias.module').then( m => m.MediasPageModule)
   }
 ];
 

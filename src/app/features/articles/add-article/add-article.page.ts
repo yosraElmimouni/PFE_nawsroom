@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AiAssistantPage } from '../../ai-assistant/ai-assistant.page';
-import { Article } from 'src/app/core/models/article.model';
-import { ArticleStatus, MediaType } from 'src/app/core/models/article.enums';
+import { ArticleStatus } from './../../../core/models/enums/ArticleStatus';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { VoiceRecorder } from 'capacitor-voice-recorder';
-import { ArticleService } from '../services/article';
+import { ArticleService } from '../services/article.service';
 
 @Component({
   selector: 'app-add-article',
@@ -16,10 +15,10 @@ import { ArticleService } from '../services/article';
 })
 export class AddArticlePage implements OnInit {
   article: any = {
-    title: '',
-    description: '',
+    titre: '',
+    contenu: '',
     tags: [],
-    status: 'Brouillon',
+    statut: 'Brouillon',
   };
   mediaRecorder!: MediaRecorder;
   recordedChunks: Blob[] = [];
@@ -48,6 +47,7 @@ export class AddArticlePage implements OnInit {
     private toastCtrl: ToastController,
     private modalCtrl: ModalController,
     private articleService: ArticleService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -71,28 +71,46 @@ export class AddArticlePage implements OnInit {
     }
   }
 
-  async saveDraft() {
-    this.article.status = ArticleStatus.Brouillon;
+  async submitArticle() {
+    this.article.statut = ArticleStatus.Brouillon;
+    this.article.categorie = this.selectedCategory;
 
-    this.articleService.updateArticle(this.article.id, this.article).subscribe({
+    const request = this.isEditMode
+      ? this.articleService.updateArticle(this.article.id, this.article)
+      : this.articleService.createArticle(this.article);
+
+    request.subscribe({
       next: async (response) => {
+        console.log(response);
+
         const toast = await this.toastCtrl.create({
-          message: 'Brouillon enregistré',
+          message: this.isEditMode
+            ? 'Article mis à jour avec succès'
+            : 'Article ajouté avec succès',
+
           duration: 2000,
-          color: 'warning',
+
+          color: this.isEditMode ? 'warning' : 'success',
         });
 
         await toast.present();
 
-        console.log(response);
+        setTimeout(() => {
+          this.router.navigate(['/articles']);
+        }, 2000);
       },
 
       error: async (error) => {
-        console.log(error);
+          console.error('Erreur création article:', error?.message || error?.status || JSON.stringify(error));
+
 
         const toast = await this.toastCtrl.create({
-          message: 'Erreur serveur',
+          message: this.isEditMode
+            ? 'Erreur lors de la mise à jour'
+            : 'Erreur lors de la création',
+
           duration: 2000,
+
           color: 'danger',
         });
 
@@ -101,35 +119,9 @@ export class AddArticlePage implements OnInit {
     });
   }
 
-  async addArticle() {
-    this.article.status = ArticleStatus.Brouillon;
-
-    console.log(this.article);
-    this.articleService.createArticle(this.article).subscribe({
-      next: async (response) => {
-        console.log(response);
-
-        const toast = await this.toastCtrl.create({
-          message: 'Article ajouté avec succès',
-          duration: 2000,
-          color: 'success',
-        });
-
-        await toast.present();
-      },
-
-      error: async (error) => {
-        console.log(error);
-
-        const toast = await this.toastCtrl.create({
-          message: 'Erreur lors de la création',
-          duration: 2000,
-          color: 'danger',
-        });
-
-        await toast.present();
-      },
-    });
+  
+  get buttonLabel(): string {
+    return this.isEditMode ? 'Mettre à jour' : 'Créer article';
   }
 
   // Publication de l'article

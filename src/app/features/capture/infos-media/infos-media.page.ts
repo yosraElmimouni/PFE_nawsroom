@@ -5,7 +5,13 @@ import { routes } from 'src/app/app-routing.module';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { VoiceRecorder } from 'capacitor-voice-recorder';
 import { Geolocation } from '@capacitor/geolocation';
-
+import { CloudinaryService } from '../services/cloudinary.service';
+import { ServiceCapture } from '../services/service-capture';
+import { Media } from 'src/app/core/models/media.model';
+import { MediaType } from 'src/app/core/models/enums/MediaType';
+import { ArticleService } from '../../articles/services/article.service';
+import { Article } from 'src/app/core/models/article.model';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-infos-media',
@@ -14,13 +20,23 @@ import { Geolocation } from '@capacitor/geolocation';
   standalone: false,
 })
 export class InfosMediaPage implements OnInit {
-  media = {
-    title: '',
-    description: '',
-    location: '',
+  media: any = {
     type: '',
-    articleId: null,
+    urlFichier: '',
+    titre: '',
+    description: '',
+    localisation: '',
+    author: '',
+    dateCapture: '',
   };
+suggestions: any[] = [];
+showSuggestions: boolean = false;
+isSearching: boolean = false;
+mapVisible: boolean = false;
+private map: L.Map | null = null;
+private marker: L.Marker | null = null;
+private searchTimeout: any;
+
   mediaRecorder!: MediaRecorder;
   recordedChunks: Blob[] = [];
   videoUrl: string = '';
@@ -34,295 +50,27 @@ export class InfosMediaPage implements OnInit {
   latitude: number | null = null;
   longitude: number | null = null;
   locationText: string = '';
-  articles = [
-    {
-      id: 1,
-      status: 'published',
-      badgeColor: 'success',
-      badgeLabel: 'Publié',
-      categorie: 'Politique',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
-      title: "Réforme constitutionnelle : le débat s'intensifie au parlement",
-      excerpt:
-        'Le gouvernement présente son projet ce mardi, suscitant de vives réactions...',
-      description:
-        "Le gouvernement présente ce mardi matin devant l'Assemblée nationale son projet de réforme constitutionnelle, une initiative qui vise à renforcer les prérogatives du pouvoir exécutif tout en encadrant davantage le contrôle parlementaire. ",
-      image: 'assets/icon/imagenews.jpeg',
-      media: [
-        {
-          id: 1,
-          type: 'image',
-          src: 'https://images.unsplash.com/photo-1589561253898-768105ca91a8',
-          label: 'Façade du parlement',
-          author: 'Agence nationale',
-          date: '2024-09-21',
-        },
-        {
-          id: 2,
-          type: 'image',
-          src: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620',
-          label: 'Séance plénière',
-          author: 'Photo Presse',
-          date: '2024-09-21',
-        },
-        {
-          id: 3,
-          type: 'video',
-          src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-          thumbnail: 'https://dummyimage.com/600x400/000/fff.jpg&text=Video',
-          label: 'Extrait du débat',
-        },
-      ],
-      progress: 100,
-      wordCount: 1250,
-      views: 2340,
-      comments: 14,
-      tags: [
-        'Politique',
-        'Réforme',
-        'Parlement',
-        'Gouvernement',
-        'Constitution',
-        'Débat',
-      ],
-    },
-
-    {
-      id: 2,
-      status: 'draft',
-      badgeColor: 'secondary',
-      badgeLabel: 'Brouillon',
-      categorie: 'Environnement & Agriculture',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
-      title: 'Sécheresse : les agriculteurs du sud face à la crise hydrique',
-      excerpt: 'Reportage de terrain sur les conséquences de la sécheresse...',
-      description:
-        'La sécheresse qui sévit actuellement dans le sud du pays a des conséquences dramatiques pour les agriculteurs, qui voient leurs récoltes menacées et leurs moyens de subsistance compromis.',
-      image: 'assets/icon/imagenews.jpeg',
-      media: [
-        {
-          id: 21,
-          type: 'image',
-          src: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09',
-          label: 'Champ asséché',
-          author: 'Photo Presse',
-          date: '2024-09-20',
-        },
-        {
-          id: 22,
-          type: 'image',
-          src: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09',
-          label: 'Système d’irrigation défaillant',
-          author: 'Agence rurale',
-          date: '2024-09-20',
-        },
-        {
-          id: 23,
-          type: 'video',
-          src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-          thumbnail:
-            'https://dummyimage.com/600x400/795548/ffffff.jpg&text=Sécheresse',
-          label: 'Témoignage d’un agriculteur',
-          duration: '01:45',
-        },
-      ],
-      progress: 58,
-      wordCount: 347,
-      views: 0,
-      comments: 0,
-      tags: [
-        'Environnement',
-        'Agriculture',
-        'Sécheresse',
-        'Crise hydrique',
-        'Climat',
-      ],
-    },
-    {
-      id: 3,
-      status: 'review',
-      badgeColor: 'warning',
-      badgeLabel: 'En relecture',
-      categorie: 'Transport & Urbanisme',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
-      title: 'Lancement du nouveau métro : les défis de la mobilité urbaine',
-      excerpt: 'Analyse des enjeux et des perspectives du nouveau métro...',
-      description:
-        'Le lancement du nouveau métro dans la capitale soulève de nombreux défis en matière de mobilité urbaine.',
-      image: 'assets/icon/imagenews.jpeg',
-      media: [
-        {
-          id: 31,
-          type: 'image',
-          src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d',
-          label: 'Plan du métro',
-          author: 'Direction des transports',
-          date: '2024-09-22',
-        },
-        {
-          id: 32,
-          type: 'image',
-          src: 'https://images.unsplash.com/photo-1518300673615-26c4b35f35c8',
-          label: 'Station principale',
-          author: 'Urban Photo',
-          date: '2024-09-22',
-        },
-        {
-          id: 33,
-          type: 'video',
-          src: 'https://www.w3schools.com/html/movie.mp4',
-          thumbnail:
-            'https://dummyimage.com/600x400/607d8b/ffffff.jpg&text=Metro',
-          label: 'Vidéo de présentation du métro',
-          duration: '02:10',
-        },
-      ],
-      reviewDuration: '3h',
-      views: 560,
-      comments: 8,
-      tags: ['Transport', 'Mobilité', 'Urbanisme', 'Métro', 'Infrastructures'],
-    },
-
-    {
-      id: 4,
-      status: 'published',
-      badgeColor: 'success',
-      badgeLabel: 'Publié',
-      categorie: 'Politique',
-      date: new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }),
-      title: 'Élections municipales : les enjeux pour les grandes villes',
-      excerpt:
-        'Zoom sur les candidats et les programmes pour les municipales...',
-      description:
-        'À l’approche des élections municipales, les grandes villes du pays sont au cœur de l’attention.',
-      image: 'assets/icon/imagenews.jpeg',
-
-      media: [
-        {
-          id: 41,
-          type: 'image',
-          src: 'https://images.unsplash.com/photo-1503424886306-4e6586f4b171',
-          label: 'Meeting électoral',
-          author: 'Agence politique',
-          date: '2024-09-23',
-        },
-        {
-          id: 42,
-          type: 'image',
-          src: 'https://images.unsplash.com/photo-1520975922284-0ccfd69b90be',
-          label: 'Affiches de campagne',
-          author: 'Photo Presse',
-          date: '2024-09-23',
-        },
-        {
-          id: 43,
-          type: 'video',
-          src: 'https://www.w3schools.com/html/mov_bbb.mp4',
-          thumbnail:
-            'https://dummyimage.com/600x400/3f51b5/ffffff.jpg&text=Elections',
-          label: 'Discours d’un candidat',
-          duration: '02:50',
-        },
-      ],
-      views: 1120,
-      comments: 20,
-      tags: [
-        'Élections',
-        'Politique locale',
-        'Municipales',
-        'Candidats',
-        'Programmes',
-      ],
-    },
-  ];
+  articles: Article[] = [] ;
 
   constructor(
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private router: Router,
     private route: ActivatedRoute,
+    private cloudinaryService: CloudinaryService,
+    private mediaService: ServiceCapture,
+    private articleService:ArticleService
   ) {}
 
   ngOnInit() {
     this.name = this.route.snapshot.paramMap.get('name');
-   
-  }
-
-  async analyzeMedia() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Analyse IA en cours...',
-      duration: 2500,
-    });
-    await loading.present();
-
-    setTimeout(async () => {
-      await loading.dismiss();
-      const toast = await this.toastCtrl.create({
-        message: '✨ Analyse IA terminée — tags et description générés',
-        duration: 2500,
-        color: 'tertiary',
-        position: 'bottom',
+    this.articleService.getArticles().subscribe((data: Article[]) => {
+        this.articles = data;
       });
-      await toast.present();
-    }, 2500);
-  }
-  async syncAll() {
-    const loading = await this.loadingCtrl.create({
-      message: 'Synchronisation en cours...',
-      duration: 3000,
-    });
-    await loading.present();
-
-    setTimeout(async () => {
-      await loading.dismiss();
-      const toast = await this.toastCtrl.create({
-        message: '☁️ 2 fichiers synchronisés avec succès',
-        duration: 2500,
-        color: 'success',
-        position: 'top',
-      });
-      await toast.present();
-    }, 3000);
   }
 
-  async toggleOffline(event: any) {
-    const isOn = event.detail.checked;
-    const toast = await this.toastCtrl.create({
-      message: isOn
-        ? ' Mode hors ligne activé — stockage local prêt'
-        : '🌐Mode hors ligne désactivé',
-      duration: 2000,
-      color: isOn ? 'warning' : 'medium',
-      position: 'bottom',
-    });
-    await toast.present();
-  }
 
-  async saveDraftMedia() {
-    const toast = await this.toastCtrl.create({
-      message: ' Média sauvegardé localement',
-      duration: 2000,
-      color: 'warning',
-      position: 'bottom',
-    });
-    await toast.present();
-  }
+  
   openArticleSelector() {
     this.showArticleSelector = true;
   }
@@ -336,14 +84,44 @@ export class InfosMediaPage implements OnInit {
   }
 
   async takePicture() {
-    const image = await Camera.getPhoto({
-      quality: 90,
-      allowEditing: false,
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Camera,
-    });
+    try {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera,
+      });
 
-    console.log(image.webPath);
+      if (image.webPath) {
+        const loading = await this.loadingCtrl.create({
+          message: 'Upload de la photo...',
+        });
+        await loading.present();
+
+        const response = await fetch(image.webPath);
+        const blob = await response.blob();
+        const file = new File([blob], `photo_${Date.now()}.jpg`, {
+          type: 'image/jpeg',
+        });
+
+        const result = await this.cloudinaryService.uploadMedia(file);
+        this.media.url = result.secure_url; // On stocke l'URL reçue
+
+        await loading.dismiss();
+        this.showToast('Photo uploadée avec succès !', 'success');
+      }
+    } catch (error) {
+      console.error('Erreur photo:', error);
+    }
+  }
+  async showToast(message: string, color: string = 'primary') {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2500,
+      color: color,
+      position: 'bottom',
+    });
+    await toast.present();
   }
 
   async toggleRecording() {
@@ -356,19 +134,49 @@ export class InfosMediaPage implements OnInit {
         this.isRecording = true;
       }
     } else {
-      const result = await VoiceRecorder.stopRecording();
+      try {
+        const loading = await this.loadingCtrl.create({
+          message: "Upload de l'audio...",
+        });
 
-      this.isRecording = false;
+        await loading.present();
 
-      if (result.value?.recordDataBase64) {
-        const audioBlob = this.b64toBlob(
-          result.value.recordDataBase64,
-          'audio/mp3',
-        );
+        // Stop recording
+        const result = await VoiceRecorder.stopRecording();
 
-        this.audioUrl = URL.createObjectURL(audioBlob);
+        if (result.value?.recordDataBase64) {
+          // Base64 -> Blob
+          const audioBlob = this.b64toBlob(
+            result.value.recordDataBase64,
+            'audio/mp3',
+          );
 
-        console.log(this.audioUrl);
+          // Preview audio locale
+          this.audioUrl = URL.createObjectURL(audioBlob);
+
+          // Blob -> File
+          const file = new File([audioBlob], `audio_${Date.now()}.mp3`, {
+            type: 'audio/mp3',
+          });
+
+          const cloudResult = await this.cloudinaryService.uploadMedia(file);
+
+          console.log('AUDIO CLOUDINARY:', cloudResult);
+
+          this.media.url = cloudResult.secure_url;
+
+          await loading.dismiss();
+
+          this.showToast('Audio uploadé avec succès', 'success');
+        }
+
+        this.isRecording = false;
+      } catch (error) {
+        console.error('AUDIO ERROR:', error);
+
+        this.isRecording = false;
+
+        this.showToast('Erreur upload audio', 'danger');
       }
     }
   }
@@ -390,14 +198,43 @@ export class InfosMediaPage implements OnInit {
           }
         };
 
-        this.mediaRecorder.onstop = () => {
-          const blob = new Blob(this.recordedChunks, {
-            type: 'video/mp4',
-          });
+        this.mediaRecorder.onstop = async () => {
+          try {
+            const loading = await this.loadingCtrl.create({
+              message: 'Upload de la vidéo...',
+            });
 
-          this.videoUrl = URL.createObjectURL(blob);
+            await loading.present();
 
-          console.log(this.videoUrl);
+            // Création blob
+            const blob = new Blob(this.recordedChunks, {
+              type: 'video/mp4',
+            });
+
+            // Preview locale
+            this.videoUrl = URL.createObjectURL(blob);
+
+            // Conversion File
+            const file = new File([blob], `video_${Date.now()}.mp4`, {
+              type: 'video/mp4',
+            });
+
+            // Upload Cloudinary
+            const result = await this.cloudinaryService.uploadMedia(file);
+
+            console.log('VIDEO CLOUDINARY:', result);
+
+            // Sauvegarde URL
+            this.media.url = result.secure_url;
+
+            await loading.dismiss();
+
+            this.showToast('Vidéo uploadée avec succès', 'success');
+          } catch (error) {
+            console.error('UPLOAD VIDEO ERROR:', error);
+
+            this.showToast('Erreur upload vidéo', 'danger');
+          }
         };
 
         this.mediaRecorder.start();
@@ -439,48 +276,151 @@ export class InfosMediaPage implements OnInit {
     });
   }
 
+  async getLocation() {
+    try {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const latitude = position.coords.latitude;
 
- async getLocation() {
+          const longitude = position.coords.longitude;
 
-  try {
+          console.log(latitude, longitude);
 
-    navigator.geolocation.getCurrentPosition(
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`,
+          );
 
-      async (position) => {
+          const data = await response.json();
 
-        const latitude =
-          position.coords.latitude;
+          this.locationText = data.display_name;
 
-        const longitude =
-          position.coords.longitude;
+          console.log(this.locationText);
+        },
 
-        console.log(latitude, longitude);
+        (error) => {
+          console.error(error);
+        },
+      );
+    } catch (error) {
+      console.error('LOCATION ERROR : ', error);
+    }
+  }
 
-        const response = await fetch(
+  async submitMedia() {
+    if (!this.media.url) {
+      this.showToast("Veuillez d'abord capturer un média", 'warning');
+      return;
+    }
 
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
-        );
+    const loading = await this.loadingCtrl.create({
+      message: 'Enregistrement final...',
+    });
+    await loading.present();
 
-        const data = await response.json();
+    const finalData = {
+      titre: this.media.titre,
+      description: this.media.description,
+      urlFichier: this.media.url,
+      type: this.name as any,
+      dateCapture: new Date().toISOString(),
+      localisation: this.locationText,
+      author: 'Amine H.',
+      article:this.linkedArticle,
+    };
 
-        this.locationText =
-          data.display_name;
-
-        console.log(this.locationText);
+    this.mediaService.createMedia(finalData as any).subscribe({
+      next: () => {
+        loading.dismiss();
+        this.showToast('Média enregistré avec succès !', 'success');
+        this.router.navigate(['/capture']);
       },
+      error: (err) => {
+        loading.dismiss();
+        this.showToast("Erreur lors de l'enregistrement", 'danger');
+      },
+    });
+  }
 
-      (error) => {
 
-        console.error(error);
-      }
+onLieuSearch() {
+  clearTimeout(this.searchTimeout);
+  if (this.locationText.length < 3) {
+    this.suggestions = [];
+    return;
+  }
+  this.isSearching = true;
+  this.searchTimeout = setTimeout(async () => {
+    try {
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.locationText)}&limit=5`,
+        { headers: { 'Accept-Language': 'fr' } }
+      );
+      this.suggestions = await res.json();
+    } catch (e) {
+      this.suggestions = [];
+    } finally {
+      this.isSearching = false;
+    }
+  }, 400);
+}
+
+selectSuggestion(s: any) {
+  this.locationText = s.display_name;
+  this.suggestions = [];
+  this.showSuggestions = false;
+  this.mapVisible = true;
+  setTimeout(() => this.initMap(parseFloat(s.lat), parseFloat(s.lon)), 100);
+}
+
+initMap(lat: number, lon: number) {
+  if (this.map) {
+    this.map.setView([lat, lon], 14);
+    this.marker?.setLatLng([lat, lon]);
+    return;
+  }
+  this.map = L.map('lieu-map').setView([lat, lon], 14);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap',
+  }).addTo(this.map);
+  this.marker = L.marker([lat, lon], { draggable: true }).addTo(this.map);
+
+  this.marker.on('dragend', async (e) => {
+    const pos = (e.target as L.Marker).getLatLng();
+    await this.reverseGeocode(pos.lat, pos.lng);
+  });
+
+  this.map.on('click', async (e: L.LeafletMouseEvent) => {
+    this.marker?.setLatLng(e.latlng);
+    await this.reverseGeocode(e.latlng.lat, e.latlng.lng);
+  });
+}
+
+async reverseGeocode(lat: number, lon: number) {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`,
+      { headers: { 'Accept-Language': 'fr' } }
     );
-
-  } catch (error) {
-
-    console.error(
-      'LOCATION ERROR : ',
-      error
-    );
+    const data = await res.json();
+    this.locationText = data.display_name;
+  } catch (e) {
+    console.error('Reverse geocode error', e);
   }
 }
+
+clearLieu() {
+  this.locationText = '';
+  this.suggestions = [];
+  this.mapVisible = false;
+  if (this.map) {
+    this.map.remove();
+    this.map = null;
+    this.marker = null;
+  }
+}
+
+ngOnDestroy() {
+  if (this.map) this.map.remove();
+}
+
 }

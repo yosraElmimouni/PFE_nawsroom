@@ -5,8 +5,11 @@ import { App } from '@capacitor/app';
 import { Browser } from '@capacitor/browser';
 import { Capacitor } from '@capacitor/core';
 import { routes } from './app-routing.module';
+import { SyncService } from './core/services/sync.service'; 
 
 import pkg from '../../package.json';
+import { SqliteService } from './core/services/sqlite.service';
+import { NetworkService } from './core/services/network.service';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +17,6 @@ import pkg from '../../package.json';
   styleUrls: ['app.component.scss'],
   standalone: false,
 })
-
-
 export class AppComponent implements OnInit {
   appVersion = '';
   user: any;
@@ -28,22 +29,27 @@ export class AppComponent implements OnInit {
   };
 
   constructor(
-    private msalService: MsalService,
-    private router: Router,
-  ) {}
+  private msalService: MsalService,
+  private router: Router,
+  private sqliteService: SqliteService,
+  private networkService: NetworkService,
+  private syncService: SyncService  
+) {
+  
+ 
+}
 
-   modules = [
-    { id:3, name: 'Veille',    icon: 'radio' },
-    { id:8, name: 'Agenda',  icon: 'calendar' },
-{ id:5, name: 'Articles',  icon: 'library' },
-    { id:1, name: 'Redaction', icon: 'create' },
-    { id:2, name: 'Capture',  icon: 'scan' },
-    
-    { id:4, name: 'Fusion',    icon: 'git-merge' },
-    
-    { id:6, name: 'Profil',    icon: 'person' },
-    {id:7, name:'Déconnexion', icon:'log-out'}
+  modules = [
+    { id: 3, name: 'Veille', icon: 'radio' },
+    { id: 8, name: 'Agenda', icon: 'calendar' },
+    { id: 5, name: 'Articles', icon: 'library' },
+    { id: 1, name: 'Redaction', icon: 'create' },
+    { id: 2, name: 'Capture', icon: 'scan' },
 
+    { id: 4, name: 'Fusion', icon: 'git-merge' },
+
+    { id: 6, name: 'Profil', icon: 'person' },
+    { id: 7, name: 'Déconnexion', icon: 'log-out' },
   ];
   async ngOnInit() {
     if (!Capacitor.isNativePlatform()) {
@@ -95,9 +101,9 @@ export class AppComponent implements OnInit {
       if (code) localStorage.setItem('auth_code', code);
 
       if (accessToken) {
-        await this.fetchUserProfile(accessToken);
+        localStorage.setItem('token', accessToken); 
+        await this.fetchUserProfile(accessToken); 
       }
-
       this.router.navigate(['/dashboard']);
     });
     const currentUrl = this.router.url;
@@ -115,6 +121,14 @@ export class AppComponent implements OnInit {
       this.appVersion = info.version;
     } else {
       this.appVersion = pkg.version;
+    }
+
+    await this.msalService.instance.handleRedirectPromise();
+    const accounts = this.msalService.instance.getAllAccounts();
+    if (accounts.length > 0) {
+      if (!this.msalService.instance.getActiveAccount()) {
+        this.msalService.instance.setActiveAccount(accounts[0]);
+      }
     }
   }
 
@@ -143,15 +157,14 @@ export class AppComponent implements OnInit {
     }
   }
 
-  
   navigateTo(module: string): void {
     this.activeModule = module;
     const path = routes.find((r) => r.path === module)?.path;
     if (path) {
       this.router.navigate([`/${path.toLocaleLowerCase()}`]);
     } else if (module === 'déconnexion') {
-          this.logout();
-        } else {
+      this.logout();
+    } else {
       console.warn('No route found for module:', module);
     }
   }
